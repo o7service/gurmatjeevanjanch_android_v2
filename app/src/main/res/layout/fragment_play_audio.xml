@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.PlayAudioFragment">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_170sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/dummy_image"
+        android:scaleType="center"
+        android:id="@+id/ivAudio" />
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".20"
+        android:id="@+id/guide_v_25"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".80"
+        android:id="@+id/guide_v_75"/>
+    <SeekBar
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guide_v_25"
+        app:layout_constraintEnd_toEndOf="@id/guide_v_75"
+        android:id="@+id/seekBar"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/ivAudio"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:fontFamily="@font/poppins_regular"
+        android:id="@+id/tvStartTime"
+        app:layout_constraintTop_toBottomOf="@id/seekBar"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:textColor="@color/black_light"
+        app:layout_constraintStart_toStartOf="@id/guide_v_25"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:id="@+id/tvEndTime"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintTop_toBottomOf="@id/seekBar"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:textColor="@color/black_light"
+
+        app:layout_constraintEnd_toEndOf="@id/guide_v_75"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_play_audio"
+        app:layout_constraintTop_toBottomOf="@id/tvStartTime"
+        android:id="@+id/ivPlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/_5sdp"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/ivPlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:fontFamily="@font/notoserifgurmukhi_regular"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:textColor="@color/black_light"
+        android:textSize="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        tools:text = "ਗੁਰ ਸਤਿਗੁਰ ਕਾ ਜੋ ਸਿਖੁ ਅਖਾਏ ਸੁ ਭਲਕੇ ਉਠਿ ਹਰਿ ਨਾਮੁ ਧਿਆਵੈ ॥ - ਭਾਈ ਅਮਰਜੀਤ ਸਿੰਘ ਜੀ"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_5sdp" app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

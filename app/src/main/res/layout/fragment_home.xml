@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.HomeFragment">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/app_icon_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/ivAppIcon"
+        app:layout_constraintBottom_toTopOf="@id/cardPager"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="parent"
+        android:id="@+id/cardPager"
+        android:elevation="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/ivAppIcon"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_margin="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_170sdp"
+            android:id="@+id/viewPager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="@dimen/_30sdp"
+            app:layout_constraintTop_toBottomOf="@id/viewPager"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="@dimen/_30sdp"
+            app:shapeAppearanceOverlay="@style/CircularImageView"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dummy_image"
+            android:id="@+id/ivChannel"
+            />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/ivChannel"
+                app:layout_constraintTop_toTopOf="@id/ivChannel"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black_light"
+                android:textSize="@dimen/_13sdp"
+                android:id="@+id/tvTitle"
+                android:text="Kirpa"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="-7dp"
+
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:includeFontPadding="false"
+                android:textColor="@color/grey"
+                app:layout_constraintStart_toEndOf="@id/ivChannel" app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                android:text="Gurmat Jeevan Jaach"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connect_with_us"
+        android:textSize="@dimen/_13sdp"
+        android:textColor="@color/black_light"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintTop_toBottomOf="@id/cardPager"
+        app:layout_constraintBottom_toTopOf="@id/gridLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/_10sdp"
+        android:id="@+id/tvConnectWithUs"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+   <GridLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:rowCount="2"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:id="@+id/gridLayout"
+       android:columnCount="3"
+       app:layout_constraintTop_toBottomOf="@id/tvConnectWithUs">
+       <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           android:id="@+id/cardYoutube"
+           app:strokeColor="@color/white"
+
+           android:elevation="@dimen/_10sdp"
+
+           app:cardCornerRadius="@dimen/_10sdp"
+           android:layout_marginStart="@dimen/_12sdp"
+           android:layout_width="@dimen/_90sdp"
+           android:layout_height="@dimen/_100sdp">
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@color/white">
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/ivYoutube"
+                   android:src="@drawable/ic_youtube"
+                   app:layout_constraintTop_toTopOf="parent"
+                   android:textSize="@dimen/_15sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewYoutube"
+                   android:layout_marginStart="@dimen/_13sdp"
+                   android:layout_marginEnd="@dimen/_13sdp"
+                   android:layout_marginTop="-15dp"
+                   android:gravity="center" app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/youtube"
+                   android:textColor="@color/black_light"
+                   android:textSize="@dimen/_12sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewYoutube"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/ivYoutube"
+                   android:fontFamily="@font/poppins_medium"/>
+
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/_25sdp"
+                   android:background="@color/blue"
+                   android:id="@+id/viewYoutube"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Watch Videos"
+                   app:layout_constraintTop_toTopOf="@id/viewYoutube"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:textSize="@dimen/_10sdp"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:fontFamily="@font/poppins_regular"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:textColor="@color/white"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+       </com.google.android.material.card.MaterialCardView>
+       <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           android:layout_marginStart="@dimen/_10sdp"
+           app:strokeColor="@color/white"
+           android:background="@color/white"
+           android:elevation="@dimen/_10sdp"
+           app:cardCornerRadius="@dimen/_10sdp"
+           android:id="@+id/cardWhatsapp"
+
+           android:layout_width="@dimen/_90sdp"
+           android:layout_height="@dimen/_100sdp">
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@color/white">
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/ivWhatsapp"
+                   android:layout_marginTop="-15dp"
+
+                   android:src="@drawable/ic_whatsapp"
+                   app:layout_constraintTop_toTopOf="parent"
+                   android:textSize="@dimen/_15sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewWhatsapp"
+                   android:layout_marginStart="@dimen/_13sdp"
+                   android:layout_marginEnd="@dimen/_13sdp"
+                   android:text="@string/audio"
+                   android:gravity="center" app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/whatsapp"
+                   android:textColor="@color/black_light"
+                   android:textSize="@dimen/_12sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewWhatsapp"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/ivWhatsapp"
+                   android:fontFamily="@font/poppins_medium"/>
+
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/_25sdp"
+                   android:background="@color/blue"
+                   android:id="@+id/viewWhatsapp"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Join Group"
+                   app:layout_constraintTop_toTopOf="@id/viewWhatsapp"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:textSize="@dimen/_10sdp"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:fontFamily="@font/poppins_regular"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:textColor="@color/white"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+       </com.google.android.material.card.MaterialCardView>
+       <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           app:strokeColor="@color/white"
+           android:background="@color/white"
+           android:elevation="@dimen/_10sdp"
+           app:cardCornerRadius="@dimen/_10sdp"
+           android:id="@+id/cardTelegram"
+
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_width="@dimen/_90sdp"
+           android:layout_height="@dimen/_100sdp">
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@color/white">
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/ivTelegram"
+                   android:layout_marginTop="-15dp"
+
+                   android:src="@drawable/ic_telegram"
+                   app:layout_constraintTop_toTopOf="parent"
+                   android:textSize="@dimen/_15sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewTelegram"
+                   android:layout_marginStart="@dimen/_13sdp"
+                   android:layout_marginEnd="@dimen/_13sdp"
+                   android:text="@string/audio"
+                   android:gravity="center" app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/telegram"
+                   android:textColor="@color/black_light"
+                   android:textSize="@dimen/_12sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewTelegram"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/ivTelegram"
+                   android:fontFamily="@font/poppins_medium"/>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/_25sdp"
+                   android:background="@color/blue"
+                   android:id="@+id/viewTelegram"
+                   app:layout_constraintBottom_toBottomOf="parent"
+
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Join Channel"
+                   app:layout_constraintTop_toTopOf="@id/viewTelegram"
+                   android:textSize="@dimen/_10sdp"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:fontFamily="@font/poppins_regular"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:textColor="@color/white"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+       </com.google.android.material.card.MaterialCardView>
+       <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           app:strokeColor="@color/white"
+           android:id="@+id/cardFacebook"
+           android:background="@color/white"
+           android:elevation="@dimen/_10sdp"
+           app:cardCornerRadius="@dimen/_10sdp"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:layout_marginStart="@dimen/_12sdp"
+           android:layout_width="@dimen/_90sdp"
+           android:layout_height="@dimen/_100sdp">
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@color/white">
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/ivFacebook"
+                   android:src="@drawable/ic_facebook"
+                   app:layout_constraintTop_toTopOf="parent"
+                   android:textSize="@dimen/_15sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewFacebook"                   android:layout_marginTop="-15dp"
+
+                   android:layout_marginStart="@dimen/_13sdp"
+                   android:layout_marginEnd="@dimen/_13sdp"
+
+                   android:gravity="center" app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/facebook"
+                   android:textColor="@color/black_light"
+                   android:textSize="@dimen/_12sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewFacebook"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/ivFacebook"
+                   android:fontFamily="@font/poppins_medium"/>
+
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/_25sdp"
+                   android:background="@color/blue"
+                   android:id="@+id/viewFacebook"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Join Group"
+                   app:layout_constraintTop_toTopOf="@id/viewFacebook"
+                   android:textSize="@dimen/_10sdp"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:fontFamily="@font/poppins_regular"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:textColor="@color/white"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+       </com.google.android.material.card.MaterialCardView>
+       <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           app:strokeColor="@color/white"
+           android:id="@+id/cardInstagram"
+           android:background="@color/white"
+           android:elevation="@dimen/_10sdp"
+           app:cardCornerRadius="@dimen/_10sdp"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_width="@dimen/_90sdp"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:layout_height="@dimen/_100sdp">
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@color/white">
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/ivInstagram"
+                   android:layout_marginTop="-15dp"
+
+                   android:src="@drawable/ic_instagram"
+                   app:layout_constraintTop_toTopOf="parent"
+                   android:textSize="@dimen/_15sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewInsta"
+                   android:layout_marginStart="@dimen/_13sdp"
+                   android:layout_marginEnd="@dimen/_13sdp"
+                   android:text="@string/audio"
+                   android:gravity="center" app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/instagram"
+                   android:textColor="@color/black_light"
+                   android:textSize="@dimen/_13sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewInsta"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/ivInstagram"
+                   android:fontFamily="@font/poppins_medium"/>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/_25sdp"
+                   android:background="@color/blue"
+                   android:id="@+id/viewInsta"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Join Group"
+                   app:layout_constraintTop_toTopOf="@id/viewInsta"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:textSize="@dimen/_10sdp"
+                   android:fontFamily="@font/poppins_regular"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:textColor="@color/white"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+       </com.google.android.material.card.MaterialCardView>
+       <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           app:strokeColor="@color/white"
+           android:id="@+id/cardAudio"
+           android:background="@color/white"
+           android:elevation="@dimen/_10sdp"
+           app:cardCornerRadius="@dimen/_10sdp"
+           android:layout_width="@dimen/_90sdp"
+           android:layout_marginStart="@dimen/_10sdp"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:layout_height="@dimen/_100sdp">
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@color/white">
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/ivMusic"
+                   android:layout_marginTop="-15dp"
+
+                   android:src="@drawable/ic_music"
+                   app:layout_constraintTop_toTopOf="parent"
+                   android:textSize="@dimen/_15sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewMusic"
+                   android:layout_marginStart="@dimen/_13sdp"
+                   android:layout_marginEnd="@dimen/_13sdp"
+                   android:text="@string/audio"
+                   android:gravity="center" app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/audio"
+                   android:textColor="@color/black_light"
+                   android:textSize="@dimen/_12sdp"
+                   app:layout_constraintBottom_toTopOf="@id/viewMusic"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/ivMusic"
+                   android:fontFamily="@font/poppins_medium"/>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/_25sdp"
+                   android:background="@color/blue"
+                   android:id="@+id/viewMusic"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Listen"
+                   app:layout_constraintTop_toTopOf="@id/viewMusic"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:textSize="@dimen/_10sdp"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:fontFamily="@font/poppins_regular"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:textColor="@color/white"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+       </com.google.android.material.card.MaterialCardView>
+
+
+   </GridLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@id/gridLayout">
+        <View
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:background="@drawable/bg_music"
+            android:id="@+id/circularView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="@dimen/_10sdp"
+
+            />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+              android:id="@+id/ivMusicPlay"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="@id/circularView"
+                app:layout_constraintEnd_toEndOf="@id/circularView"
+                app:layout_constraintTop_toTopOf="@id/circularView"
+                app:layout_constraintBottom_toBottomOf="@id/circularView"
+                app:shapeAppearanceOverlay="@style/CircularImageView"
+                app:tint = "@color/white"
+
+                android:src="@drawable/ic_audio"
+                />
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/barrierTitle"
+            app:barrierMargin="@dimen/_5sdp"
+            app:constraint_referenced_ids="circularView"
+            app:barrierDirection="end" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/barrierPlay"
+            app:constraint_referenced_ids="ivPlay"
+            app:barrierDirection="start" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text = "Jaapji Sahib Path(128k) - By Amarjit Singh Ji"
+            android:id="@+id/tvPlayTitle"
+            app:layout_constraintStart_toEndOf="@id/barrierTitle"
+            android:textColor="@color/black_light"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/poppins_medium"
+            app:layout_constraintEnd_toStartOf="@id/barrierPlay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="@dimen/_10sdp"
+            android:maxLines="2"
+
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play_audio"
+            android:id="@+id/ivPlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="@dimen/_10sdp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

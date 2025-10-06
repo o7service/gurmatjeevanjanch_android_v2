@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/audioFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.AudioFragment"
+        android:label="fragment_audio"
+        tools:layout="@layout/fragment_audio" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/samagamFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.SamagamFragment"
+        android:label="fragment_samagam"
+        tools:layout="@layout/fragment_samagam" />
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.MoreFragment"
+        android:label="fragment_more"
+        tools:layout="@layout/fragment_more" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.o7services.gurmatjeevanjaach.activity.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>

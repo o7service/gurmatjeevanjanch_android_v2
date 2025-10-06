@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.MoreFragment">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvContactUs"
+        android:textColor="@color/black_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cvIndia"
+        android:text="@string/contact_us"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="@dimen/_13sdp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:id="@+id/cvIndia"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContactUs"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:elevation="@dimen/_10sdp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/india"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black_light"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/tvIndia"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvIndia"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ivCall1"
+                    android:layout_width="@dimen/_11sdp"
+                    android:layout_height="@dimen/_11sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_call"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNumber1"
+                    app:layout_constraintEnd_toStartOf="@id/tvNumber1"
+                    app:layout_constraintTop_toBottomOf="@id/tvIndia" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="+91-87280 06100"
+                    android:textSize="@dimen/_11sdp"
+                    android:textColor="@color/blue"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    app:layout_constraintStart_toEndOf="@id/ivCall1"
+                    app:layout_constraintTop_toTopOf="@id/ivCall1"
+
+                    android:id="@+id/tvNumber1"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:src="@drawable/ic_line_view"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tvIndia"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNumber1"
+                    app:layout_constraintEnd_toStartOf="@id/ivCall2"
+                    android:id="@+id/ivLineView"
+                    app:layout_constraintStart_toEndOf="@id/tvNumber1"/>
+
+                <ImageView
+                    android:id="@+id/ivCall2"
+                    android:layout_width="@dimen/_11sdp"
+                    android:layout_height="@dimen/_11sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_call"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNumber2"
+                    app:layout_constraintEnd_toStartOf="@id/tvNumber2"
+                    app:layout_constraintStart_toEndOf="@id/ivLineView"
+                    app:layout_constraintTop_toBottomOf="@id/tvIndia" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_gravity="center"
+                    android:text="+91-87280 06100"
+                    android:textColor="@color/blue"
+                    android:fontFamily="@font/poppins_medium"
+                    app:layout_constraintStart_toEndOf="@id/ivCall2"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintTop_toTopOf="@id/ivCall2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/tvNumber2"
+                    />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cvCanada"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvIndia"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:elevation="@dimen/_10sdp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/canada"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black_light"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/tvCanada"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvCanada"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/_11sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_height="@dimen/_11sdp"
+                    android:src="@drawable/ic_call"
+                    android:id="@+id/ivCall"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNumber"
+                    app:layout_constraintEnd_toStartOf="@id/tvNumber"
+                    app:layout_constraintTop_toBottomOf="@id/tvCanada"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+91-87280 06100"
+                    android:textColor="@color/blue"
+                    android:fontFamily="@font/poppins_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:gravity="center"
+                    app:layout_constraintStart_toEndOf="@id/ivCall"
+                    app:layout_constraintTop_toTopOf="@id/ivCall"
+
+                    android:id="@+id/tvNumber"
+                    />
+            </LinearLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRequestSangam"
+        android:background="@drawable/btn_style"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/requestForSamagam"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvCanada"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPrivacyPolicy"
+        android:text="@string/privacy_policy"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_medium"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
