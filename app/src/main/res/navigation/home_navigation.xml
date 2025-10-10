@@ -14,12 +14,34 @@
         android:id="@+id/homeFragment"
         android:name="com.o7services.gurmatjeevanjaach.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action android:id="@+id/action_homeFragment_to_allWhatsappFragment"
+            app:destination="@id/allWhatsappListFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_allTelegramListFragment"
+            app:destination="@id/allTelegramListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allYoutubeListFragment"
+            app:destination="@id/allYoutubeListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allInstagramListFragment"
+            app:destination="@id/allInstagramListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_audioFragment"
+            app:destination="@id/audioFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allFacebookListFragment"
+            app:destination="@id/allFacebookListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/samagamFragment"
         android:name="com.o7services.gurmatjeevanjaach.fragments.SamagamFragment"
         android:label="fragment_samagam"
-        tools:layout="@layout/fragment_samagam" />
+        tools:layout="@layout/fragment_samagam" >
+        <action
+            android:id="@+id/action_samagamFragment_to_samagamListFragment"
+            app:destination="@id/samagamListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/moreFragment"
         android:name="com.o7services.gurmatjeevanjaach.fragments.MoreFragment"
@@ -30,4 +52,49 @@
         android:name="com.o7services.gurmatjeevanjaach.activity.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/playAudioFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.PlayAudioFragment"
+        android:label="fragment_play_audio"
+        tools:layout="@layout/fragment_play_audio" />
+    <fragment
+        android:id="@+id/samagamListFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.SamagamListFragment"
+        android:label="fragment_samagam_list"
+        tools:layout="@layout/fragment_samagam_list" />
+    <fragment
+        android:id="@+id/requestSamagamFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.RequestSamagamFragment"
+        android:label="fragment_request_samagam"
+        tools:layout="@layout/fragment_request_samagam" />
+    <fragment
+        android:id="@+id/allAudioListFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.AllAudioListFragment"
+        android:label="fragment_all_audio_list"
+        tools:layout="@layout/fragment_all_audio_list" />
+    <fragment
+        android:id="@+id/allFacebookListFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.AllFacebookListFragment"
+        android:label="fragment_all_facebook_list"
+        tools:layout="@layout/fragment_all_facebook_list" />
+    <fragment
+        android:id="@+id/allInstagramListFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.AllInstagramListFragment"
+        android:label="fragment_all_instagram_list"
+        tools:layout="@layout/fragment_all_instagram_list" />
+    <fragment
+        android:id="@+id/allWhatsappListFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.AllWhatsappListFragment"
+        android:label="fragment_all_whatsapp_list"
+        tools:layout="@layout/fragment_all_whatsapp_list" />
+    <fragment
+        android:id="@+id/allTelegramListFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.AllTelegramListFragment"
+        android:label="fragment_all_telegram_list"
+        tools:layout="@layout/fragment_all_telegram_list" />
+    <fragment
+        android:id="@+id/allYoutubeListFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.AllYoutubeListFragment"
+        android:label="fragment_all_youtube_list"
+        tools:layout="@layout/fragment_all_youtube_list" />
 </navigation>

@@ -20,4 +20,26 @@
     <string name="canada">Canada</string>
     <string name="requestForSamagam">Request for Samagam</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="enter_your_name"><font size = "15">Name:</font></string>
+    <string name="address"><font size = "15">Address:</font></string>
+    <string name="programDescription"><font size = "15">Program Description:</font></string>
+    <string name="google_map_link"><font size = "15">Google Map Link:</font></string>
+    <string name="contact_number"><font size = "15">Contact Number:</font></string>
+    <string name="your_email"><font size = "15">E-Mail:</font></string>
+    <string name="start_date"><font size = "15">Start Date:</font></string>
+    <string name="end_date"><font size = "15">End Date:</font></string>
+    <string name="request_samagam">Send Request</string>
+    <string name="to_date"><font size = "15">End Date:</font></string>
+    <string name="addSamagamRequest">Add Samagam Request</string>
+    <string name="youtube_channels">Youtube Channels</string>
+    <string name="whatsapp_group">Whatsapp Group</string>
+    <string name="telegram_channels">Telegram Channels</string>
+    <string name="facebook_groups">Facebook Groups</string>
+    <string name="instagram_chanels">Instagram Channels</string>
+    <string name="enter_program_description">Enter Program Description</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="enter_contact_number">Enter Contact Number</string>
+    <string name="end_date_start_date_validation">Enter Start or End Date</string>
+    <string name="enter_valid_email">Enter valid email</string>
+    <string name="data_not_found">No Data Found</string>
 </resources>

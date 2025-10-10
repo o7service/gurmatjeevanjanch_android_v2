@@ -149,8 +149,7 @@
             android:padding="@dimen/_10sdp"
             >
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/canada"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black_light"
@@ -184,6 +183,7 @@
                     android:layout_height="wrap_content"
                     android:text="+91-87280 06100"
                     android:textColor="@color/blue"
+                    android:textSize="@dimen/_11sdp"
                     android:fontFamily="@font/poppins_medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="@dimen/_5sdp"
