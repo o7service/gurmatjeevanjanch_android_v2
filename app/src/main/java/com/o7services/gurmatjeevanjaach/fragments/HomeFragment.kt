@@ -70,9 +70,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         gridLayoutManager = GridLayoutManager(mainActivity, 3, GridLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = GridLayoutManager(mainActivity,3)
         val items = listOf(
-            SliderItem.Image("https://example.com/image1.jpg"),
-            SliderItem.YouTubeVideo("dQw4w9WgXcQ"),
-            SliderItem.Image("https://example.com/image2.jpg")
+            SliderItem.YouTubeVideo("dcPRBQhqmrs"),
         )
 
         val adapter = SliderAdapter(items, viewLifecycleOwner)
@@ -81,9 +79,9 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             com.intuit.sdp.R.dimen._12sdp),3,true))
         binding.recyclerView.adapter = adapter
         playerUi()
-        binding. viewPager.setPageTransformer { page, position ->
-            page.alpha = 0.25f + (1 - abs(position))
-        }
+//        binding. viewPager.setPageTransformer { page, position ->
+//            page.alpha = 0.25f + (1 - abs(position))
+//        }
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {
