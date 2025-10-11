@@ -34,8 +34,8 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>
     <ImageView
-        android:layout_width="@dimen/_27sdp"
-        android:layout_height="@dimen/_27sdp"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
         android:src="@drawable/icon_play_white"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/ivPlay"
@@ -50,7 +50,6 @@
         android:id="@+id/view"
         android:background="@color/light_grey"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivAudio"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

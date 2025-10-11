@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.o7services.gurmatjeevanjaach.R
 
 import com.o7services.gurmatjeevanjaach.dataclass.SliderItem
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
@@ -55,20 +56,21 @@ class SliderAdapter(
             is SliderItem.Image -> (holder as ImageViewHolder).bind(item)
         }
     }
-
     inner class YouTubeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val youTubePlayerView: YouTubePlayerView = itemView.findViewById(R.id.youtubePlayerView)
-
         fun bind(item: SliderItem.YouTubeVideo) {
+            // Remove previous lifecycle observers (important for RecyclerView)
+            lifecycleOwner.lifecycle.removeObserver(youTubePlayerView)
+            // Disable auto initialization to control it manually
             youTubePlayerView.enableAutomaticInitialization = false
+            // Add current observer again
             lifecycleOwner.lifecycle.addObserver(youTubePlayerView)
             youTubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer) {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
                     youTubePlayer.cueVideo(item.videoId, 0f)
                 }
             }, true)
         }
-
     }
 
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

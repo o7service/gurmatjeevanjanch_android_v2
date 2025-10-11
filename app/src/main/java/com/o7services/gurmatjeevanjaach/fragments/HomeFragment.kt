@@ -35,8 +35,8 @@ import kotlin.math.abs
 
 class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     lateinit var binding : FragmentHomeBinding
-    lateinit var adapter : SocialLinkAdapter
-    lateinit var sliderAdpater : SliderAdapter
+
+    lateinit var socialLinkAdapter : SocialLinkAdapter
     lateinit var mainActivity : MainActivity
     lateinit var gridLayoutManager: GridLayoutManager
     var item = ArrayList<SocialLinkResponse.Data>()
@@ -65,34 +65,30 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = SocialLinkAdapter(item, this)
-        binding.recyclerView.adapter = adapter
+        socialLinkAdapter = SocialLinkAdapter(item, this)
+        binding.recyclerView.adapter = socialLinkAdapter
         gridLayoutManager = GridLayoutManager(mainActivity, 3, GridLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = GridLayoutManager(mainActivity,3)
+        binding.recyclerView.addItemDecoration(SpannedItemDecor(resources.getDimensionPixelOffset(
+            com.intuit.sdp.R.dimen._12sdp),3,true))
         val items = listOf(
             SliderItem.YouTubeVideo("dcPRBQhqmrs"),
         )
-
-        val adapter = SliderAdapter(items, viewLifecycleOwner)
-        binding.viewPager.adapter = adapter
-        binding.recyclerView.addItemDecoration(SpannedItemDecor(resources.getDimensionPixelOffset(
-            com.intuit.sdp.R.dimen._12sdp),3,true))
-        binding.recyclerView.adapter = adapter
+        val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
+        binding.viewPager.adapter = sliderAdapter
         playerUi()
-//        binding. viewPager.setPageTransformer { page, position ->
-//            page.alpha = 0.25f + (1 - abs(position))
-//        }
+        binding. viewPager.setPageTransformer { page, position ->
+            page.alpha = 0.25f + (1 - abs(position))
+        }
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {
-                val nextItem = (binding.viewPager.currentItem + 1) % adapter.itemCount
+                val nextItem = (binding.viewPager.currentItem + 1) % sliderAdapter.itemCount
                 binding.viewPager.setCurrentItem(nextItem, true)
                 handler.postDelayed(this, 5000) // 5 seconds
             }
         }
         handler.postDelayed(runnable, 5000)
-
-
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             (requireActivity() as MainActivity).showProgress()
@@ -107,7 +103,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             MediaManager.togglePlayPause()
             updatePlayPauseIcon()
         }
-
         binding.clCurrentMusic.setOnClickListener {
             // Navigate to PlayAudioFragment
 //            val playAudioFragment = PlayAudioFragment()
@@ -118,7 +113,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         }
         Log.d("Response title", MediaManager.currentTitle.toString())
         binding.tvPlayTitle.text = MediaManager.currentTitle
-
     }
     private fun getAllCategory(){
         (requireActivity() as MainActivity).showProgress()
@@ -134,8 +128,10 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                         if (data != null){
                             (requireActivity() as MainActivity).hideProgress()
                             item.clear()
-                            item.addAll(data)
-                            adapter.notifyDataSetChanged()
+
+                            item.addAll(data.filter { it.isSingle == 0 }) // only add items with isSingle == true
+                            socialLinkAdapter.notifyDataSetChanged()
+
                         }else{
                             (requireActivity() as MainActivity).hideProgress()
                             Log.d("Response", response.body()?.message.toString())
@@ -150,7 +146,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                     Log.d("Response", response.body()?.message.toString())
                 }
             }
-
             override fun onFailure(
                 call: Call<SocialLinkResponse?>,
                 t: Throwable
@@ -215,7 +210,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 //                .commit()
         }
         Log.d("Response title", MediaManager.currentTitle.toString())
-
     }
 
     private fun updateMiniPlayer() {
@@ -241,4 +235,10 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             .into(binding.ivPlay)
         }
     }
+    fun extractYouTubeVideoId(url: String): String? {
+        val regex = Regex("(?:v=|youtu.be/|embed/)([\\w-]{11})")
+        val match = regex.find(url)
+        return match?.groups?.get(1)?.value
+    }
+
 }

@@ -7,16 +7,21 @@ import android.util.Log
 object MediaManager {
     var currentTitle: String? = null
     var currentUrl: String? = null
+
+    var currentAudioId : String ?= null
+    var currentSingerId : String ?= null
     private var mediaPlayer: MediaPlayer? = null
     var isPlaying = false
     var onCompletion: (() -> Unit)? = null
     var onPrepared: (() -> Unit)? = null
     var onError: ((String) -> Unit)? = null
 
-    fun playAudioFromUrl(title : String, audioUrl: String) {
+    fun playAudioFromUrl(title : String, audioUrl: String , audioId : String, singerId : String) {
         releaseMediaPlayer()
         currentUrl = audioUrl
         currentTitle = title
+        currentAudioId = audioId
+        currentSingerId = singerId
 
         mediaPlayer = MediaPlayer().apply {
             setAudioAttributes(

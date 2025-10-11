@@ -39,14 +39,6 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
             .load(imageUrl)
 //            .placeholder()
             .into(holder.binding.ivAudio)
-        translateText(item[position].name ?: "",
-            onResult = { translated ->
-                holder.binding.tvTitle.text = translated
-            },
-            onError = { error ->
-                Toast.makeText(holder.itemView.context, "Translation error", Toast.LENGTH_SHORT).show()
-            }
-        )
         holder.itemView.setOnClickListener {
             listener.onItemClick(item[position].id.toString())
         }

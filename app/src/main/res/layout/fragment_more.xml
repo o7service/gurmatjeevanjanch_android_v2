@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/cvIndia"
         android:text="@string/contact_us"
-        android:layout_marginTop="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/poppins_semibold"
         android:textSize="@dimen/_13sdp"
         />

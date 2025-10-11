@@ -14,8 +14,10 @@ import com.o7services.gurmatjeevanjaach.databinding.ItemPlayAudioListBinding
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerAudioResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerResponse
 import com.o7services.gurmatjeevanjaach.fragments.PlayAudioFragment
+import com.o7services.gurmatjeevanjaach.retrofit.MediaManager
 
 class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, var categoryImage : String, var listener : playAudioInterface) : RecyclerView.Adapter<PlayAudioAdapter.ViewHolder>(){
+    private var isPlaying: Boolean = false
     class ViewHolder (val binding : ItemPlayAudioListBinding) : RecyclerView.ViewHolder(binding.root){
     }
     override fun onCreateViewHolder(
@@ -28,32 +30,89 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
 
     override fun onBindViewHolder(holder: PlayAudioAdapter.ViewHolder, position: Int) {
         holder.binding.tvTitle.text = item[position].title
+        if (item[position].id.toString() == currentAudioId && MediaManager.isAudioPlaying()) {
+            Glide.with(holder.itemView)
+                .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_paused)
+                .into(holder.binding.ivPlay)
+        } else {
+            Glide.with(holder.itemView)
+                .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play_white)
+                .into(holder.binding.ivPlay)
+        }
         //holder.binding.tvSubTitle.text = item[position].description
         var imageUrl = AppConst.imageBaseUrl + categoryImage
         Glide.with(holder.itemView)
             .load(imageUrl)
             .into(holder.binding.ivAudio)
         holder.itemView.setOnClickListener {
-            listener.onAudioClick(item[position].title.toString(),item[position].audioLink.toString())
+            listener.onAudioClick(item[position].title.toString(),item[position].audioLink.toString(), item[position].id.toString(),item[position].singerId.toString())
         }
         if (position == selectedIndex){
             holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
             holder.binding.tvTitle.setTextColor(Color.parseColor("#FFFFFFFF"))
+            var imageUrl = AppConst.imageBaseUrl + categoryImage
+            Glide.with(holder.itemView)
+                .load(imageUrl)
+                .into(holder.binding.ivAudio)
+            if (MediaManager.isPlaying){
+                    Glide.with(holder.itemView)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_paused)
+                        .into(holder.binding.ivPlay)
+                }else{
+                    Glide.with(holder.itemView)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play_white)
+                        .into(holder.binding.ivPlay)
+                }
             holder.binding.ivPlay.visibility = View.VISIBLE
         }else{
+            var imageUrl = AppConst.imageBaseUrl + categoryImage
+            Glide.with(holder.itemView)
+                .load(imageUrl)
+                .into(holder.binding.ivAudio)
             holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))
             holder.binding.tvTitle.setTextColor(Color.parseColor("#000000"))
             holder.binding.ivPlay.visibility = View.GONE
         }
+        val isCurrent = item[position].id.toString() == currentAudioId
+        if (isCurrent) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
+            holder.binding.tvTitle.setTextColor(Color.parseColor("#FFFFFFFF"))
+            holder.binding.ivPlay.visibility = View.VISIBLE
+            if(MediaManager.isPlaying){
+                Glide.with(holder.itemView)
+                    .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_paused)
+                    .into(holder.binding.ivPlay)
+            }else{
+                Glide.with(holder.itemView)
+                    .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play_white)
+                    .into(holder.binding.ivPlay)
+            }
+            holder.binding.ivPlay.setOnClickListener {
+                listener.togglePlayPause()
+                if(MediaManager.isPlaying){
+                    Glide.with(holder.itemView)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_paused)
+                        .into(holder.binding.ivPlay)
+                }else{
+                    Glide.with(holder.itemView)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play_white)
+                        .into(holder.binding.ivPlay)
+                }
+            }
 
-
+        } else {
+            holder.binding.ivPlay.visibility = View.GONE
+            holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))
+            holder.binding.tvTitle.setTextColor(Color.parseColor("#000000"))
+        }
     }
-
 
     override fun getItemCount(): Int {
         return item.size
     }
+
     private var selectedIndex = -1
+    private var currentAudioId: String? = null
 
     fun updateSelectedIndex(index: Int) {
         val oldIndex = selectedIndex
@@ -61,9 +120,15 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
         notifyItemChanged(oldIndex)
         notifyItemChanged(selectedIndex)
     }
+    fun updateCurrentAudioId(audioId: String?) {
+        currentAudioId = audioId
+        notifyDataSetChanged()
+    }
+
 
     interface playAudioInterface{
-        fun onAudioClick(title : String , audioLink : String)
+        fun onAudioClick(title : String , audioLink : String , audioId : String,singerId : String )
+        fun togglePlayPause()
     }
 }
 

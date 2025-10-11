@@ -31,9 +31,9 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     lateinit var binding : FragmentPlayAudioBinding
     lateinit var adapter : PlayAudioAdapter
     lateinit var mainActivity: MainActivity
-
     var currentIndex = 0
     var id = ""
+    var isCurrentAudioInList = false
     lateinit var linearLayoutManager: LinearLayoutManager
     var item = ArrayList<SingleSingerAudioResponse.Data>()
     var audioImage = ""
@@ -55,34 +55,42 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
 
     override fun onResume() {
         super.onResume()
-        Log.d("Response", MediaManager.currentTitle.toString())
-        Log.d("Response", MediaManager.currentUrl.toString())
-        binding.tvTitle.text = MediaManager.currentTitle ?: ""
-
-
-        // Update Play/Pause Icon
-//        if (MediaManager.isAudioPlaying()){
-//            Glide.with(mainActivity)
-//                .load(R.drawable.ic_audio_pause)
-//                .into(binding.ivPlay)
-//        }else{
-//            Glide.with(mainActivity)
-//                .load(R.drawable.ic_play_audio)
-//                .into(binding.ivPlay)
-//        }
-
-        // Update SeekBar
-        val duration = MediaManager.getDuration()
-        val position = MediaManager.getCurrentPosition()
-
-        binding.seekBar.max = duration
-        binding.seekBar.progress = position
-
-        binding.tvEndTime.text = formatTime(duration)
-        binding.tvStartTime.text = formatTime(position)
-        startSeekBarUpdates()
+        Log.d("Response", "Current Title: ${MediaManager.currentTitle}")
+        Log.d("Response", "Current Audio ID: ${MediaManager.currentAudioId}")
+        Log.d("Response", id)
+        if (id == MediaManager.currentSingerId) {
+            binding.tvTitle.text = MediaManager.currentTitle ?: ""
+            val duration = MediaManager.getDuration()
+            val position = MediaManager.getCurrentPosition()
+            binding.seekBar.max = duration
+            binding.seekBar.progress = position
+            binding.tvEndTime.text = formatTime(duration)
+            binding.tvStartTime.text = formatTime(position)
+            startSeekBarUpdates()
+            updatePlayPauseIcon()
+        } else {
+            binding.tvTitle.text = ""
+            binding.seekBar.progress = 0
+            binding.seekBar.max = 0
+            binding.tvStartTime.text = "00:00"
+            binding.tvEndTime.text = "00:00"
+            Glide.with(mainActivity)
+                .load(R.drawable.ic_play_audio)
+                .into(binding.ivPlay)
+        }
     }
 
+    private fun updateCurrentIndexByAudioId(audioId: String , singerId :String) {
+
+        val index = item.indexOfFirst {it.id.toString() == audioId && it.singerId.toString() == singerId }
+        if (index != -1) {
+            currentIndex = index
+        } else {
+            currentIndex = 0
+        }
+        Log.d("Index Response", index.toString())
+        adapter.updateSelectedIndex(currentIndex)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -108,22 +116,25 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         binding.ivPrevious.setOnClickListener {
             if (currentIndex > 0) {
                 currentIndex--
-                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString())
+                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString(), item[currentIndex].id.toString(),item[currentIndex].singerId.toString())
             } else {
-                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString())
+                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString(), item[currentIndex].id.toString(),item[currentIndex].singerId.toString())
             }
+            adapter.notifyDataSetChanged()
         }
         binding.ivNext.setOnClickListener {
             if (currentIndex < item.size - 1) {
                 currentIndex++
-                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString())
+                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString() ,item[currentIndex].id.toString(),item[currentIndex].singerId.toString())
             } else {
-                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString())
+                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString() , item[currentIndex].id.toString(),item[currentIndex].singerId.toString())
 
             }
+            adapter.notifyDataSetChanged()
         }
         binding.ivPlay.setOnClickListener {
             MediaManager.togglePlayPause()
+            adapter.notifyDataSetChanged()
             if (MediaManager.isAudioPlaying()) {
                 Glide.with(mainActivity)
                     .load(R.drawable.ic_audio_pause)
@@ -137,7 +148,6 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     }
     private fun updatePlayPauseIcon() {
         if (MediaManager.isAudioPlaying()) {
-
             Glide.with(mainActivity)
                 .load(R.drawable.ic_audio_pause)
                 .into(binding.ivPlay)
@@ -167,7 +177,6 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                                 .load(imageBaseUrl)
 //            .placeholder()
                                 .into(binding.ivAudio)
-                            loadAudios(id)
 //                            binding.tvTitle.text = data.name
 //                            item.clear()
 //                            item.add(data)
@@ -193,30 +202,51 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 mainActivity.showNoData()
                 Log.d("Response", t.message.toString())
             }
-
         })
+        loadAudios(id)
     }
-    private fun playCurrentAudio(title : String, audioLink : String) {
+    private fun playCurrentAudio(title : String, audioLink : String , audioId : String, singerId : String) {
         Glide.with(mainActivity)
             .load(R.drawable.ic_play_audio) // optional loading icon
             .into(binding.ivPlay)
-
         MediaManager.onPrepared = {
             val duration = MediaManager.getDuration()
             binding.seekBar.max = duration
             binding.tvEndTime.text = formatTime(duration)
-
             // Set play icon after audio starts
             Glide.with(mainActivity)
                 .load(R.drawable.ic_audio_pause)
                 .into(binding.ivPlay)
         }
-
         MediaManager.onCompletion = {
-            // Playback completed, reset icon to play
-            Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
-                .into(binding.ivPlay)
+            if (currentIndex < item.size - 1) {
+                currentIndex++
+                playCurrentAudio(
+                    item[currentIndex].title.toString(),
+                    item[currentIndex].audioLink.toString(),
+                    item[currentIndex].id.toString(),
+                    item[currentIndex].singerId.toString()
+                )
+            } else {
+                // ⏮ No more songs - show replay icon
+                Glide.with(mainActivity)
+                    .load(R.drawable.ic_replay)  // <-- your replay icon here
+                    .into(binding.ivPlay)
+
+                // 💡 Set click listener for replay
+                binding.ivPlay.setOnClickListener {
+                    playCurrentAudio(
+                        item[currentIndex].title.toString(),
+                        item[currentIndex].audioLink.toString(),
+                        item[currentIndex].id.toString(),
+                        item[currentIndex].singerId.toString()
+                    )
+                }
+            }
+
+            adapter.updateSelectedIndex(currentIndex)
+            adapter.updateCurrentAudioId(item[currentIndex].id.toString())
+            adapter.notifyDataSetChanged()
         }
 
         MediaManager.onError = { errorMsg ->
@@ -226,15 +256,11 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 .load(R.drawable.ic_play_audio)
                 .into(binding.ivPlay)
         }
-
-        MediaManager.playAudioFromUrl(title,audioLink)
-
+        MediaManager.playAudioFromUrl(title,audioLink, audioId , singerId)
         // Set title text
         binding.tvTitle.text = item[currentIndex].title
-
         adapter.updateSelectedIndex(currentIndex)
     }
-
     private fun startSeekBarUpdates() {
         val duration = MediaManager.getDuration()
         binding.seekBar.max = duration
@@ -243,15 +269,17 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         val handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
             override fun run() {
-                val currentPosition = MediaManager.getCurrentPosition()
-                if (MediaManager.isAudioPlaying()) {
+                if (id == MediaManager.currentSingerId) {
+                    val currentPosition = MediaManager.getCurrentPosition()
+                    val duration = MediaManager.getDuration()
+                    binding.seekBar.max = duration
                     binding.seekBar.progress = currentPosition
                     binding.tvStartTime.text = formatTime(currentPosition)
+                    binding.tvEndTime.text = formatTime(duration)
                 }
                 handler.postDelayed(this, 1000)
             }
         })
-
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
@@ -289,18 +317,13 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     if (response.body()?.success == true){
                         val data = response.body()?.data
                         if (data != null){
-//                            val imageBaseUrl = AppConst.imageBaseUrl + data.imageUrl
-//                            Glide.with(mainActivity)
-//                                .load(imageBaseUrl)
-////            .placeholder()
-//                                .into(binding.ivAudio)
-//                            binding.tvTitle.text = data.name
                             adapter = PlayAudioAdapter(item, categoryImage = audioImage , this@PlayAudioFragment)
                             linearLayoutManager = LinearLayoutManager(mainActivity)
                             binding.recyclerView.adapter = adapter
                             binding.recyclerView.layoutManager = linearLayoutManager
                             item.clear()
                             item.add(data)
+                            adapter.updateCurrentAudioId(MediaManager.currentAudioId ?: "")
                             adapter.notifyDataSetChanged()
                         }else{
                             Log.d("Response", response.body()?.message.toString())
@@ -312,7 +335,6 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     (requireActivity() as MainActivity).hideProgress()
                     mainActivity.showNoData()
                     Log.d("Response", response.body()?.message.toString())
-
                 }
             }
 
@@ -326,12 +348,13 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         })
     }
 
-    override fun onAudioClick(title : String, audioLink: String) {
+    // start time again move at other id
+    override fun onAudioClick(title : String, audioLink: String , audioId : String , singerId : String) {
         // Set the play icon to loading state if needed (optional)
         Glide.with(mainActivity)
             .load(R.drawable.ic_play_audio) // optional loading icon
             .into(binding.ivPlay)
-
+        adapter.notifyDataSetChanged()
         MediaManager.onPrepared = {
             val duration = MediaManager.getDuration()
             binding.seekBar.max = duration
@@ -342,12 +365,32 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 .load(R.drawable.ic_audio_pause)
                 .into(binding.ivPlay)
         }
-
         MediaManager.onCompletion = {
-            // Playback completed, reset icon to play
-            Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
-                .into(binding.ivPlay)
+            if (currentIndex < item.size - 1) {
+                currentIndex++
+                playCurrentAudio(
+                    item[currentIndex].title.toString(),
+                    item[currentIndex].audioLink.toString(),
+                    item[currentIndex].id.toString(),
+                    item[currentIndex].singerId.toString()
+                )
+            } else {
+                Glide.with(mainActivity)
+                    .load(R.drawable.ic_replay)  // <-- your replay icon here
+                    .into(binding.ivPlay)
+                binding.ivPlay.setOnClickListener {
+                    playCurrentAudio(
+                        item[currentIndex].title.toString(),
+                        item[currentIndex].audioLink.toString(),
+                        item[currentIndex].id.toString(),
+                        item[currentIndex].singerId.toString()
+                    )
+                }
+            }
+
+            adapter.updateSelectedIndex(currentIndex)
+            adapter.updateCurrentAudioId(item[currentIndex].id.toString())
+            adapter.notifyDataSetChanged()
         }
 
         MediaManager.onError = { errorMsg ->
@@ -357,11 +400,14 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 .load(R.drawable.ic_play_audio)
                 .into(binding.ivPlay)
         }
-
-        MediaManager.playAudioFromUrl(title, audioLink)
+        MediaManager.playAudioFromUrl(title, audioLink, audioId , singerId)
         // Set title text
         binding.tvTitle.text = item[currentIndex].title
-        adapter.updateSelectedIndex(currentIndex)
+        adapter.updateCurrentAudioId(audioId)
     }
 
+    override fun togglePlayPause() {
+        MediaManager.togglePlayPause()
+        updatePlayPauseIcon()
+    }
 }
