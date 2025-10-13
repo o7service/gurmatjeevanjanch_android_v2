@@ -56,9 +56,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_gravity="center"
+        app:tabIndicatorHeight="4dp"
+        android:background="@color/bg"
+        app:tabIndicatorColor="@color/grey"
+        app:tabBackground="@color/grey"
+        app:tabIndicatorFullWidth="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardPager"
+        app:tabSelectedTextColor="@color/blue"
+        app:tabTextColor="@color/grey"
+        app:tabGravity="center"
+        app:tabMode="scrollable"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +83,7 @@
         android:textSize="@dimen/_13sdp"
         android:textColor="@color/black_light"
         android:fontFamily="@font/poppins_medium"
-        app:layout_constraintTop_toBottomOf="@id/cardPager"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
         app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         android:paddingTop="@dimen/_10sdp"
@@ -102,9 +119,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="@dimen/_10sdp"
-
-            />
+            android:layout_margin="@dimen/_10sdp" />
 
         <androidx.constraintlayout.widget.Barrier
             android:layout_width="wrap_content"

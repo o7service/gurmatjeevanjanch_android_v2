@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.o7services.gurmatjeevanjaach.R
@@ -31,6 +32,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     lateinit var binding : FragmentPlayAudioBinding
     lateinit var adapter : PlayAudioAdapter
     lateinit var mainActivity: MainActivity
+    lateinit var tvTitle : TextView
     var currentIndex = 0
     var id = ""
     var isCurrentAudioInList = false
@@ -205,18 +207,18 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         })
         loadAudios(id)
     }
-    private fun playCurrentAudio(title : String, audioLink : String , audioId : String, singerId : String) {
+    private fun playCurrentAudio(title: String, audioLink: String, audioId: String, singerId: String) {
         Glide.with(mainActivity)
             .load(R.drawable.ic_play_audio) // optional loading icon
             .into(binding.ivPlay)
+
         MediaManager.onPrepared = {
             val duration = MediaManager.getDuration()
             binding.seekBar.max = duration
             binding.tvEndTime.text = formatTime(duration)
-            // Set play icon after audio starts
-            Glide.with(mainActivity)
-                .load(R.drawable.ic_audio_pause)
-                .into(binding.ivPlay)
+
+            // Update play icon after audio starts
+            updatePlayPauseIcon()
         }
         MediaManager.onCompletion = {
             if (currentIndex < item.size - 1) {
@@ -228,12 +230,9 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     item[currentIndex].singerId.toString()
                 )
             } else {
-                // ⏮ No more songs - show replay icon
                 Glide.with(mainActivity)
-                    .load(R.drawable.ic_replay)  // <-- your replay icon here
+                    .load(R.drawable.ic_replay)
                     .into(binding.ivPlay)
-
-                // 💡 Set click listener for replay
                 binding.ivPlay.setOnClickListener {
                     playCurrentAudio(
                         item[currentIndex].title.toString(),
@@ -243,23 +242,27 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     )
                 }
             }
-
             adapter.updateSelectedIndex(currentIndex)
             adapter.updateCurrentAudioId(item[currentIndex].id.toString())
             adapter.notifyDataSetChanged()
+            updatePlayPauseIcon() // update icon on completion
         }
 
         MediaManager.onError = { errorMsg ->
-            // Optional: Log or show a toast
             Log.e("AudioError", errorMsg)
             Glide.with(mainActivity)
                 .load(R.drawable.ic_play_audio)
                 .into(binding.ivPlay)
+            updatePlayPauseIcon()
         }
-        MediaManager.playAudioFromUrl(title,audioLink, audioId , singerId)
-        // Set title text
-        binding.tvTitle.text = item[currentIndex].title
+        MediaManager.playAudioFromUrl(title, audioLink, audioId, singerId)
+
+        // Set title text correctly
+        binding.tvTitle.text = title
         adapter.updateSelectedIndex(currentIndex)
+        adapter.updateCurrentAudioId(audioId)
+        adapter.notifyDataSetChanged()
+        updatePlayPauseIcon() // Update icon immediately after play command
     }
     private fun startSeekBarUpdates() {
         val duration = MediaManager.getDuration()
@@ -322,7 +325,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                             binding.recyclerView.adapter = adapter
                             binding.recyclerView.layoutManager = linearLayoutManager
                             item.clear()
-                            item.add(data)
+                            item.addAll(data)
                             adapter.updateCurrentAudioId(MediaManager.currentAudioId ?: "")
                             adapter.notifyDataSetChanged()
                         }else{

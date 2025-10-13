@@ -1,5 +1,7 @@
 package com.o7services.gurmatjeevanjaach.adapter
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 class SliderAdapter(
-    private val items: List<SliderItem>,
+    private var items: List<SliderItem>,
     private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -28,7 +30,7 @@ class SliderAdapter(
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is SliderItem.YouTubeVideo -> TYPE_YOUTUBE
-            is SliderItem.Image -> TYPE_IMAGE
+            is SliderItem.CustomImageWithId -> TYPE_IMAGE
         }
     }
 
@@ -53,9 +55,14 @@ class SliderAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
             is SliderItem.YouTubeVideo -> (holder as YouTubeViewHolder).bind(item)
-            is SliderItem.Image -> (holder as ImageViewHolder).bind(item)
+            is SliderItem.CustomImageWithId -> (holder as ImageViewHolder).bind(item)
         }
     }
+    fun updateItems(newItems: List<SliderItem>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
+
     inner class YouTubeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val youTubePlayerView: YouTubePlayerView = itemView.findViewById(R.id.youtubePlayerView)
         fun bind(item: SliderItem.YouTubeVideo) {
@@ -76,11 +83,14 @@ class SliderAdapter(
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.imageView)
 
-        fun bind(item: SliderItem.Image) {
+        fun bind(item: SliderItem.CustomImageWithId) {
             Glide.with(itemView.context)
-                .load(item.imageUrl)
+                .load(item.imageResId)
                 .into(imageView)
+            imageView.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
+                itemView.context.startActivity(intent)
+            }
         }
-
     }
 }

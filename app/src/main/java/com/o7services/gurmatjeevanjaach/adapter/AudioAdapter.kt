@@ -40,12 +40,12 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
 //            .placeholder()
             .into(holder.binding.ivAudio)
         holder.itemView.setOnClickListener {
-            listener.onItemClick(item[position].id.toString())
+            listener.onItemClick(item[position].id.toString() , item[position].name.toString())
         }
     }
 
     interface onItemClickListener{
-        fun onItemClick(id : String)
+        fun onItemClick(id : String , title : String)
     }
 
     fun translateText(

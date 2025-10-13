@@ -15,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.SpannedItemDecor
 import com.o7services.gurmatjeevanjaach.activity.MainActivity
@@ -24,6 +26,8 @@ import com.o7services.gurmatjeevanjaach.databinding.FragmentHomeBinding
 import com.o7services.gurmatjeevanjaach.dataclass.SocialLinkResponse
 import com.o7services.gurmatjeevanjaach.dataclass.AllLinkRequest
 import com.o7services.gurmatjeevanjaach.dataclass.AllLinkResponse
+import com.o7services.gurmatjeevanjaach.dataclass.SingleLinkRequest
+import com.o7services.gurmatjeevanjaach.dataclass.SingleLinkResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SliderItem
 import com.o7services.gurmatjeevanjaach.retrofit.MediaManager
 import com.o7services.gurmatjeevanjaach.retrofit.RetrofitClient
@@ -35,7 +39,15 @@ import kotlin.math.abs
 
 class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     lateinit var binding : FragmentHomeBinding
-
+    var youtubeId  = ""
+    var zoomId= ""
+    var youtubeLink = ""
+    var zoomLink = ""
+    var link = ""
+    private val youtubeItems = mutableListOf<SliderItem.YouTubeVideo>()
+    private val zoomItems = mutableListOf<SliderItem.CustomImageWithId>()
+    private lateinit var sliderAdapter: SliderAdapter
+    private var currentItems: List<SliderItem> = emptyList()
     lateinit var socialLinkAdapter : SocialLinkAdapter
     lateinit var mainActivity : MainActivity
     lateinit var gridLayoutManager: GridLayoutManager
@@ -71,8 +83,9 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         binding.recyclerView.layoutManager = GridLayoutManager(mainActivity,3)
         binding.recyclerView.addItemDecoration(SpannedItemDecor(resources.getDimensionPixelOffset(
             com.intuit.sdp.R.dimen._12sdp),3,true))
+        link = extractYouTubeVideoId(youtubeLink).toString()
         val items = listOf(
-            SliderItem.YouTubeVideo("dcPRBQhqmrs"),
+            SliderItem.YouTubeVideo(link)
         )
         val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
         binding.viewPager.adapter = sliderAdapter
@@ -80,12 +93,32 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         binding. viewPager.setPageTransformer { page, position ->
             page.alpha = 0.25f + (1 - abs(position))
         }
+//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("YouTube"))
+//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Zoom"))
+//
+//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//            override fun onTabSelected(tab: TabLayout.Tab) {
+//                currentItems = when (tab.position) {
+//                    0 -> youtubeItems
+//                    1 -> zoomItems
+//                    else -> emptyList()
+//                }
+//                sliderAdapter.updateItems(currentItems)
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab) {}
+//            override fun onTabReselected(tab: TabLayout.Tab) {}
+//        })
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+        }.attach()
+
+
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {
                 val nextItem = (binding.viewPager.currentItem + 1) % sliderAdapter.itemCount
                 binding.viewPager.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, 5000) // 5 seconds
+                handler.postDelayed(this, 5000)
             }
         }
         handler.postDelayed(runnable, 5000)
@@ -114,6 +147,115 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         Log.d("Response title", MediaManager.currentTitle.toString())
         binding.tvPlayTitle.text = MediaManager.currentTitle
     }
+
+    private fun getSingleLink(id: String) {
+        RetrofitClient.instance.getSingleLink(SingleLinkRequest(categoryId = id))
+            .enqueue(object : retrofit2.Callback<SingleLinkResponse> {
+                override fun onResponse(
+                    call: Call<SingleLinkResponse?>,
+                    response: Response<SingleLinkResponse?>
+                ) {
+                    Log.d("Response", "single link hit")
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    mainActivity.hideProgress()
+
+                    val body = response.body()
+                    if (response.isSuccessful && body?.success == true && body.status == 200) {
+                        val link = body.data?.link.toString()
+                        if (body.data?.isLive == 1) {
+                            val videoId = extractYouTubeVideoId(link)
+                            if (!videoId.isNullOrEmpty()) {
+                                // Store YouTube video id somewhere accessible
+                                youtubeLink = link
+                                youtubeId = videoId
+                            }
+                        } else {
+                            // Store Zoom link somewhere accessible
+                            zoomLink = link
+                        }
+
+                        // After both are fetched (you might need to call updateSlider only once both data are loaded)
+                        updateSlider(youtubeId, zoomLink)
+
+                    } else {
+                        Log.d("Response", "Failed with status: ${body?.status}, message: ${body?.message}")
+                    }
+                }
+
+                override fun onFailure(call: Call<SingleLinkResponse?>, t: Throwable) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    mainActivity.hideProgress()
+                    Log.e("NetworkError", "Failed to fetch single link", t)
+                }
+            })
+    }
+
+//    private fun getSingleLink(id : String) {
+//        RetrofitClient.instance.getSingleLink(SingleLinkRequest(categoryId = id))
+//            .enqueue(object : retrofit2.Callback<SingleLinkResponse> {
+//                override fun onResponse(
+//                    call: Call<SingleLinkResponse?>,
+//                    response: Response<SingleLinkResponse?>
+//                ) {
+//                    binding.swipeRefreshLayout.isRefreshing = false
+//                    mainActivity.hideProgress()
+//
+//                    val body = response.body()
+//
+//                    if (response.isSuccessful && body?.success == true && body.status == 200) {
+//                        if (response.body()?.data?.isLive == 1){
+//                            youtubeLink = response.body()?.data?.link.toString()
+//                            Log.d("Response", youtubeLink)
+//                            youtubeLink = body.data?.link.toString()
+//                            val videoId = extractYouTubeVideoId(youtubeLink)
+//                            if (!videoId.isNullOrEmpty()) {
+//                                val items = listOf(SliderItem.YouTubeVideo(videoId))
+//                                val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
+//                                binding.viewPager.adapter = sliderAdapter
+//                            } else {
+//                                Log.e("YouTubeError", "Invalid video ID extracted from URL: $youtubeLink")
+//                            }
+//                        }else{
+//                            zoomLink = response.body()?.data?.link.toString()
+//                            val items = listOf(SliderItem.CustomImageWithId(R.drawable.dummy_image, zoomLink))
+//                            val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
+//                            binding.viewPager.adapter = sliderAdapter
+//                            Log.d("Response", response.body()?.message.toString())
+//                        }
+//                    } else {
+//                        Log.d("Response", "Failed with status: ${body?.status}, message: ${body?.message}")
+//                    }
+//                }
+//                // in one viewpager there are two pager only one view pager is used
+//// youtube video then slide , zoom image with tabs if both are present then both will show
+//                override fun onFailure(call: Call<SingleLinkResponse?>, t: Throwable) {
+//                    binding.swipeRefreshLayout.isRefreshing = false
+//                    mainActivity.hideProgress()
+//                    Log.e("NetworkError", "Failed to fetch single link", t)
+//                }
+//            })
+//    }
+private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
+    val items = mutableListOf<SliderItem>()
+
+    if (!youtubeVideoId.isNullOrEmpty()) {
+        items.add(SliderItem.YouTubeVideo(youtubeVideoId))
+    }
+
+    if (!zoomLink.isNullOrEmpty()) {
+        items.add(SliderItem.CustomImageWithId(R.drawable.dummy_image, zoomLink))
+    }
+
+    if (items.isEmpty()) {
+        // Optionally handle empty state
+        Log.d("Slider", "No YouTube or Zoom links to show")
+    }
+    val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
+    binding.viewPager.adapter = sliderAdapter
+}
+
+
+
     private fun getAllCategory(){
         (requireActivity() as MainActivity).showProgress()
         RetrofitClient.instance.getAllCategory().enqueue(object : retrofit2.Callback<SocialLinkResponse>{
@@ -128,17 +270,33 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                         if (data != null){
                             (requireActivity() as MainActivity).hideProgress()
                             item.clear()
-
                             item.addAll(data.filter { it.isSingle == 0 }) // only add items with isSingle == true
                             socialLinkAdapter.notifyDataSetChanged()
+                            val youtubeItem = data.find { it.title.equals("Youtube", ignoreCase = true) }
+                            if (youtubeItem?.id != null) {
+                                youtubeId = youtubeItem.id.toString()
+                                Log.d("Response", "YouTube ID = $youtubeId")
+                                getSingleLink(youtubeId)
+                            } else {
+                                Log.d("Response", "YouTube item not found or ID is null")
+                            }
+                            val zoomItem = data.find { it.title.equals("Zoom", ignoreCase = true) }
+                            if (zoomItem?.id != null) {
+                                zoomId = zoomItem.id.toString()
+                                Log.d("Response", "YouTube ID = $zoomId")
+                                getSingleLink(zoomId)
+                            } else {
+                                Log.d("Response", "YouTube item not found or ID is null")
+                            }
 
+                            Log.d("Response", youtubeId)
+                            getSingleLink(youtubeId)
                         }else{
                             (requireActivity() as MainActivity).hideProgress()
                             Log.d("Response", response.body()?.message.toString())
                         }
                     }else{
                         (requireActivity() as MainActivity).hideProgress()
-
                         Log.d("Response", response.body()?.message.toString())
                     }
                 }else if(response.body()?.status == 404){
@@ -154,7 +312,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                 (requireActivity() as MainActivity).hideProgress()
                 Log.d("Response", t.message.toString())
             }
-
+// with this video, then show of zoom image by default and link form the getSingleCategory , after click on the image intent will work
         })
     }
 
@@ -236,9 +394,21 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         }
     }
     fun extractYouTubeVideoId(url: String): String? {
-        val regex = Regex("(?:v=|youtu.be/|embed/)([\\w-]{11})")
-        val match = regex.find(url)
-        return match?.groups?.get(1)?.value
+        val patterns = listOf(
+            Regex("""(?:v=)([A-Za-z0-9_-]{11})"""),
+            Regex("""(?:youtu\.be/)([A-Za-z0-9_-]{11})"""),
+            Regex("""(?:embed/)([A-Za-z0-9_-]{11})"""),
+            Regex("""(?:shorts/)([A-Za-z0-9_-]{11})""")
+        )
+
+        for (pattern in patterns) {
+            val match = pattern.find(url)
+            if (match != null) {
+                return match.groups[1]?.value
+            }
+        }
+        return null
     }
+
 
 }

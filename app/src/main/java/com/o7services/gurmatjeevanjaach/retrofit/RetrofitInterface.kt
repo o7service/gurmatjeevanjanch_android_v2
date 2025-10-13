@@ -8,6 +8,8 @@ import com.o7services.gurmatjeevanjaach.dataclass.AllProgramResponse
 import com.o7services.gurmatjeevanjaach.dataclass.AllSingerResponse
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateRequest
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateResponse
+import com.o7services.gurmatjeevanjaach.dataclass.SingleLinkRequest
+import com.o7services.gurmatjeevanjaach.dataclass.SingleLinkResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerAudioRequest
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerAudioResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerRequest
@@ -32,6 +34,8 @@ interface RetrofitInterface {
     fun getSingleCategory(@Body request : SocialLinkSingleRequest) : Call<SocialLinkSingleResponse>
     @POST("link/category")
     fun getLinkCategory(@Body request : AllLinkRequest) : Call<AllLinkResponse>
+    @POST("link/category")
+    fun getSingleLink(@Body request : SingleLinkRequest) : Call<SingleLinkResponse>
     @POST("singers/all")
     fun getAllSinger() : Call<AllSingerResponse>
     @POST("singers/single")

@@ -108,9 +108,10 @@ class AudioFragment : Fragment(), AudioAdapter.onItemClickListener {
     }
 
 
-    override fun onItemClick(id : String) {
+    override fun onItemClick(id : String , title: String) {
         var bundle = Bundle()
         bundle.putString("id", id)
+        bundle.putString("title", title)
         findNavController().navigate(R.id.playAudioFragment, bundle)
     }
 }
