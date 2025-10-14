@@ -30,11 +30,9 @@ object MediaManager {
                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                     .build()
             )
-
             try {
                 setDataSource(audioUrl)
                 prepareAsync()
-
                 setOnPreparedListener {
                     it.start()
                     this@MediaManager.isPlaying = true
