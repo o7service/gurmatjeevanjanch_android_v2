@@ -3,10 +3,12 @@ package com.o7services.gurmatjeevanjaach.retrofit
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 
 object MediaManager {
     var currentTitle: String? = null
     var currentUrl: String? = null
+    val currentTitleLiveData = MutableLiveData<String>()
 
     var currentAudioId : String ?= null
     var currentSingerId : String ?= null
@@ -22,7 +24,7 @@ object MediaManager {
         currentTitle = title
         currentAudioId = audioId
         currentSingerId = singerId
-
+        currentTitleLiveData.postValue(title)
         mediaPlayer = MediaPlayer().apply {
             setAudioAttributes(
                 AudioAttributes.Builder()
@@ -40,10 +42,10 @@ object MediaManager {
                 }
                 setOnCompletionListener {
                     currentTitle = ""
+                    currentTitleLiveData.postValue("")
                     this@MediaManager.isPlaying = false
                     onCompletion?.invoke()
                 }
-
                 setOnErrorListener { _, what, extra ->
                     this@MediaManager.isPlaying = false
                     onError?.invoke("Error occurred: what=$what, extra=$extra")
@@ -90,10 +92,11 @@ object MediaManager {
     fun isAudioPlaying(): Boolean {
         return isPlaying
     }
-
     fun releaseMediaPlayer() {
+
         mediaPlayer?.release()
         mediaPlayer = null
         isPlaying = false
     }
+
 }

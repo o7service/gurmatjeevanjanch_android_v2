@@ -211,14 +211,14 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         Glide.with(mainActivity)
             .load(R.drawable.ic_play_audio) // optional loading icon
             .into(binding.ivPlay)
-
+        binding.tvTitle.setText(title)
         MediaManager.onPrepared = {
             val duration = MediaManager.getDuration()
             binding.seekBar.max = duration
             binding.tvEndTime.text = formatTime(duration)
-
             // Update play icon after audio starts
             updatePlayPauseIcon()
+            adapter.notifyDataSetChanged()
         }
         MediaManager.onCompletion = {
             if (currentIndex < item.size - 1) {
@@ -230,17 +230,18 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     item[currentIndex].singerId.toString()
                 )
             } else {
-                Glide.with(mainActivity)
-                    .load(R.drawable.ic_replay)
-                    .into(binding.ivPlay)
-                binding.ivPlay.setOnClickListener {
+                currentIndex = 0
+//                Glide.with(mainActivity)
+//                    .load(R.drawable.ic_replay)
+//                    .into(binding.ivPlay)
+                //binding.ivPlay.setOnClickListener {
                     playCurrentAudio(
                         item[currentIndex].title.toString(),
                         item[currentIndex].audioLink.toString(),
                         item[currentIndex].id.toString(),
                         item[currentIndex].singerId.toString()
                     )
-                }
+              //  }
             }
             adapter.updateSelectedIndex(currentIndex)
             adapter.updateCurrentAudioId(item[currentIndex].id.toString())
@@ -351,14 +352,18 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         })
     }
 
-    // start time again move at other id
     override fun onAudioClick(title : String, audioLink: String , audioId : String , singerId : String) {
         // Set the play icon to loading state if needed (optional)
+        currentIndex = item.indexOfFirst { it.id.toString() == audioId }
+        if (currentIndex == -1) currentIndex = 0
+        binding.tvTitle.text = title
+        Log.d("Audio Id", audioId)
         Glide.with(mainActivity)
             .load(R.drawable.ic_play_audio) // optional loading icon
             .into(binding.ivPlay)
         adapter.notifyDataSetChanged()
         MediaManager.onPrepared = {
+            binding.tvTitle.text = item[currentIndex].title
             val duration = MediaManager.getDuration()
             binding.seekBar.max = duration
             binding.tvEndTime.text = formatTime(duration)
@@ -378,19 +383,19 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     item[currentIndex].singerId.toString()
                 )
             } else {
-                Glide.with(mainActivity)
-                    .load(R.drawable.ic_replay)  // <-- your replay icon here
-                    .into(binding.ivPlay)
-                binding.ivPlay.setOnClickListener {
+                currentIndex = 0
+//                Glide.with(mainActivity)
+//                    .load(R.drawable.ic_replay)  // <-- your replay icon here
+//                    .into(binding.ivPlay)
+//                binding.ivPlay.setOnClickListener {
                     playCurrentAudio(
                         item[currentIndex].title.toString(),
                         item[currentIndex].audioLink.toString(),
                         item[currentIndex].id.toString(),
                         item[currentIndex].singerId.toString()
                     )
-                }
+              //  }
             }
-
             adapter.updateSelectedIndex(currentIndex)
             adapter.updateCurrentAudioId(item[currentIndex].id.toString())
             adapter.notifyDataSetChanged()
@@ -405,7 +410,6 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         }
         MediaManager.playAudioFromUrl(title, audioLink, audioId , singerId)
         // Set title text
-        binding.tvTitle.text = item[currentIndex].title
         adapter.updateCurrentAudioId(audioId)
     }
 

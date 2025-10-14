@@ -166,4 +166,8 @@ class MainActivity : AppCompatActivity() {
     fun showNoData() {
         binding.tvNoDataFound.visibility = View.VISIBLE
     }
+
+    fun hideNoData(){
+        binding.tvNoDataFound.visibility = View.GONE
+    }
 }

@@ -17,6 +17,16 @@ import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.ItemAudioListBinding
 import com.o7services.gurmatjeevanjaach.dataclass.AllSingerResponse
 import com.o7services.gurmatjeevanjaach.dataclass.AudioDataClass
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.Response
+import okio.IOException
+import org.json.JSONObject
 
 
 class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: onItemClickListener) : RecyclerView.Adapter<AudioAdapter.ViewHolder>() {
@@ -35,6 +45,23 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
         holder.binding.tvSubTitle.text = item[position].name
 //        holder.binding.tvSubTitle.text = item[position].
         val imageUrl = AppConst.imageBaseUrl + item[position].imageUrl
+        val originalText = item[position].name.toString()
+        translateTextWithLibre(
+            originalText,
+            onResult = { translatedText ->
+                holder.itemView.post {
+                    holder.binding.tvSubTitle.text = translatedText
+                }
+            },
+            onError = { exception ->
+                // fallback to original text
+                holder.itemView.post {
+                    holder.binding.tvSubTitle.text = originalText
+                }
+                Log.e("TRANSLATION_ERROR", "LibreTranslate failed: ${exception.message}")
+            }
+        )
+
         Glide.with(holder.itemView)
             .load(imageUrl)
 //            .placeholder()
@@ -84,5 +111,49 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
 
     override fun getItemCount(): Int {
        return item.size
+    }
+    fun translateTextWithLibre(
+        sourceText: String,
+        onResult: (String) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val client = OkHttpClient()
+        val json = JSONObject()
+        json.put("q", sourceText)
+        json.put("source", "en")
+        json.put("target", "pa")
+        json.put("format", "text")
+        val body = RequestBody.create(
+            "application/json; charset=utf-8".toMediaType(),
+            json.toString()
+        )
+        val request = Request.Builder()
+            .url("https://libretranslate.de/translate") // reliable endpoint
+            .post(body)
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                onError(e)
+            }
+            override fun onResponse(call: Call, response: Response) {
+                val bodyString = response.body?.string()
+                if (bodyString.isNullOrEmpty()) {
+                    onError(Exception("Empty response"))
+                    return
+                }
+                // Check if response is JSON
+                if (bodyString.trim().startsWith("{")) {
+                    try {
+                        val translated = JSONObject(bodyString).getString("translatedText")
+                        onResult(translated)
+                    } catch (e: Exception) {
+                        onError(e)
+                    }
+                } else {
+                    // Response is not JSON, probably HTML error page
+                    onError(Exception("Invalid response: $bodyString"))
+                }
+            }
+        })
     }
 }

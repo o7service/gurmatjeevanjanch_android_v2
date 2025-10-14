@@ -28,5 +28,4 @@ data class AllLinkResponse(  @SerializedName("success" ) var success : Boolean? 
         @SerializedName("updated_at"  ) var updatedAt   : String? = null
 
     ): Parcelable
-
 }

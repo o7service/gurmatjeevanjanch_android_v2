@@ -114,4 +114,35 @@ class AudioFragment : Fragment(), AudioAdapter.onItemClickListener {
         bundle.putString("title", title)
         findNavController().navigate(R.id.playAudioFragment, bundle)
     }
+//    fun translateTextWithLibre(
+//        sourceText: String,
+//        onResult: (String) -> Unit,
+//        onError: (Exception) -> Unit
+//    ) {
+//        val client = OkHttpClient()
+//        val json = JSONObject()
+//        json.put("q", sourceText)
+//        json.put("source", "en")
+//        json.put("target", "pa")
+//        json.put("format", "text")
+//        val body = RequestBody.create(
+//            MediaType.get("application/json; charset=utf-8"),
+//            json.toString()
+//        )
+//        val request = Request.Builder()
+//            .url("https://libretranslate.com/translate")
+//            .post(body)
+//            .build()
+//        client.newCall(request).enqueue(object : Callback {
+//            override fun onFailure(call: Call, e: IOException) {
+//                onError(e)
+//            }
+//            override fun onResponse(call: Call, response: Response) {
+//                response.body?.string()?.let {
+//                    val translated = JSONObject(it).getString("translatedText")
+//                    onResult(translated)
+//                } ?: onError(Exception("Empty response"))
+//            }
+//        })
+//    }
 }

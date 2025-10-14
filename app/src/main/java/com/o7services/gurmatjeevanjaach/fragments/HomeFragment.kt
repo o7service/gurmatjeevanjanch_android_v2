@@ -70,7 +70,9 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 
     override fun onResume() {
         super.onResume()
-        binding.tvPlayTitle.text = MediaManager.currentTitle
+        MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
+            binding.tvPlayTitle.text = newTitle
+        }
         updateMiniPlayer()
         getAllCategory()
     }
@@ -145,7 +147,10 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 //                .commit()
         }
         Log.d("Response title", MediaManager.currentTitle.toString())
-        binding.tvPlayTitle.text = MediaManager.currentTitle
+      //  binding.tvPlayTitle.text = MediaManager.currentTitle
+        MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
+            binding.tvPlayTitle.text = newTitle
+        }
     }
 
     private fun getSingleLink(id: String) {
@@ -173,15 +178,12 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                             // Store Zoom link somewhere accessible
                             zoomLink = link
                         }
-
                         // After both are fetched (you might need to call updateSlider only once both data are loaded)
                         updateSlider(youtubeId, zoomLink)
-
                     } else {
                         Log.d("Response", "Failed with status: ${body?.status}, message: ${body?.message}")
                     }
                 }
-
                 override fun onFailure(call: Call<SingleLinkResponse?>, t: Throwable) {
                     binding.swipeRefreshLayout.isRefreshing = false
                     mainActivity.hideProgress()
@@ -189,73 +191,23 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                 }
             })
     }
-
-//    private fun getSingleLink(id : String) {
-//        RetrofitClient.instance.getSingleLink(SingleLinkRequest(categoryId = id))
-//            .enqueue(object : retrofit2.Callback<SingleLinkResponse> {
-//                override fun onResponse(
-//                    call: Call<SingleLinkResponse?>,
-//                    response: Response<SingleLinkResponse?>
-//                ) {
-//                    binding.swipeRefreshLayout.isRefreshing = false
-//                    mainActivity.hideProgress()
-//
-//                    val body = response.body()
-//
-//                    if (response.isSuccessful && body?.success == true && body.status == 200) {
-//                        if (response.body()?.data?.isLive == 1){
-//                            youtubeLink = response.body()?.data?.link.toString()
-//                            Log.d("Response", youtubeLink)
-//                            youtubeLink = body.data?.link.toString()
-//                            val videoId = extractYouTubeVideoId(youtubeLink)
-//                            if (!videoId.isNullOrEmpty()) {
-//                                val items = listOf(SliderItem.YouTubeVideo(videoId))
-//                                val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
-//                                binding.viewPager.adapter = sliderAdapter
-//                            } else {
-//                                Log.e("YouTubeError", "Invalid video ID extracted from URL: $youtubeLink")
-//                            }
-//                        }else{
-//                            zoomLink = response.body()?.data?.link.toString()
-//                            val items = listOf(SliderItem.CustomImageWithId(R.drawable.dummy_image, zoomLink))
-//                            val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
-//                            binding.viewPager.adapter = sliderAdapter
-//                            Log.d("Response", response.body()?.message.toString())
-//                        }
-//                    } else {
-//                        Log.d("Response", "Failed with status: ${body?.status}, message: ${body?.message}")
-//                    }
-//                }
-//                // in one viewpager there are two pager only one view pager is used
-//// youtube video then slide , zoom image with tabs if both are present then both will show
-//                override fun onFailure(call: Call<SingleLinkResponse?>, t: Throwable) {
-//                    binding.swipeRefreshLayout.isRefreshing = false
-//                    mainActivity.hideProgress()
-//                    Log.e("NetworkError", "Failed to fetch single link", t)
-//                }
-//            })
-//    }
 private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
+    if (!isAdded || view == null || !isVisible) return
     val items = mutableListOf<SliderItem>()
-
     if (!youtubeVideoId.isNullOrEmpty()) {
         items.add(SliderItem.YouTubeVideo(youtubeVideoId))
     }
-
     if (!zoomLink.isNullOrEmpty()) {
         items.add(SliderItem.CustomImageWithId(R.drawable.dummy_image, zoomLink))
     }
-
     if (items.isEmpty()) {
         // Optionally handle empty state
         Log.d("Slider", "No YouTube or Zoom links to show")
     }
     val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
     binding.viewPager.adapter = sliderAdapter
+
 }
-
-
-
     private fun getAllCategory(){
         (requireActivity() as MainActivity).showProgress()
         RetrofitClient.instance.getAllCategory().enqueue(object : retrofit2.Callback<SocialLinkResponse>{
@@ -331,7 +283,7 @@ private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
                             var bundle = Bundle()
                             bundle.putString("title", title)
                             bundle.putString("categoryImage", categoryImage)
-                            bundle.putParcelable("data", data)
+                         //   bundle.putParcelableArrayList("data", ArrayList(data)))
                             findNavController().navigate(R.id.allYoutubeListFragment, bundle)
                         }else{
                             Toast.makeText(mainActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
@@ -352,7 +304,10 @@ private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
             }
 
         })
-        binding.tvPlayTitle.text = MediaManager.currentTitle
+        MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
+            binding.tvPlayTitle.text = newTitle
+        }
+      //  binding.tvPlayTitle.text = MediaManager.currentTitle
         updateMiniPlayer()
         binding.ivPlay.setOnClickListener {
             MediaManager.togglePlayPause()
@@ -373,7 +328,10 @@ private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
     private fun updateMiniPlayer() {
         if (!MediaManager.currentTitle.isNullOrEmpty()) {
         binding.clCurrentMusic.visibility = View.VISIBLE
-        binding.tvPlayTitle.text = MediaManager.currentTitle
+   //     binding.tvPlayTitle.text = MediaManager.currentTitle
+        MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
+            binding.tvPlayTitle.text = newTitle
+        }
         updatePlayPauseIcon()
         } else {
         binding.clCurrentMusic.visibility = View.GONE
@@ -382,7 +340,10 @@ private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
 
     private fun updatePlayPauseIcon() {
         if (MediaManager.isAudioPlaying()) {
-        binding.tvPlayTitle.text = MediaManager.currentTitle
+    //    binding.tvPlayTitle.text = MediaManager.currentTitle
+        MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
+            binding.tvPlayTitle.text = newTitle
+        }
         Glide.with(mainActivity)
             .load(R.drawable.ic_audio_pause)
             .into(binding.ivPlay)

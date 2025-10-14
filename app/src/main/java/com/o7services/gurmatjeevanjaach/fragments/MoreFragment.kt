@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.o7services.gurmatjeevanjaach.R
+import com.o7services.gurmatjeevanjaach.activity.MainActivity
 import com.o7services.gurmatjeevanjaach.databinding.FragmentMoreBinding
 
 
 class MoreFragment : Fragment() {
+    lateinit var mainActivity: MainActivity
     lateinit var binding : FragmentMoreBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mainActivity = activity as MainActivity
         arguments?.let {
 
         }
@@ -29,6 +32,7 @@ class MoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainActivity.hideNoData()
         binding.btnRequestSangam.setOnClickListener {
             findNavController().navigate(R.id.requestSamagamFragment)
         }

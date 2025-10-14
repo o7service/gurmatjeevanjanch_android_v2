@@ -46,6 +46,7 @@ class RequestSamagamFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainActivity.hideNoData()
         binding.tvFrom.setOnClickListener {
             startDate()
         }
