@@ -1,5 +1,4 @@
 package com.o7services.gurmatjeevanjaach.fragments
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,7 +16,6 @@ import com.o7services.gurmatjeevanjaach.activity.MainActivity
 import com.o7services.gurmatjeevanjaach.adapter.PlayAudioAdapter
 import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.FragmentPlayAudioBinding
-import com.o7services.gurmatjeevanjaach.dataclass.AudioDataClass
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerAudioRequest
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerAudioResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerRequest
@@ -77,7 +75,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             binding.tvStartTime.text = "00:00"
             binding.tvEndTime.text = "00:00"
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
+                .load(R.drawable.ic_play_audio_home)
                 .into(binding.ivPlay)
         }
     }
@@ -113,6 +111,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         getAllAudio()
         uiSet()
     }
+
     fun uiSet(){
         startSeekBarUpdates()
         binding.ivPrevious.setOnClickListener {
@@ -143,7 +142,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     .into(binding.ivPlay)
             } else {
                 Glide.with(mainActivity)
-                    .load(R.drawable.ic_play_audio)
+                    .load(R.drawable.ic_play_audio_home)
                     .into(binding.ivPlay)
             }
         }
@@ -155,7 +154,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 .into(binding.ivPlay)
         } else {
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
+                .load(R.drawable.ic_play_audio_home)
                 .into(binding.ivPlay)
         }
     }
@@ -209,7 +208,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     }
     private fun playCurrentAudio(title: String, audioLink: String, audioId: String, singerId: String) {
         Glide.with(mainActivity)
-            .load(R.drawable.ic_play_audio) // optional loading icon
+            .load(R.drawable.ic_play_audio_home) // optional loading icon
             .into(binding.ivPlay)
         binding.tvTitle.setText(title)
         MediaManager.onPrepared = {
@@ -252,7 +251,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         MediaManager.onError = { errorMsg ->
             Log.e("AudioError", errorMsg)
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
+                .load(R.drawable.ic_play_audio_home)
                 .into(binding.ivPlay)
             updatePlayPauseIcon()
         }
@@ -359,7 +358,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         binding.tvTitle.text = title
         Log.d("Audio Id", audioId)
         Glide.with(mainActivity)
-            .load(R.drawable.ic_play_audio) // optional loading icon
+            .load(R.drawable.ic_play_audio_home) // optional loading icon
             .into(binding.ivPlay)
         adapter.notifyDataSetChanged()
         MediaManager.onPrepared = {
@@ -405,7 +404,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             // Optional: Log or show a toast
             Log.e("AudioError", errorMsg)
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
+                .load(R.drawable.ic_play_audio_home)
                 .into(binding.ivPlay)
         }
         MediaManager.playAudioFromUrl(title, audioLink, audioId , singerId)

@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                     ivBack.visibility = View.VISIBLE
                     tvTitle.visibility = View.VISIBLE
                     tvTitle.text = resources.getString(R.string.youtube_channels)
-                    binding.bottomNav.menu.findItem(R.id.menu_more)?.isChecked = true
+                    binding.bottomNav.menu.findItem(R.id.menu_home)?.isChecked = true
                 }
                 R.id.allWhatsappListFragment ->{
                     appBar.visibility = View.VISIBLE

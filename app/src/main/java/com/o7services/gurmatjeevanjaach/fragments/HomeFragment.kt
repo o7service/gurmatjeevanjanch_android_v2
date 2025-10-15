@@ -9,11 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -33,7 +31,6 @@ import com.o7services.gurmatjeevanjaach.retrofit.MediaManager
 import com.o7services.gurmatjeevanjaach.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 import kotlin.math.abs
 
 
@@ -112,7 +109,39 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 //            override fun onTabReselected(tab: TabLayout.Tab) {}
 //        })
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            val tabView = LayoutInflater.from(context).inflate(R.layout.item_custom_tab, null)
+            tab.customView = tabView
         }.attach()
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.customView?.setBackgroundResource(R.drawable.bg_tab_selected)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.customView?.setBackgroundResource(R.drawable.bg_tab_unselected)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
+        binding.tabLayout.getTabAt(binding.viewPager.currentItem)?.customView?.setBackgroundResource(R.drawable.bg_tab_selected)
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val initialTab = binding.tabLayout.getTabAt(binding.viewPager.currentItem)
+                initialTab?.customView?.setBackgroundResource(R.drawable.bg_tab_selected)
+
+                for (i in 0 until binding.tabLayout.tabCount) {
+                    binding.tabLayout.getTabAt(i)?.customView?.setBackgroundResource(R.drawable.bg_tab_unselected)
+                }
+                binding.tabLayout.getTabAt(position)?.customView?.setBackgroundResource(R.drawable.bg_tab_selected)
+
+            }
+        })
+
 
 
         val handler = Handler(Looper.getMainLooper())
@@ -166,24 +195,30 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 
                     val body = response.body()
                     if (response.isSuccessful && body?.success == true && body.status == 200) {
-                        val link = body.data?.link.toString()
-                        if (body.data?.isLive == 1) {
-                            val videoId = extractYouTubeVideoId(link)
-                            if (!videoId.isNullOrEmpty()) {
-                                // Store YouTube video id somewhere accessible
-                                youtubeLink = link
-                                youtubeId = videoId
+                        val dataList = body.data
+                        if (!dataList.isNullOrEmpty()) {
+                            for (item in dataList) {
+                                val link = item.link.orEmpty()
+                                if (item.isLive == 1) {
+                                    val videoId = extractYouTubeVideoId(link)
+                                    if (!videoId.isNullOrEmpty()) {
+                                        youtubeLink = link
+                                        youtubeId = videoId
+                                    }
+                                } else {
+                                    zoomLink = link
+                                }
                             }
+                            // Now update the slider once all data has been parsed
+                            updateSlider(youtubeId, zoomLink)
                         } else {
-                            // Store Zoom link somewhere accessible
-                            zoomLink = link
+                            Log.d("Response", "Data list is empty")
                         }
-                        // After both are fetched (you might need to call updateSlider only once both data are loaded)
-                        updateSlider(youtubeId, zoomLink)
                     } else {
                         Log.d("Response", "Failed with status: ${body?.status}, message: ${body?.message}")
                     }
                 }
+
                 override fun onFailure(call: Call<SingleLinkResponse?>, t: Throwable) {
                     binding.swipeRefreshLayout.isRefreshing = false
                     mainActivity.hideProgress()
@@ -191,7 +226,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                 }
             })
     }
-private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
+
+    private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
     if (!isAdded || view == null || !isVisible) return
     val items = mutableListOf<SliderItem>()
     if (!youtubeVideoId.isNullOrEmpty()) {
@@ -207,7 +243,7 @@ private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
     val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
     binding.viewPager.adapter = sliderAdapter
 
-}
+    }
     private fun getAllCategory(){
         (requireActivity() as MainActivity).showProgress()
         RetrofitClient.instance.getAllCategory().enqueue(object : retrofit2.Callback<SocialLinkResponse>{
@@ -264,7 +300,7 @@ private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
                 (requireActivity() as MainActivity).hideProgress()
                 Log.d("Response", t.message.toString())
             }
-// with this video, then show of zoom image by default and link form the getSingleCategory , after click on the image intent will work
+    // with this video, then show of zoom image by default and link form the getSingleCategory , after click on the image intent will work
         })
     }
 
@@ -277,13 +313,13 @@ private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
             ) {
                 if (response.body()?.status == 200){
                     if (response.body()?.success == true){
-                        Log.d("Response", response.body()?.data?.id.toString())
+                     //   Log.d("Response", response.body()?.data?.id.toString())
                         val data = response.body()?.data
                         if (data != null){
                             var bundle = Bundle()
                             bundle.putString("title", title)
                             bundle.putString("categoryImage", categoryImage)
-                         //   bundle.putParcelableArrayList("data", ArrayList(data)))
+                            bundle.putParcelableArrayList("data", ArrayList(data))
                             findNavController().navigate(R.id.allYoutubeListFragment, bundle)
                         }else{
                             Toast.makeText(mainActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
@@ -350,7 +386,7 @@ private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
         } else {
         binding.tvPlayTitle.text = MediaManager.currentTitle
         Glide.with(mainActivity)
-            .load(R.drawable.ic_play_audio)
+            .load(R.drawable.ic_play_audio_home)
             .into(binding.ivPlay)
         }
     }

@@ -36,10 +36,10 @@ class AllYoutubeListFragment : Fragment() , YoutubeAdapter.itemClickListener{
         arguments?.let {
             title = it.getString("title", "")
             categoryImage = it.getString("categoryImage", "")
-//            val data = it.getParcelable<AllLinkResponse.Data>("data")
-//            data?.let {
-//                item.add(it)
-//            }
+            val data = it.getParcelableArrayList<AllLinkResponse.Data>("data")
+            data?.let {
+                item.addAll(it)
+            }
         }
     }
 

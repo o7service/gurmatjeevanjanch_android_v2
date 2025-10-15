@@ -5,10 +5,11 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AllLinkResponse(  @SerializedName("success" ) var success : Boolean? = null,
-                             @SerializedName("status"  ) var status  : Int?     = null,
-                             @SerializedName("message" ) var message : String?  = null,
-                             @SerializedName("data"    ) var data    : ArrayList<Data>    = arrayListOf()
+data class AllLinkResponse(  @SerializedName("success" ) var success : Boolean?        = null,
+                             @SerializedName("status"  ) var status  : Int?            = null,
+                             @SerializedName("total"   ) var total   : Int?            = null,
+                             @SerializedName("message" ) var message : String?         = null,
+                             @SerializedName("data"    ) var data    : ArrayList<Data> = arrayListOf()
 ): Parcelable
 {
     @Parcelize
@@ -18,6 +19,7 @@ data class AllLinkResponse(  @SerializedName("success" ) var success : Boolean? 
         @SerializedName("autoId"      ) var autoId      : Int?    = null,
         @SerializedName("title"       ) var title       : String? = null,
         @SerializedName("link"        ) var link        : String? = null,
+        @SerializedName("isLive"      ) var isLive      : Int?    = null,
         @SerializedName("categoryId"  ) var categoryId  : Int?    = null,
         @SerializedName("isDeleted"   ) var isDeleted   : Int?    = null,
         @SerializedName("isBlocked"   ) var isBlocked   : Int?    = null,

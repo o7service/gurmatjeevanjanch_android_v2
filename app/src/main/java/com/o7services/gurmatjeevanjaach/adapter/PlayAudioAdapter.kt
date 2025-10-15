@@ -120,10 +120,19 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
         notifyItemChanged(oldIndex)
         notifyItemChanged(selectedIndex)
     }
+
     fun updateCurrentAudioId(audioId: String?) {
+        val oldIndex = selectedIndex
         currentAudioId = audioId
-        notifyDataSetChanged()
+        selectedIndex = item.indexOfFirst { it.id.toString() == audioId }
+        if (oldIndex != -1) notifyItemChanged(oldIndex)
+        if (selectedIndex != -1) notifyItemChanged(selectedIndex)
     }
+
+//    fun updateCurrentAudioId(audioId: String?) {
+//        currentAudioId = audioId
+//        notifyDataSetChanged()
+//    }
 
 
     interface playAudioInterface{

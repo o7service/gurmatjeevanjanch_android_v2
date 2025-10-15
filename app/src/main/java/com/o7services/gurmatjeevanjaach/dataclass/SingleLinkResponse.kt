@@ -3,10 +3,11 @@ package com.o7services.gurmatjeevanjaach.dataclass
 import com.google.gson.annotations.SerializedName
 
 data class SingleLinkResponse(
-    @SerializedName("success" ) var success : Boolean? = null,
-    @SerializedName("status"  ) var status  : Int?     = null,
-    @SerializedName("message" ) var message : String?  = null,
-    @SerializedName("data"    ) var data    : ArrayList<Data>   = arrayListOf()
+    @SerializedName("success" ) var success : Boolean?        = null,
+    @SerializedName("status"  ) var status  : Int?            = null,
+    @SerializedName("total"   ) var total   : Int?            = null,
+    @SerializedName("message" ) var message : String?         = null,
+    @SerializedName("data"    ) var data    : ArrayList<Data> = arrayListOf()
 
 
 ){
