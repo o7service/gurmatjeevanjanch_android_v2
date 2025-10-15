@@ -80,7 +80,8 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="C:\Users\ThinkCentre\Downloads\gurmat png logo 3 (1).png" />
-                                                <entry key="scalingPercent" value="75" />
+                                                <entry key="scalingPercent" value="110" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -112,7 +113,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_launcher_gurmat" />
+                                      <entry key="outputName" value="ic_launcher_gurmat_jeewan" />
                                     </map>
                                   </option>
                                 </PersistentState>

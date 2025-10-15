@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit
 class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     lateinit var binding : FragmentPlayAudioBinding
     lateinit var adapter : PlayAudioAdapter
+    var textTitle = ""
     lateinit var mainActivity: MainActivity
     lateinit var tvTitle : TextView
     var currentIndex = 0
@@ -42,6 +43,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         mainActivity = activity as MainActivity
         arguments?.let {
             id = it.getString("id", "")
+            textTitle = it.getString("title", "")
         }
     }
 
@@ -55,6 +57,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
 
     override fun onResume() {
         super.onResume()
+        mainActivity.tvTitle.setText(textTitle)
         Log.d("Response", "Current Title: ${MediaManager.currentTitle}")
         Log.d("Response", "Current Audio ID: ${MediaManager.currentAudioId}")
         Log.d("Response", id)
@@ -94,6 +97,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainActivity.tvTitle.setText(textTitle)
 //        if (MediaManager.isAudioPlaying()) {
 //            Glide.with(mainActivity)
 //                .load(R.drawable.ic_audio_pause)
@@ -226,8 +230,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     item[currentIndex].title.toString(),
                     item[currentIndex].audioLink.toString(),
                     item[currentIndex].id.toString(),
-                    item[currentIndex].singerId.toString()
-                )
+                    item[currentIndex].singerId.toString())
             } else {
                 currentIndex = 0
 //                Glide.with(mainActivity)

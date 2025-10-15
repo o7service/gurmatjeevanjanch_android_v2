@@ -108,39 +108,85 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 //            override fun onTabUnselected(tab: TabLayout.Tab) {}
 //            override fun onTabReselected(tab: TabLayout.Tab) {}
 //        })
+//        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+//            val tabView = LayoutInflater.from(context).inflate(R.layout.item_custom_tab, null)
+//            tab.customView = tabView
+//        }.attach()
+//
+//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                val indicator = tab?.customView?.findViewById<View>(R.id.indicator)
+//                indicator?.setBackgroundResource(R.drawable.bg_tab_selected)
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//                val indicator = tab?.customView?.findViewById<View>(R.id.indicator)
+//                indicator?.setBackgroundResource(R.drawable.bg_tab_unselected)
+//            }
+//
+//            override fun onTabReselected(tab: TabLayout.Tab?) {}
+//        })
+//
+//
+//        binding.tabLayout.getTabAt(binding.viewPager.currentItem)
+//            ?.customView?.findViewById<View>(R.id.indicator)
+//            ?.setBackgroundResource(R.drawable.bg_tab_selected)
+//        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//
+//                for (i in 0 until binding.tabLayout.tabCount) {
+//                    val tab = binding.tabLayout.getTabAt(i)
+//                    val indicator = tab?.customView?.findViewById<View>(R.id.indicator)
+//                    if (i == position) {
+//                        indicator?.setBackgroundResource(R.drawable.bg_tab_selected)
+//                    } else {
+//                        indicator?.setBackgroundResource(R.drawable.bg_tab_unselected)
+//                    }
+//                }
+//            }
+//
+//        })
+
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             val tabView = LayoutInflater.from(context).inflate(R.layout.item_custom_tab, null)
             tab.customView = tabView
         }.attach()
 
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.customView?.setBackgroundResource(R.drawable.bg_tab_selected)
-            }
+     //   updateStripIndicators(binding.viewPager.currentItem)
+        val tab = binding.tabLayout.getTabAt(0)
+        val indicator1 = tab?.customView?.findViewById<View>(R.id.indicator1)
+        val indicator2 = tab?.customView?.findViewById<View>(R.id.indicator2)
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.customView?.setBackgroundResource(R.drawable.bg_tab_unselected)
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
-        })
-
-        binding.tabLayout.getTabAt(binding.viewPager.currentItem)?.customView?.setBackgroundResource(R.drawable.bg_tab_selected)
+        if (binding.viewPager.currentItem == 0) {
+            indicator1?.setBackgroundResource(R.drawable.bg_tab_selected)
+            indicator2?.setBackgroundResource(R.drawable.bg_tab_unselected)
+        } else {
+            indicator1?.setBackgroundResource(R.drawable.bg_tab_unselected)
+            indicator2?.setBackgroundResource(R.drawable.bg_tab_selected)
+        }
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                val initialTab = binding.tabLayout.getTabAt(binding.viewPager.currentItem)
-                initialTab?.customView?.setBackgroundResource(R.drawable.bg_tab_selected)
 
-                for (i in 0 until binding.tabLayout.tabCount) {
-                    binding.tabLayout.getTabAt(i)?.customView?.setBackgroundResource(R.drawable.bg_tab_unselected)
+                val tab = binding.tabLayout.getTabAt(0) // Only one tab
+                val indicator1 = tab?.customView?.findViewById<View>(R.id.indicator1)
+                val indicator2 = tab?.customView?.findViewById<View>(R.id.indicator2)
+
+                if (position == 0) {
+                    // YouTube page
+                    indicator1?.setBackgroundResource(R.drawable.bg_tab_selected)
+                    indicator2?.setBackgroundResource(R.drawable.bg_tab_unselected)
+                } else {
+                    // Image page
+                    indicator1?.setBackgroundResource(R.drawable.bg_tab_unselected)
+                    indicator2?.setBackgroundResource(R.drawable.bg_tab_selected)
                 }
-                binding.tabLayout.getTabAt(position)?.customView?.setBackgroundResource(R.drawable.bg_tab_selected)
-
             }
         })
+// Set initial indicator states
+
+
 
 
 
@@ -160,6 +206,19 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             playerUi()
         }
     }
+
+//    private fun updateStripIndicators(selectedPosition: Int) {
+//        for (i in 0 until binding.tabLayout.tabCount) {
+//            val tab = binding.tabLayout.getTabAt(i)
+//            val indicator = tab?.customView?.findViewById<View>(R.id.indicator)
+//            if (i == selectedPosition) {
+//                indicator?.setBackgroundResource(R.drawable.bg_tab_selected)
+//            } else {
+//                indicator?.setBackgroundResource(R.drawable.bg_tab_unselected)
+//            }
+//        }
+//    }
+
 
     private fun playerUi(){
         updateMiniPlayer()

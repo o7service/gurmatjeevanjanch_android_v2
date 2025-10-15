@@ -54,8 +54,7 @@ class RequestSamagamFragment : Fragment() {
             endDate()
         }
         binding.saveUpdate.setOnClickListener {
-            binding.tvFrom.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(startCalendar.time)
-            binding.tvTo.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(endCalendar.time)
+
             if (binding.etTitle.text.toString().isNullOrBlank()) {
                 Toast.makeText(
                     mainActivity,
@@ -133,6 +132,8 @@ class RequestSamagamFragment : Fragment() {
                 ).show()
                 return@setOnClickListener
             }
+            binding.tvFrom.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(startCalendar.time)
+            binding.tvTo.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(endCalendar.time)
             RetrofitClient.instance.addSamagam(
                 AddSamagamRequest(
                     organizerName = binding.etTitle.text.toString(),
