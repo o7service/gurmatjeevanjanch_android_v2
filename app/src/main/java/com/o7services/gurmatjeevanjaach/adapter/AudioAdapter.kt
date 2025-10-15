@@ -46,21 +46,21 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
 //        holder.binding.tvSubTitle.text = item[position].
         val imageUrl = AppConst.imageBaseUrl + item[position].imageUrl
         val originalText = item[position].name.toString()
-        translateTextWithLibre(
-            originalText,
-            onResult = { translatedText ->
-                holder.itemView.post {
-                    holder.binding.tvSubTitle.text = translatedText
-                }
-            },
-            onError = { exception ->
-                // fallback to original text
-                holder.itemView.post {
-                    holder.binding.tvSubTitle.text = originalText
-                }
-                Log.e("TRANSLATION_ERROR", "LibreTranslate failed: ${exception.message}")
-            }
-        )
+//        translateTextWithLibre(
+//            originalText,
+//            onResult = { translatedText ->
+//                holder.itemView.post {
+//                    holder.binding.tvSubTitle.text = translatedText
+//                }
+//            },
+//            onError = { exception ->
+//                // fallback to original text
+//                holder.itemView.post {
+//                    holder.binding.tvSubTitle.text = originalText
+//                }
+//                Log.e("TRANSLATION_ERROR", "LibreTranslate failed: ${exception.message}")
+//            }
+//        )
 
         Glide.with(holder.itemView)
             .load(imageUrl)
@@ -82,7 +82,7 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
     ) {
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ENGLISH)
-            .setTargetLanguage("pa") // English to Punjabi
+            .setTargetLanguage(TranslateLanguage.HINDI) // English to Punjabi
             .build()
 
         val translator = Translation.getClient(options)
