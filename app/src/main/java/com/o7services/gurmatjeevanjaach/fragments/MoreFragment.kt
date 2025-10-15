@@ -1,5 +1,7 @@
 package com.o7services.gurmatjeevanjaach.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,6 +37,21 @@ class MoreFragment : Fragment() {
         mainActivity.hideNoData()
         binding.btnRequestSangam.setOnClickListener {
             findNavController().navigate(R.id.requestSamagamFragment)
+        }
+        binding.tvNumber.setOnClickListener {
+            var intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$8728006100")
+            startActivity(intent)
+        }
+        binding.tvNumber1.setOnClickListener {
+            var intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$8728006100")
+            startActivity(intent)
+        }
+        binding.tvNumber2.setOnClickListener {
+            var intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$8728006100")
+            startActivity(intent)
         }
     }
 
