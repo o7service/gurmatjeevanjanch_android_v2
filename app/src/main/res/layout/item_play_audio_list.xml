@@ -24,18 +24,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
         android:id="@+id/tvTitle"
         android:maxLines="2"
         android:maxEms="12"
         app:layout_constraintEnd_toStartOf="@id/ivPlay"
         android:textColor="@color/black_light"
+        app:layout_constraintBottom_toBottomOf="@id/ivAudio"
+        android:layout_gravity="center"
         android:textSize="@dimen/_11sdp"
+        android:ellipsize="end"
         android:fontFamily="@font/notoserifgurmukhi_semibold"
         android:includeFontPadding="false"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>
+        app:layout_constraintTop_toTopOf="@id/ivAudio"
+        tools:text = "Title  kslfdslfkelfieoiejsjf ki"/>
     <ImageView
         android:layout_width="@dimen/_18sdp"
         android:layout_height="@dimen/_18sdp"

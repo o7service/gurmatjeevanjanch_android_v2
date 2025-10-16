@@ -313,9 +313,11 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                 binding.swipeRefreshLayout.isRefreshing = false
                 if (response.body()?.status == 200){
                     if (response.body()?.success == true){
+
                         val data = response.body()?.data
                         if (data != null){
                             (mainActivity as MainActivity).hideProgress()
+                            binding.clHome.visibility = View.VISIBLE
                             item.clear()
                             item.addAll(data.filter { it.isSingle == 0 }) // only add items with isSingle == true
                             mainActivity.hideNoData()
@@ -326,6 +328,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                                 Log.d("Response", "YouTube ID = $youtubeId")
                                 getSingleLink(youtubeId)
                             } else {
+
                                 Log.d("Response", "YouTube item not found or ID is null")
                             }
                             val zoomItem = data.find { it.title.equals("Zoom", ignoreCase = true) }
@@ -341,6 +344,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                             getSingleLink(youtubeId)
                         }else{
                             (requireActivity() as MainActivity).hideProgress()
+                            mainActivity.showNoData()
+                            binding.clHome.visibility = View.INVISIBLE
                             Log.d("Response", response.body()?.message.toString())
                         }
                     }else{
@@ -442,7 +447,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             binding.tvPlayTitle.text = newTitle
         }
         Glide.with(mainActivity)
-            .load(R.drawable.ic_audio_pause)
+            .load(R.drawable.icon_paused)
             .into(binding.ivPlay)
         } else {
         binding.tvPlayTitle.text = MediaManager.currentTitle

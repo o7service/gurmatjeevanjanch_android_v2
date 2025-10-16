@@ -1,5 +1,6 @@
 package com.o7services.gurmatjeevanjaach.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -52,6 +53,19 @@ class MoreFragment : Fragment() {
             var intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:+91-78888-75285")
             startActivity(intent)
+        }
+        binding.tvChangeLanguage.setOnClickListener {
+                val prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
+                val currentLang = prefs.getString("language", "en")
+                val newLang = if (currentLang == "en") "pa" else "en"
+
+                prefs.edit().putString("language", newLang).apply()
+
+                // Restart the activity to apply language change
+                val intent = requireActivity().intent
+                requireActivity().finish()
+                startActivity(intent)
+
         }
     }
 

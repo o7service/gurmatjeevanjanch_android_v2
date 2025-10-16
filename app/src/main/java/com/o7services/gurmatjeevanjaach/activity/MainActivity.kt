@@ -1,15 +1,21 @@
 package com.o7services.gurmatjeevanjaach.activity
 
+
+import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.provider.Settings
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -27,6 +33,8 @@ import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
 import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.databinding.ActivityMainBinding
+import setAppLocale
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
@@ -45,17 +53,29 @@ class MainActivity : AppCompatActivity() {
 //        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if (!isInternetAvailable(this)) {
+          //  binding.llProgress.visibility = View.VISIBLE
+            AlertDialog.Builder(this)
+                .setTitle("No Internet Connection")
+                .setMessage("Please turn on Wi-Fi or mobile data to continue.")
+                .setCancelable(false)
+                .setPositiveButton("Open Settings") { dialog, _ ->
+                    startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        } else {
+           // binding.llProgress.visibility = View.GONE
+            // proceed with loading content
+        }
+
         appBar = binding.root.findViewById(R.id.appBarLayout)
         ivBack = binding.root.findViewById(R.id.ivBack)
         tvTitle = binding.root.findViewById(R.id.tvTitle)
-        onBackPressedDispatcher.addCallback(this) {
-            val currentNavController = findNavController(R.id.nav_host_fragment)
-            if (currentNavController.currentDestination?.id == R.id.homeFragment) {
-                finish()
-            } else {
-                currentNavController.popBackStack()
-            }
-        }
+
         val window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = ContextCompat.getColor(this , R.color.bg)
@@ -83,6 +103,16 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val navController = findNavController(R.id.nav_host_fragment)
+                if (navController.currentDestination?.id == R.id.homeFragment) {
+                    finish() // close app if already on homeFragment
+                } else {
+                    navController.popBackStack() // navigate back in nav graph
+                }
+            }
+        })
        binding.bottomNav.setOnNavigationItemSelectedListener { item->
             val currentDest = navController.currentDestination?.id
             when(item.itemId){
@@ -93,6 +123,7 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnNavigationItemSelectedListener true
         }
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> {
@@ -194,5 +225,28 @@ class MainActivity : AppCompatActivity() {
 
     fun hideNoData(){
         binding.tvNoDataFound.visibility = View.GONE
+    }
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val lang = prefs.getString("language", "en") ?: "en"
+        super.attachBaseContext(newBase.setAppLocale(lang))
+    }
+
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork ?: return false
+            val actNw = connectivityManager.getNetworkCapabilities(network) ?: return false
+            return when {
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
+        } else {
+            val networkInfo = connectivityManager.activeNetworkInfo ?: return false
+            return networkInfo.isConnected
+        }
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <string name="home">ਹੋਮ</string>
+        <string name="audio">ਆਡੀਓ</string>
+        <string name="swagam">ਸਮਾਗਮ</string>
+        <string name="more">ਮੋਰ</string>
+        <string name="connect_with_us">ਕਨੈਕਟ ਵਿਦ ਅਸ</string>
+        <string name="contact_us">ਕਾਂਟੈਕਟ ਅਸ</string>
+        <string name="india">ਇੰਡੀਆ</string>
+        <string name="canada">ਕੈਨੇਡਾ</string>
+        <string name="requestForSamagam">ਰਿਕਵੇਸਟ ਫੋਰ ਸਮਾਗਮ</string>
+        <string name="privacy_policy">ਪਰਾਈਵੇਸੀ ਪਾਲਿਸੀ</string>
+        <string name="enter_your_name"><font size = "15">ਨਾਮ:</font></string>
+        <string name="address"><font size = "15">ਐਡਰੈੱਸ:</font></string>
+        <string name="samagam">ਅਪਕਮਿੰਗ ਸਮਾਗਮ</string>
+        <string name="More">ਮੋਰ</string>
+        <string name="programDescription"><font size = "15">ਪ੍ਰੋਗ੍ਰਾਮ ਡਿਸਕ੍ਰਿਪਸ਼ਨ:</font></string>
+        <string name="google_map_link"><font size = "15">ਗੂਗਲ ਮੈਪ ਲਿੰਕ:</font></string>
+        <string name="contact_number"><font size = "15">ਕਾਂਟੈਕਟ ਨੰਬਰ:</font></string>
+        <string name="your_email"><font size = "15">ਈ-ਮੇਲ:</font></string>
+        <string name="start_date"><font size = "15">ਸਟਾਰਟ ਡੇਟ:</font></string>
+        <string name="end_date"><font size = "15">ਐਂਡ ਡੇਟ:</font></string>
+        <string name="request_samagam">ਸੈਂਡ ਰਿਕਵੇਸਟ</string>
+        <string name="to_date"><font size = "15">ਐਂਡ ਡੇਟ:</font></string>
+        <string name="addSamagamRequest">ਐਡ ਸਮਾਗਮ ਰਿਕਵੇਸਟ</string>
+        <string name="youtube_channels">ਯੂਟਿਊਬ ਚੈਨਲਜ਼</string>
+        <string name="whatsapp_group">ਵਟਸਐਪ ਗਰੁੱਪ</string>
+        <string name="telegram_channels">ਟੈਲੀਗ੍ਰਾਮ ਚੈਨਲਜ਼</string>
+        <string name="facebook_groups">ਫੇਸਬੁੱਕ ਗਰੁੱਪਜ਼</string>
+        <string name="instagram_chanels">ਇੰਸਟਾਗ੍ਰਾਮ ਚੈਨਲਜ਼</string>
+        <string name="enter_program_description">ਪ੍ਰੋਗ੍ਰਾਮ ਡਿਸਕ੍ਰਿਪਸ਼ਨ ਐਂਟਰ ਕਰੋ</string>
+        <string name="enter_address">ਐਡਰੈੱਸ ਐਂਟਰ ਕਰੋ</string>
+        <string name="enter_contact_number">ਕਾਂਟੈਕਟ ਨੰਬਰ ਐਂਟਰ ਕਰੋ</string>
+        <string name="end_date_start_date_validation">ਸਟਾਰਟ ਜਾਂ ਐਂਡ ਡੇਟ ਐਂਟਰ ਕਰੋ</string>
+        <string name="enter_valid_email">ਵੈਲਿਡ ਈ-ਮੇਲ ਐਂਟਰ ਕਰੋ</string>
+        <string name="data_not_found">ਡਾਟਾ ਨੌਟ ਫਾਊਂਡ</string>
+        <string name="listen">ਲਿਸਨ</string>
+        <string name="month_1">ਜਨਵਰੀ</string>
+        <string name="month_2">ਫਰਵਰੀ</string>
+        <string name="month_3">ਮਾਰਚ</string>
+        <string name="month_4">ਅਪ੍ਰੈਲ</string>
+        <string name="month_5">ਮਈ</string>
+        <string name="month_6">ਜੂਨ</string>
+        <string name="month_7">ਜੁਲਾਈ</string>
+        <string name="month_8">ਅਗਸਤ</string>
+        <string name="month_9">ਸਤੰਬਰ</string>
+        <string name="month_10">ਅਕਤੂਬਰ</string>
+        <string name="month_11">ਨਵੰਬਰ</string>
+        <string name="month_12">ਦਸੰਬਰ</string>
+        <string name="change_language">ਐਪ ਦੀ ਭਾਸ਼ਾ ਬਦਲੋ</string>
+        <string name="view_samagam">ਵਿਊ ਸਮਾਗਮ</string>
+    </resources>

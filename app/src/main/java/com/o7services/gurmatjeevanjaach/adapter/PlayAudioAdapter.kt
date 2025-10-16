@@ -15,7 +15,6 @@ import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerAudioResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SingleSingerResponse
 import com.o7services.gurmatjeevanjaach.fragments.PlayAudioFragment
 import com.o7services.gurmatjeevanjaach.retrofit.MediaManager
-
 class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, var categoryImage : String, var listener : playAudioInterface) : RecyclerView.Adapter<PlayAudioAdapter.ViewHolder>(){
     private var isPlaying: Boolean = false
     class ViewHolder (val binding : ItemPlayAudioListBinding) : RecyclerView.ViewHolder(binding.root){
@@ -32,7 +31,7 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
         holder.binding.tvTitle.text = item[position].title
         if (item[position].id.toString() == currentAudioId && MediaManager.isAudioPlaying()) {
             Glide.with(holder.itemView)
-                .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_paused)
+                .load(com.o7services.gurmatjeevanjaach.R.drawable.ic_audio_pause_white)
                 .into(holder.binding.ivPlay)
         } else {
             Glide.with(holder.itemView)
@@ -60,7 +59,7 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
                 .into(holder.binding.ivAudio)
             if (MediaManager.isPlaying){
                     Glide.with(holder.itemView)
-                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_paused)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.ic_audio_pause_white)
                         .into(holder.binding.ivPlay)
                 }else{
                     Glide.with(holder.itemView)
@@ -86,7 +85,7 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
             holder.binding.ivPlay.visibility = View.VISIBLE
             if(MediaManager.isPlaying){
                 Glide.with(holder.itemView)
-                    .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_paused)
+                    .load(com.o7services.gurmatjeevanjaach.R.drawable.ic_audio_pause_white)
                     .into(holder.binding.ivPlay)
             }else{
                 Glide.with(holder.itemView)
@@ -97,7 +96,7 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
                 listener.togglePlayPause()
                 if(MediaManager.isPlaying){
                     Glide.with(holder.itemView)
-                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_paused)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.ic_audio_pause_white)
                         .into(holder.binding.ivPlay)
                 }else{
                     Glide.with(holder.itemView)

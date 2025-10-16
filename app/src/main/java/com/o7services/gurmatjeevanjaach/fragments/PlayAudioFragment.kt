@@ -135,8 +135,8 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 currentIndex++
                 playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString() ,item[currentIndex].id.toString(),item[currentIndex].singerId.toString())
             } else {
+                currentIndex = 0
                 playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString() , item[currentIndex].id.toString(),item[currentIndex].singerId.toString())
-
             }
             adapter.notifyDataSetChanged()
         }

@@ -42,4 +42,19 @@
     <string name="end_date_start_date_validation">Enter Start or End Date</string>
     <string name="enter_valid_email">Enter valid email</string>
     <string name="data_not_found">No Data Found</string>
+    <string name="listen">Listen</string>
+    <string name="view_samagam">View Samagam</string>
+    <string name="change_language">Change App Language</string>
+    <string name="month_1">January</string>
+    <string name="month_2">February</string>
+    <string name="month_3">March</string>
+    <string name="month_4">April</string>
+    <string name="month_5">May</string>
+    <string name="month_6">June</string>
+    <string name="month_7">July</string>
+    <string name="month_8">August</string>
+    <string name="month_9">September</string>
+    <string name="month_10">October</string>
+    <string name="month_11">November</string>
+    <string name="month_12">December</string>
 </resources>

@@ -222,6 +222,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/tvChangeLanguage"
+        android:text="@string/change_language"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintTop_toBottomOf="@id/btnRequestSangam"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_medium"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/tvPrivacyPolicy"
         android:text="@string/privacy_policy"
         android:textColor="@color/blue"

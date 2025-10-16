@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View Samagam"
+            android:text="@string/view_samagam"
             app:layout_constraintTop_toTopOf="@id/view"
             android:textSize="@dimen/_10sdp" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
