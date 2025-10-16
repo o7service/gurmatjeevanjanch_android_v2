@@ -315,9 +315,10 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                     if (response.body()?.success == true){
                         val data = response.body()?.data
                         if (data != null){
-                            (requireActivity() as MainActivity).hideProgress()
+                            (mainActivity as MainActivity).hideProgress()
                             item.clear()
                             item.addAll(data.filter { it.isSingle == 0 }) // only add items with isSingle == true
+                            mainActivity.hideNoData()
                             socialLinkAdapter.notifyDataSetChanged()
                             val youtubeItem = data.find { it.title.equals("Youtube", ignoreCase = true) }
                             if (youtubeItem?.id != null) {
@@ -379,6 +380,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                             bundle.putString("title", title)
                             bundle.putString("categoryImage", categoryImage)
                             bundle.putParcelableArrayList("data", ArrayList(data))
+                            mainActivity.hideNoData()
                             findNavController().navigate(R.id.allYoutubeListFragment, bundle)
                         }else{
                             Toast.makeText(mainActivity, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()

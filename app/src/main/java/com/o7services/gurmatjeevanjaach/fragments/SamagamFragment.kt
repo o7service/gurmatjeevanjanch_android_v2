@@ -85,6 +85,7 @@ class SamagamFragment : Fragment(), SamagamAdapter.onItemSamagamListener {
                             mainActivity.hideProgress()
                             item.clear()
                             item.addAll(data)
+                            mainActivity.hideNoData()
                             adapter.notifyDataSetChanged()
                         }else{
                             mainActivity.hideProgress()

@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_gravity="center"
-                    android:text="+91-87280 06100"
+                    android:text="+91-78888-75285"
                     android:textColor="@color/blue"
                     android:fontFamily="@font/poppins_medium"
                     app:layout_constraintStart_toEndOf="@id/ivCall2"
@@ -181,7 +181,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+91-87280 06100"
+                    android:text="+1-77888-31925"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_11sdp"
                     android:fontFamily="@font/poppins_medium"

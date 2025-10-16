@@ -78,7 +78,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             binding.tvStartTime.text = "00:00"
             binding.tvEndTime.text = "00:00"
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio_home)
+                .load(R.drawable.ic_play_audio)
                 .into(binding.ivPlay)
         }
     }
@@ -108,6 +108,9 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
 //                .into(binding.ivPlay)
 //        }
         binding.swipeRefreshLayout.setOnRefreshListener {
+            currentIndex = 0
+            adapter.updateSelectedIndex(currentIndex)
+            adapter.updateCurrentAudioId(item[currentIndex].id.toString())
             mainActivity.showProgress()
             getAllAudio()
             uiSet()
@@ -146,7 +149,8 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     .into(binding.ivPlay)
             } else {
                 Glide.with(mainActivity)
-                    .load(R.drawable.ic_play_audio_home)
+                    .load(R.drawable.ic_play_audio)
+
                     .into(binding.ivPlay)
             }
         }
@@ -158,7 +162,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 .into(binding.ivPlay)
         } else {
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio_home)
+                .load(R.drawable.ic_play_audio)
                 .into(binding.ivPlay)
         }
     }
@@ -175,17 +179,15 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
 
                         val data = response.body()?.data
                         if (data != null){
+                            mainActivity.hideNoData()
                             mainActivity.hideProgress()
                             audioImage = data.imageUrl.toString()
                             val imageBaseUrl = AppConst.imageBaseUrl + data.imageUrl
                             Glide.with(mainActivity)
                                 .load(imageBaseUrl)
-//            .placeholder()
+                                .error(R.drawable.no_image)
+                                .placeholder(R.drawable.no_image)
                                 .into(binding.ivAudio)
-//                            binding.tvTitle.text = data.name
-//                            item.clear()
-//                            item.add(data)
-//                            adapter.notifyDataSetChanged()
                         }else{
                             mainActivity.hideProgress()
                             mainActivity.showNoData()
@@ -212,7 +214,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     }
     private fun playCurrentAudio(title: String, audioLink: String, audioId: String, singerId: String) {
         Glide.with(mainActivity)
-            .load(R.drawable.ic_play_audio_home) // optional loading icon
+            .load(R.drawable.ic_play_audio) // optional loading icon
             .into(binding.ivPlay)
         binding.tvTitle.setText(title)
         MediaManager.onPrepared = {
@@ -254,7 +256,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         MediaManager.onError = { errorMsg ->
             Log.e("AudioError", errorMsg)
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio_home)
+                .load(R.drawable.ic_play_audio)
                 .into(binding.ivPlay)
             updatePlayPauseIcon()
         }
@@ -323,14 +325,16 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     if (response.body()?.success == true){
                         val data = response.body()?.data
                         if (data != null){
-                            adapter = PlayAudioAdapter(item, categoryImage = audioImage , this@PlayAudioFragment)
-                            linearLayoutManager = LinearLayoutManager(mainActivity)
-                            binding.recyclerView.adapter = adapter
-                            binding.recyclerView.layoutManager = linearLayoutManager
-                            item.clear()
-                            item.addAll(data)
-                            adapter.updateCurrentAudioId(MediaManager.currentAudioId ?: "")
-                            adapter.notifyDataSetChanged()
+                                item.clear()
+                                item.addAll(data)
+                                adapter = PlayAudioAdapter(item, categoryImage = audioImage, this@PlayAudioFragment)
+                                linearLayoutManager = LinearLayoutManager(mainActivity)
+                                binding.recyclerView.layoutManager = linearLayoutManager
+                                binding.recyclerView.adapter = adapter
+                                adapter.updateCurrentAudioId(MediaManager.currentAudioId ?: "")
+                                adapter.updateSelectedIndex(currentIndex)
+                                adapter.notifyDataSetChanged()
+
                         }else{
                             Log.d("Response", response.body()?.message.toString())
                         }
@@ -361,7 +365,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         binding.tvTitle.text = title
         Log.d("Audio Id", audioId)
         Glide.with(mainActivity)
-            .load(R.drawable.ic_play_audio_home) // optional loading icon
+            .load(R.drawable.ic_play_audio) // optional loading icon
             .into(binding.ivPlay)
         adapter.notifyDataSetChanged()
         MediaManager.onPrepared = {
@@ -369,7 +373,8 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             val duration = MediaManager.getDuration()
             binding.seekBar.max = duration
             binding.tvEndTime.text = formatTime(duration)
-
+            adapter.updateSelectedIndex(currentIndex)
+            adapter.updateCurrentAudioId(item[currentIndex].id.toString())
             // Set play icon after audio starts
             Glide.with(mainActivity)
                 .load(R.drawable.ic_audio_pause)
@@ -407,7 +412,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             // Optional: Log or show a toast
             Log.e("AudioError", errorMsg)
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio_home)
+                .load(R.drawable.ic_play_audio)
                 .into(binding.ivPlay)
         }
         MediaManager.playAudioFromUrl(title, audioLink, audioId , singerId)

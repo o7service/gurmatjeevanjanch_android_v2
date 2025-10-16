@@ -42,7 +42,7 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
     }
 
     override fun onBindViewHolder(holder: AudioAdapter.ViewHolder, position: Int) {
-        holder.binding.tvSubTitle.text = item[position].name
+        holder.binding.tvTitle.text = item[position].name
 //        holder.binding.tvSubTitle.text = item[position].
         val imageUrl = AppConst.imageBaseUrl + item[position].imageUrl
         val originalText = item[position].name.toString()

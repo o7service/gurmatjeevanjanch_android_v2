@@ -1,15 +1,19 @@
 package com.o7services.gurmatjeevanjaach.activity
 
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -44,6 +48,27 @@ class MainActivity : AppCompatActivity() {
         appBar = binding.root.findViewById(R.id.appBarLayout)
         ivBack = binding.root.findViewById(R.id.ivBack)
         tvTitle = binding.root.findViewById(R.id.tvTitle)
+        onBackPressedDispatcher.addCallback(this) {
+            val currentNavController = findNavController(R.id.nav_host_fragment)
+            if (currentNavController.currentDestination?.id == R.id.homeFragment) {
+                finish()
+            } else {
+                currentNavController.popBackStack()
+            }
+        }
+        val window = window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = ContextCompat.getColor(this , R.color.bg)
+        WindowCompat.getInsetsController(window, window.decorView)?.isAppearanceLightStatusBars = true
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.displayCutout())
+            val navBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            view.setPadding(0, statusBarInsets.top, 0 , 0)
+            insets
+        }
+        if (Build.VERSION.SDK_INT >= 35) {
+          WindowCompat.getInsetsController(window, window.decorView)?.isAppearanceLightStatusBars = true
+        }
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         this.window.statusBarColor = resources.getColor(R.color.bg)

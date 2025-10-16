@@ -77,6 +77,7 @@ class AudioFragment : Fragment(), AudioAdapter.onItemClickListener {
                             item.clear()
                             item.addAll(data)
                             adapter.notifyDataSetChanged()
+                            mainActivity.hideNoData()
                         }else{
                             mainActivity.hideProgress()
                             mainActivity.showNoData()

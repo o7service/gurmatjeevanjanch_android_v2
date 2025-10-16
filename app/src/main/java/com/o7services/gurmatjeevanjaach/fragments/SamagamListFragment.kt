@@ -81,6 +81,7 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
                         if (data != null){
                             item.clear()
                             item.add(data)
+                            mainActivity.hideNoData()
                             adapter.notifyDataSetChanged()
                         }else{
                             mainActivity.hideProgress()

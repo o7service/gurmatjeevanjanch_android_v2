@@ -23,7 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/dummy_image"
-        android:scaleType="center"
         android:id="@+id/ivAudio" />
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="match_parent"
@@ -43,6 +42,9 @@
         app:layout_constraintStart_toStartOf="@id/guide_v_25"
         app:layout_constraintEnd_toEndOf="@id/guide_v_75"
         android:id="@+id/seekBar"
+        android:progressTint="@color/black_light"
+        android:thumbTint="@color/black_light"
+        android:progressBackgroundTint="@color/grey"
         android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintTop_toBottomOf="@id/ivAudio"/>
     <TextView

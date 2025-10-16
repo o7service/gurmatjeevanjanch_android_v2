@@ -40,17 +40,17 @@ class MoreFragment : Fragment() {
         }
         binding.tvNumber.setOnClickListener {
             var intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:$8728006100")
+            intent.data = Uri.parse("tel:+1-77888-31925")
             startActivity(intent)
         }
         binding.tvNumber1.setOnClickListener {
             var intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:$8728006100")
+            intent.data = Uri.parse("tel:8728006100")
             startActivity(intent)
         }
         binding.tvNumber2.setOnClickListener {
             var intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:$8728006100")
+            intent.data = Uri.parse("tel:+91-78888-75285")
             startActivity(intent)
         }
     }

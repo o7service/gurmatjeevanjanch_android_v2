@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.ItemSamagamProgramListBinding
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateResponse
@@ -28,7 +29,8 @@ class SamagamListAdapter(var item : ArrayList<ProgramSingleDateResponse.Data> , 
         val imageIcon = AppConst.imageBaseUrl + item[position].imageUrl
         Glide.with(holder.itemView)
             .load(imageIcon)
-//            .placeholder()
+            .error(R.drawable.no_image)
+            .placeholder(R.drawable.no_image)
             .into(holder.binding.ivAudio)
         holder.itemView.setOnClickListener {
            listener.onMapClick(item[position].mapLink.toString())

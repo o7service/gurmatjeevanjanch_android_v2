@@ -8,6 +8,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.ItemConnectCardBinding
 import com.o7services.gurmatjeevanjaach.databinding.ItemInstagramBinding
@@ -29,6 +30,8 @@ class SocialLinkAdapter(var item : ArrayList<SocialLinkResponse.Data>, val liste
         var imageIcon = AppConst.imageBaseUrl + item[position].icon
         Glide.with(holder.itemView)
             .load(imageIcon)
+            .error(R.drawable.no_image)
+            .placeholder(R.drawable.no_image)
 //            .placeholder()
             .into(holder.binding.ivMusic)
         holder.itemView.setOnClickListener {

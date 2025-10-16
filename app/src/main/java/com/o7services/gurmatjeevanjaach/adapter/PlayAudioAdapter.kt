@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.R
+import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.adapter.AudioAdapter.ViewHolder
 import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.ItemPlayAudioListBinding
@@ -43,6 +43,8 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
         var imageUrl = AppConst.imageBaseUrl + categoryImage
         Glide.with(holder.itemView)
             .load(imageUrl)
+            .error(R.drawable.no_image)
+            .placeholder(R.drawable.no_image)
             .into(holder.binding.ivAudio)
         holder.itemView.setOnClickListener {
             listener.onAudioClick(item[position].title.toString(),item[position].audioLink.toString(), item[position].id.toString(),item[position].singerId.toString())
@@ -53,6 +55,8 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
             var imageUrl = AppConst.imageBaseUrl + categoryImage
             Glide.with(holder.itemView)
                 .load(imageUrl)
+                .error(R.drawable.no_image)
+                .placeholder(R.drawable.no_image)
                 .into(holder.binding.ivAudio)
             if (MediaManager.isPlaying){
                     Glide.with(holder.itemView)
@@ -68,6 +72,8 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
             var imageUrl = AppConst.imageBaseUrl + categoryImage
             Glide.with(holder.itemView)
                 .load(imageUrl)
+                .error(R.drawable.no_image)
+                .placeholder(R.drawable.no_image)
                 .into(holder.binding.ivAudio)
             holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))
             holder.binding.tvTitle.setTextColor(Color.parseColor("#000000"))
