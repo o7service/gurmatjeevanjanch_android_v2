@@ -84,7 +84,6 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     }
 
     private fun updateCurrentIndexByAudioId(audioId: String , singerId :String) {
-
         val index = item.indexOfFirst {it.id.toString() == audioId && it.singerId.toString() == singerId }
         if (index != -1) {
             currentIndex = index
@@ -100,7 +99,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         mainActivity.tvTitle.setText(textTitle)
 //        if (MediaManager.isAudioPlaying()) {
 //            Glide.with(mainActivity)
-//                .load(R.drawable.ic_audio_pause)
+//                .load(R.drawable.icon_pause_solid)
 //                .into(binding.ivPlay)
 //        } else {
 //            Glide.with(mainActivity)
@@ -145,12 +144,14 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             adapter.notifyDataSetChanged()
             if (MediaManager.isAudioPlaying()) {
                 Glide.with(mainActivity)
-                    .load(R.drawable.ic_audio_pause)
+                    .load(R.drawable.icon_pause_solid)
                     .into(binding.ivPlay)
             } else {
+                currentIndex = 0
+                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString() , item[currentIndex].id.toString(),item[currentIndex].singerId.toString())
+                adapter.notifyDataSetChanged()
                 Glide.with(mainActivity)
                     .load(R.drawable.ic_play_audio)
-
                     .into(binding.ivPlay)
             }
         }
@@ -158,7 +159,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     private fun updatePlayPauseIcon() {
         if (MediaManager.isAudioPlaying()) {
             Glide.with(mainActivity)
-                .load(R.drawable.ic_audio_pause)
+                .load(R.drawable.icon_pause_solid)
                 .into(binding.ivPlay)
         } else {
             Glide.with(mainActivity)
@@ -377,7 +378,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             adapter.updateCurrentAudioId(item[currentIndex].id.toString())
             // Set play icon after audio starts
             Glide.with(mainActivity)
-                .load(R.drawable.ic_audio_pause)
+                .load(R.drawable.icon_pause_solid)
                 .into(binding.ivPlay)
         }
         MediaManager.onCompletion = {

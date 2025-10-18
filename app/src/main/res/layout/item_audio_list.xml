@@ -33,7 +33,7 @@
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textColor="@color/black_light"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/_12sdp"
         android:fontFamily="@font/notoserifgurmukhi_semibold"
         app:layout_constraintTop_toTopOf="parent"
         tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>

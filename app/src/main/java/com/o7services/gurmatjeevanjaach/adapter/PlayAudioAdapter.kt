@@ -28,10 +28,15 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
     }
 
     override fun onBindViewHolder(holder: PlayAudioAdapter.ViewHolder, position: Int) {
+        if (position == 0){
+            holder.binding.view1.visibility = View.VISIBLE
+        }else{
+            holder.binding.view1.visibility = View.GONE
+        }
         holder.binding.tvTitle.text = item[position].title
         if (item[position].id.toString() == currentAudioId && MediaManager.isAudioPlaying()) {
             Glide.with(holder.itemView)
-                .load(com.o7services.gurmatjeevanjaach.R.drawable.ic_audio_pause_white)
+                .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause_thin)
                 .into(holder.binding.ivPlay)
         } else {
             Glide.with(holder.itemView)
@@ -59,7 +64,7 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
                 .into(holder.binding.ivAudio)
             if (MediaManager.isPlaying){
                     Glide.with(holder.itemView)
-                        .load(com.o7services.gurmatjeevanjaach.R.drawable.ic_audio_pause_white)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause_thin)
                         .into(holder.binding.ivPlay)
                 }else{
                     Glide.with(holder.itemView)
@@ -85,7 +90,7 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
             holder.binding.ivPlay.visibility = View.VISIBLE
             if(MediaManager.isPlaying){
                 Glide.with(holder.itemView)
-                    .load(com.o7services.gurmatjeevanjaach.R.drawable.ic_audio_pause_white)
+                    .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause_thin)
                     .into(holder.binding.ivPlay)
             }else{
                 Glide.with(holder.itemView)
@@ -96,7 +101,7 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
                 listener.togglePlayPause()
                 if(MediaManager.isPlaying){
                     Glide.with(holder.itemView)
-                        .load(com.o7services.gurmatjeevanjaach.R.drawable.ic_audio_pause_white)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause_thin)
                         .into(holder.binding.ivPlay)
                 }else{
                     Glide.with(holder.itemView)

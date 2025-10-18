@@ -5,6 +5,14 @@
     android:background="@color/bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:id="@+id/view1"
+        android:background="@color/light_grey"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="@dimen/_37sdp"
         android:layout_height="@dimen/_37sdp"
@@ -33,7 +41,7 @@
         android:layout_gravity="center"
         android:textSize="@dimen/_11sdp"
         android:ellipsize="end"
-        android:fontFamily="@font/notoserifgurmukhi_semibold"
+        android:fontFamily="@font/poppins_medium"
         android:includeFontPadding="false"
         app:layout_constraintTop_toTopOf="@id/ivAudio"
         tools:text = "Title  kslfdslfkelfieoiejsjf ki"/>
@@ -47,15 +55,12 @@
        app:layout_constraintStart_toEndOf="@id/tvTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:id="@+id/view"
         android:background="@color/light_grey"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

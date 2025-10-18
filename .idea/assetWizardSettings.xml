@@ -303,8 +303,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="icon_paused_" />
-                            <entry key="sourceFile" value="C:\Users\ThinkCentre\Downloads\pause-mini-svgrepo-com.svg" />
+                            <entry key="outputName" value="ic_back" />
+                            <entry key="sourceFile" value="C:\Users\ThinkCentre\Downloads\Vector (4).svg" />
                           </map>
                         </option>
                       </PersistentState>

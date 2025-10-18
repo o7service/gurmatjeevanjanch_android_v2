@@ -9,7 +9,6 @@
     tools:context=".activity.MainActivity">
     <include layout="@layout/app_bar_layout"
         android:id="@+id/appBarLayout"/>
-
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -63,7 +62,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:itemIconTint="@color/bottom_item_selector"
         app:itemTextColor="@color/bottom_item_selector"
         android:id="@+id/bottomNav"
