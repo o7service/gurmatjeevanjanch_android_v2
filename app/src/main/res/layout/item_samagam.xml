@@ -47,6 +47,7 @@
             android:fontFamily="@font/poppins_regular" app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/white"/>
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

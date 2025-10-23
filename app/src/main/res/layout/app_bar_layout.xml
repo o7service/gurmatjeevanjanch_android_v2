@@ -43,7 +43,6 @@
                 android:layout_height="wrap_content"
                 tools:text="kslfsf slfkskfslfks;ll;s;f;dflldlfkldfllkdfkkdfkdlfldlfldlfldlfl"/>
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 

@@ -36,11 +36,11 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
         holder.binding.tvTitle.text = item[position].title
         if (item[position].id.toString() == currentAudioId && MediaManager.isAudioPlaying()) {
             Glide.with(holder.itemView)
-                .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause_thin)
+                .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause2_final)
                 .into(holder.binding.ivPlay)
         } else {
             Glide.with(holder.itemView)
-                .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play_white)
+                .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play2_final)
                 .into(holder.binding.ivPlay)
         }
         //holder.binding.tvSubTitle.text = item[position].description
@@ -64,11 +64,11 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
                 .into(holder.binding.ivAudio)
             if (MediaManager.isPlaying){
                     Glide.with(holder.itemView)
-                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause_thin)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause2_final)
                         .into(holder.binding.ivPlay)
                 }else{
                     Glide.with(holder.itemView)
-                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play_white)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play2_final)
                         .into(holder.binding.ivPlay)
                 }
             holder.binding.ivPlay.visibility = View.VISIBLE
@@ -90,22 +90,22 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
             holder.binding.ivPlay.visibility = View.VISIBLE
             if(MediaManager.isPlaying){
                 Glide.with(holder.itemView)
-                    .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause_thin)
+                    .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause2_final)
                     .into(holder.binding.ivPlay)
             }else{
                 Glide.with(holder.itemView)
-                    .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play_white)
+                    .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play2_final)
                     .into(holder.binding.ivPlay)
             }
             holder.binding.ivPlay.setOnClickListener {
                 listener.togglePlayPause()
                 if(MediaManager.isPlaying){
                     Glide.with(holder.itemView)
-                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause_thin)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause2_final)
                         .into(holder.binding.ivPlay)
                 }else{
                     Glide.with(holder.itemView)
-                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play_white)
+                        .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_play2_final)
                         .into(holder.binding.ivPlay)
                 }
             }

@@ -447,12 +447,12 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             binding.tvPlayTitle.text = newTitle
         }
         Glide.with(mainActivity)
-            .load(R.drawable.icon_paused)
+            .load(R.drawable.icon_pause_final)
             .into(binding.ivPlay)
         } else {
         binding.tvPlayTitle.text = MediaManager.currentTitle
         Glide.with(mainActivity)
-            .load(R.drawable.ic_play_audio_home)
+            .load(R.drawable.icon_play_final)
             .into(binding.ivPlay)
         }
     }

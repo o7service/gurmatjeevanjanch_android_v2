@@ -56,5 +56,7 @@
     <string name="month_9">September</string>
     <string name="month_10">October</string>
     <string name="month_11">November</string>
+    <string name="privacy_policy_url">https://www.gurmatjeevanjaach.com/privacy-policy/</string>
     <string name="month_12">December</string>
+    <string name="join">Join</string>
 </resources>

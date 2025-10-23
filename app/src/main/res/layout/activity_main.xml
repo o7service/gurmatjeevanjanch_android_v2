@@ -66,6 +66,7 @@
         app:itemTextColor="@color/bottom_item_selector"
         android:id="@+id/bottomNav"
         app:menu="@menu/bottom_nav_menu"
+        style="@style/Widget.Design.BottomNavigationView"
         app:itemActiveIndicatorStyle="@color/white"
         app:labelVisibilityMode="labeled"
         android:background="@color/white" app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"/>

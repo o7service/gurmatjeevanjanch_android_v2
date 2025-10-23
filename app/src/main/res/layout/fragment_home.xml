@@ -146,12 +146,13 @@
 
             />
         <ImageView
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:src="@drawable/ic_play_audio_home"
             android:id="@+id/ivPlay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="@dimen/_10sdp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

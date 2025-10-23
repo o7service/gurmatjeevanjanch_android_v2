@@ -72,6 +72,23 @@ object MediaManager {
             isPlaying = true
         }
     }
+    fun hasCurrentTrack(): Boolean {
+        // Returns true if a track is already loaded (so we can resume it)
+        return !currentUrl.isNullOrEmpty()
+    }
+
+    fun play() {
+        // Resume if paused
+        if (mediaPlayer != null && !isPlaying) {
+            mediaPlayer?.start()
+            isPlaying = true
+        }
+    }
+
+    fun playNewTrack(title: String, audioUrl: String, audioId: String, singerId: String) {
+        // Load and play a completely new track
+        playAudioFromUrl(title, audioUrl, audioId, singerId)
+    }
 
     fun togglePlayPause() {
         if (isPlaying) pause() else resume()
@@ -93,7 +110,6 @@ object MediaManager {
         return isPlaying
     }
     fun releaseMediaPlayer() {
-
         mediaPlayer?.release()
         mediaPlayer = null
         isPlaying = false

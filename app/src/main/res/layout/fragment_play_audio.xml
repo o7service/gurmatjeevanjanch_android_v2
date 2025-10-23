@@ -41,12 +41,15 @@
         app:layout_constraintStart_toStartOf="@id/guide_v_25"
         app:layout_constraintEnd_toEndOf="@id/guide_v_75"
         android:id="@+id/seekBar"
-        android:layout_marginStart="-10dp"
+        android:layout_marginStart="-12dp"
         android:layout_marginEnd="-18dp"
+        android:progressTint="@color/black_light"
+        android:thumb="@drawable/custom_thumb"
         android:thumbTint="@color/black_light"
         android:progressBackgroundTint="@color/grey"
-        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintTop_toBottomOf="@id/ivAudio"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +57,7 @@
         android:fontFamily="@font/poppins_regular"
         android:id="@+id/tvStartTime"
         app:layout_constraintTop_toBottomOf="@id/seekBar"
-        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:textColor="@color/black_light"
         app:layout_constraintStart_toStartOf="@id/guide_v_25"
         />
@@ -65,7 +68,7 @@
         android:id="@+id/tvEndTime"
         android:fontFamily="@font/poppins_regular"
         app:layout_constraintTop_toBottomOf="@id/seekBar"
-        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:textColor="@color/black_light"
         app:layout_constraintEnd_toEndOf="@id/guide_v_75"
         />
@@ -82,14 +85,16 @@
         android:layout_marginBottom="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp" />
     <ImageView
-        android:layout_width="@dimen/_40sdp"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/_25sdp"
-        android:src="@drawable/ic_play_audio"
+        android:paddingStart="@dimen/_3sdp"
+        android:paddingEnd="@dimen/_3sdp"
+        android:src="@drawable/icon_play_final"
+        android:scaleType="center"
         app:layout_constraintTop_toBottomOf="@id/tvStartTime"
         android:id="@+id/ivPlay"
         app:layout_constraintStart_toEndOf="@id/ivPrevious"
         app:layout_constraintEnd_toStartOf="@id/ivNext"
-
         />
     <ImageView
         android:layout_width="wrap_content"
@@ -101,7 +106,7 @@
         app:layout_constraintStart_toEndOf="@id/ivPlay"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/_5sdp"
-        />
+    />
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -112,8 +117,10 @@
         android:gravity="center"
         android:fontFamily="@font/poppins_medium"        android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@id/view"
         android:textColor="@color/black_light"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_5sdp"
         tools:text = "ਗੁਰ ਸਤਿਗੁਰ ਕਾ ਜੋ ਸਿਖੁ ਅਖਾਏ ਸੁ ਭਲਕੇ ਉਠਿ ਹਰਿ ਨਾਮੁ ਧਿਆਵੈ ॥ - ਭਾਈ ਅਮਰਜੀਤ ਸਿੰਘ ਜੀ"
         android:text = "ਗੁਰ ਸਤਿਗੁਰ ਕਾ ਜੋ ਸਿਖੁ ਅਖਾਏ ਸੁ ਭਲਕੇ ਉਠਿ ਹਰਿ ਨਾਮੁ ਧਿਆਵੈ ॥ - ਭਾਈ ਅਮਰਜੀਤ ਸਿੰਘ ਜੀ"/>
@@ -132,6 +139,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/recyclerView"
+        android:layout_marginTop="@dimen/_2sdp"
         app:layout_constraintTop_toBottomOf="@id/view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

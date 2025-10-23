@@ -46,8 +46,8 @@
         app:layout_constraintTop_toTopOf="@id/ivAudio"
         tools:text = "Title  kslfdslfkelfieoiejsjf ki"/>
     <ImageView
-        android:layout_width="@dimen/_18sdp"
-        android:layout_height="@dimen/_18sdp"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
         android:src="@drawable/icon_play_white"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/ivPlay"

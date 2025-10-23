@@ -47,6 +47,8 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         }
     }
 
+    // want to change the height of seek bar like 4dp with round corners in android kotlin
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,7 +80,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             binding.tvStartTime.text = "00:00"
             binding.tvEndTime.text = "00:00"
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
+                .load(R.drawable.icon_play_final)
                 .into(binding.ivPlay)
         }
     }
@@ -103,7 +105,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
 //                .into(binding.ivPlay)
 //        } else {
 //            Glide.with(mainActivity)
-//                .load(R.drawable.ic_play_audio)
+//                .load(R.drawable.icon_play_final)
 //                .into(binding.ivPlay)
 //        }
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -140,30 +142,44 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             adapter.notifyDataSetChanged()
         }
         binding.ivPlay.setOnClickListener {
-            MediaManager.togglePlayPause()
-            adapter.notifyDataSetChanged()
             if (MediaManager.isAudioPlaying()) {
+                // If currently playing → pause
+                MediaManager.pause()
                 Glide.with(mainActivity)
-                    .load(R.drawable.icon_pause_solid)
+                    .load(R.drawable.icon_play_final)
                     .into(binding.ivPlay)
             } else {
-                currentIndex = 0
-                playCurrentAudio(item[currentIndex].title.toString(),item[currentIndex].audioLink.toString() , item[currentIndex].id.toString(),item[currentIndex].singerId.toString())
-                adapter.notifyDataSetChanged()
+                // Not playing → decide what to do
+                if (MediaManager.hasCurrentTrack()) {
+                    // A track is already loaded → resume it
+                    MediaManager.play()
+                } else {
+                    // No track loaded yet → play the first one
+                    currentIndex = 0
+                    playCurrentAudio(
+                        item[currentIndex].title.toString(),
+                        item[currentIndex].audioLink.toString(),
+                        item[currentIndex].id.toString(),
+                        item[currentIndex].singerId.toString()
+                    )
+                }
                 Glide.with(mainActivity)
-                    .load(R.drawable.ic_play_audio)
+                    .load(R.drawable.icon_pause_final)
                     .into(binding.ivPlay)
             }
+            adapter.notifyDataSetChanged()
         }
+
+
     }
     private fun updatePlayPauseIcon() {
         if (MediaManager.isAudioPlaying()) {
             Glide.with(mainActivity)
-                .load(R.drawable.icon_pause_solid)
+                .load(R.drawable.icon_pause_final)
                 .into(binding.ivPlay)
         } else {
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
+                .load(R.drawable.icon_play_final)
                 .into(binding.ivPlay)
         }
     }
@@ -215,7 +231,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     }
     private fun playCurrentAudio(title: String, audioLink: String, audioId: String, singerId: String) {
         Glide.with(mainActivity)
-            .load(R.drawable.ic_play_audio) // optional loading icon
+            .load(R.drawable.icon_play_final) // optional loading icon
             .into(binding.ivPlay)
         binding.tvTitle.setText(title)
         MediaManager.onPrepared = {
@@ -257,7 +273,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         MediaManager.onError = { errorMsg ->
             Log.e("AudioError", errorMsg)
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
+                .load(R.drawable.icon_play_final)
                 .into(binding.ivPlay)
             updatePlayPauseIcon()
         }
@@ -366,7 +382,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         binding.tvTitle.text = title
         Log.d("Audio Id", audioId)
         Glide.with(mainActivity)
-            .load(R.drawable.ic_play_audio) // optional loading icon
+            .load(R.drawable.icon_play_final) // optional loading icon
             .into(binding.ivPlay)
         adapter.notifyDataSetChanged()
         MediaManager.onPrepared = {
@@ -378,7 +394,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             adapter.updateCurrentAudioId(item[currentIndex].id.toString())
             // Set play icon after audio starts
             Glide.with(mainActivity)
-                .load(R.drawable.icon_pause_solid)
+                .load(R.drawable.icon_pause_final)
                 .into(binding.ivPlay)
         }
         MediaManager.onCompletion = {
@@ -413,7 +429,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             // Optional: Log or show a toast
             Log.e("AudioError", errorMsg)
             Glide.with(mainActivity)
-                .load(R.drawable.ic_play_audio)
+                .load(R.drawable.icon_play_final)
                 .into(binding.ivPlay)
         }
         MediaManager.playAudioFromUrl(title, audioLink, audioId , singerId)
