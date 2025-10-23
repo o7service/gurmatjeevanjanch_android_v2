@@ -55,18 +55,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         if (!isInternetAvailable(this)) {
           //  binding.llProgress.visibility = View.VISIBLE
-            AlertDialog.Builder(this)
+            val dialog = AlertDialog.Builder(this)
                 .setTitle("No Internet Connection")
                 .setMessage("Please turn on Wi-Fi or mobile data to continue.")
                 .setCancelable(false)
-                .setPositiveButton("Open Settings") { dialog, _ ->
+                .setPositiveButton("Open Settings") { dialogInterface, _ ->
                     startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
-                    dialog.dismiss()
+                    dialogInterface.dismiss()
                 }
-                .setNegativeButton("Cancel") { dialog, _ ->
-                    dialog.dismiss()
+                .setNegativeButton("Cancel") { dialogInterface, _ ->
+                    dialogInterface.dismiss()
                 }
                 .show()
+
+// Use ContextCompat to get color from resources
+            val positiveColor = ContextCompat.getColor(this, R.color.blue)
+            val negativeColor = ContextCompat.getColor(this, R.color.blue)
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(positiveColor)
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(negativeColor)
+
         } else {
            // binding.llProgress.visibility = View.GONE
             // proceed with loading content
@@ -75,7 +83,6 @@ class MainActivity : AppCompatActivity() {
         appBar = binding.root.findViewById(R.id.appBarLayout)
         ivBack = binding.root.findViewById(R.id.ivBack)
         tvTitle = binding.root.findViewById(R.id.tvTitle)
-
         val window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = ContextCompat.getColor(this , R.color.bg)

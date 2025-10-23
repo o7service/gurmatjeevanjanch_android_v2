@@ -1,6 +1,5 @@
 package com.o7services.gurmatjeevanjaach.adapter
 
-import android.R
 import android.graphics.Typeface
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -13,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.adapter.AudioAdapter.ViewHolder
 import com.o7services.gurmatjeevanjaach.databinding.ItemSamagamListBinding
 import com.o7services.gurmatjeevanjaach.databinding.ItemPlayAudioListBinding
@@ -39,7 +39,7 @@ class SamagamAdapter(val item : ArrayList<AllProgramResponse.Data>, val listener
         val parts = dateString?.split("-")
         if (parts?.size == 3) {
             val year = parts[0]
-            val month = getMonthName(parts[1])
+            val month = getMonthName(holder.itemView.context , parts[1])
             val day = parts[2] // Convert "23" to "2023"
             setFormattedDateText(holder.binding.tvTitle, day, month, year)
         }
@@ -47,24 +47,19 @@ class SamagamAdapter(val item : ArrayList<AllProgramResponse.Data>, val listener
             listener.onSamagamClick(item[position].startDate.toString())
         }
     }
-    private fun getMonthName(monthNumber: String): String {
-        return when (monthNumber.toIntOrNull()) {
-            1 -> "January"
-            2 -> "February"
-            3 -> "March"
-            4 -> "April"
-            5 -> "May"
-            6 -> "June"
-            7 -> "July"
-            8 -> "August"
-            9 -> "September"
-            10 -> "October"
-            11 -> "November"
-            12 -> "December"
-            else -> ""
+    private fun getMonthName(context: android.content.Context, monthNumber: String): String {
+        val monthInt = monthNumber.toIntOrNull()
+        return if (monthInt != null && monthInt in 1..12) {
+            try {
+                val monthNamesArray = context.resources.getStringArray(R.array.month_names_full)
+                monthNamesArray[monthInt - 1]
+            } catch (e: Exception) {
+                ""
+            }
+        } else {
+            ""
         }
     }
-
     private fun setFormattedDateText(textView: TextView, day: String, month: String, year: String) {
         val fullText = "$day\n$month\n$year"
         val dayEnd = day.length

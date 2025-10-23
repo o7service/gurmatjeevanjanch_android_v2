@@ -48,6 +48,9 @@
         <string name="month_10">ਅਕਤੂਬਰ</string>
         <string name="month_11">ਨਵੰਬਰ</string>
         <string name="month_12">ਦਸੰਬਰ</string>
-        <string name="change_language">ਐਪ ਦੀ ਭਾਸ਼ਾ ਬਦਲੋ</string>
+        <string-array name="month_names_full">
+                <item>ਜਨਵਰੀ</item> <item>ਫ਼ਰਵਰੀ</item> <item>ਮਾਰਚ</item>   <item>ਅਪ੍ਰੈਲ</item> <item>ਮਈ</item>     <item>ਜੂਨ</item>    <item>ਜੁਲਾਈ</item>  <item>ਅਗਸਤ</item>  <item>ਸਤੰਬਰ</item> <item>ਅਕਤੂਬਰ</item> <item>ਨਵੰਬਰ</item>  <item>ਦਸੰਬਰ</item>  </string-array>
+        <string name="join">ਜੌਇਨ</string>
+        <string name="change_language">ਭਾਸ਼ਾ ਬਦਲੋ</string>
         <string name="view_samagam">ਵਿਊ ਸਮਾਗਮ</string>
     </resources>
