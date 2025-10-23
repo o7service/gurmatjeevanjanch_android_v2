@@ -67,11 +67,11 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 
     override fun onResume() {
         super.onResume()
+        getAllCategory()
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
             binding.tvPlayTitle.text = newTitle
         }
         updateMiniPlayer()
-        getAllCategory()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -343,16 +343,20 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                             Log.d("Response", youtubeId)
                             getSingleLink(youtubeId)
                         }else{
-                            (requireActivity() as MainActivity).hideProgress()
+                            (mainActivity as MainActivity).hideProgress()
                             mainActivity.showNoData()
                             binding.clHome.visibility = View.INVISIBLE
                             Log.d("Response", response.body()?.message.toString())
                         }
                     }else{
+                        mainActivity.showNoData()
+                        binding.clHome.visibility = View.INVISIBLE
                         (requireActivity() as MainActivity).hideProgress()
                         Log.d("Response", response.body()?.message.toString())
                     }
                 }else if(response.body()?.status == 404){
+                    mainActivity.showNoData()
+                    binding.clHome.visibility = View.INVISIBLE
                     (requireActivity() as MainActivity).hideProgress()
                     Log.d("Response", response.body()?.message.toString())
                 }
@@ -363,6 +367,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             ) {
                 binding.swipeRefreshLayout.isRefreshing = false
                 (requireActivity() as MainActivity).hideProgress()
+                mainActivity.showNoData()
+                binding.clHome.visibility = View.INVISIBLE
                 Log.d("Response", t.message.toString())
             }
     // with this video, then show of zoom image by default and link form the getSingleCategory , after click on the image intent will work
