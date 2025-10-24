@@ -4,10 +4,13 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import kotlin.math.sin
 
 object MediaManager {
     var currentTitle: String? = null
     var currentUrl: String? = null
+
+    var currentSingerName : String ?= null
     val currentTitleLiveData = MutableLiveData<String>()
 
     var currentAudioId : String ?= null
@@ -18,11 +21,12 @@ object MediaManager {
     var onPrepared: (() -> Unit)? = null
     var onError: ((String) -> Unit)? = null
 
-    fun playAudioFromUrl(title : String, audioUrl: String , audioId : String, singerId : String) {
+    fun playAudioFromUrl(title : String, audioUrl: String , audioId : String, singerId : String , singerName : String ) {
         releaseMediaPlayer()
         currentUrl = audioUrl
         currentTitle = title
         currentAudioId = audioId
+        currentSingerName = singerName
         currentSingerId = singerId
         currentTitleLiveData.postValue(title)
         mediaPlayer = MediaPlayer().apply {
@@ -87,7 +91,7 @@ object MediaManager {
 
     fun playNewTrack(title: String, audioUrl: String, audioId: String, singerId: String) {
         // Load and play a completely new track
-        playAudioFromUrl(title, audioUrl, audioId, singerId)
+     //   playAudioFromUrl(title, audioUrl, audioId, singerId , currentSingerName)
     }
 
     fun togglePlayPause() {

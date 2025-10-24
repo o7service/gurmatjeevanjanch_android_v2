@@ -49,6 +49,7 @@
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
         android:src="@drawable/icon_play_white"
+        android:paddingEnd="@dimen/_2sdp"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/ivPlay"
         android:layout_marginEnd="@dimen/_10sdp"

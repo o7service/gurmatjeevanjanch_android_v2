@@ -67,7 +67,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="39" />
+                                                <entry key="scalingPercent" value="0" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -91,7 +91,7 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="C:\Users\ThinkCentre\Downloads\Group 271.png" />
-                                                <entry key="trimmed" value="true" />
+                                                <entry key="scalingPercent" value="60" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -123,7 +123,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_launcher_gurmat_jeewan_jach1" />
+                                      <entry key="outputName" value="ic_launcher_gurmat_jeewan_jach2" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -313,8 +313,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="icon_pause2_final" />
-                            <entry key="sourceFile" value="C:\Users\ThinkCentre\Downloads\Vector (8).svg" />
+                            <entry key="outputName" value="icon_paused_audio" />
+                            <entry key="sourceFile" value="C:\Users\ThinkCentre\Downloads\pause-thin-svgrepo-com (2).svg" />
                           </map>
                         </option>
                       </PersistentState>

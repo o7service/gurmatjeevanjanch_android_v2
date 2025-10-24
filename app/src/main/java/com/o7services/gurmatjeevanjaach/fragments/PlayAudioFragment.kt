@@ -30,6 +30,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     lateinit var binding : FragmentPlayAudioBinding
     lateinit var adapter : PlayAudioAdapter
     var textTitle = ""
+    var tvSingerName = ""
     lateinit var mainActivity: MainActivity
     lateinit var tvTitle : TextView
     var currentIndex = 0
@@ -193,11 +194,11 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             ) {
                 if (response.body()?.status == 200){
                     if (response.body()?.success == true){
-
                         val data = response.body()?.data
                         if (data != null){
                             mainActivity.hideNoData()
                             mainActivity.hideProgress()
+                            tvSingerName = data.name.toString()
                             audioImage = data.imageUrl.toString()
                             val imageBaseUrl = AppConst.imageBaseUrl + data.imageUrl
                             Glide.with(mainActivity)
@@ -277,7 +278,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 .into(binding.ivPlay)
             updatePlayPauseIcon()
         }
-        MediaManager.playAudioFromUrl(title, audioLink, audioId, singerId)
+        MediaManager.playAudioFromUrl(title, audioLink, audioId, singerId , tvSingerName)
 
         // Set title text correctly
         binding.tvTitle.text = title
@@ -432,7 +433,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 .load(R.drawable.icon_play_final)
                 .into(binding.ivPlay)
         }
-        MediaManager.playAudioFromUrl(title, audioLink, audioId , singerId)
+        MediaManager.playAudioFromUrl(title, audioLink, audioId , singerId , tvSingerName)
         // Set title text
         adapter.updateCurrentAudioId(audioId)
     }

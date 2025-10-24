@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
-import androidx.navigation.R
+
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.mlkit.common.model.DownloadConditions
@@ -13,6 +13,7 @@ import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
+import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.ItemAudioListBinding
 import com.o7services.gurmatjeevanjaach.dataclass.AllSingerResponse
@@ -45,6 +46,11 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
         holder.binding.tvTitle.text = item[position].name
 //        holder.binding.tvSubTitle.text = item[position].
         val imageUrl = AppConst.imageBaseUrl + item[position].imageUrl
+        Glide.with(holder.itemView)
+            .load(imageUrl)
+            .error(R.drawable.no_image)
+            .placeholder(R.drawable.no_image)
+            .into(holder.binding.ivAudio)
         val originalText = item[position].name.toString()
 //        translateTextWithLibre(
 //            originalText,
@@ -62,10 +68,7 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
 //            }
 //        )
 
-        Glide.with(holder.itemView)
-            .load(imageUrl)
-//            .placeholder()
-            .into(holder.binding.ivAudio)
+
         holder.itemView.setOnClickListener {
             listener.onItemClick(item[position].id.toString() , item[position].name.toString())
         }

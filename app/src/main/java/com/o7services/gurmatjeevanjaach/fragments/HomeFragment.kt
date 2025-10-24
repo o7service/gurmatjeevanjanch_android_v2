@@ -186,8 +186,12 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         })
 // Set initial indicator states
 
-
-
+        binding.clCurrentMusic.setOnClickListener {
+            var bundle = Bundle()
+            bundle.putString("id", MediaManager.currentSingerId)
+            bundle.putString("title", MediaManager.currentSingerName)
+            findNavController().navigate(R.id.playAudioFragment, bundle)
+        }
 
 
         val handler = Handler(Looper.getMainLooper())
@@ -199,14 +203,12 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             }
         }
         handler.postDelayed(runnable, 5000)
-
         binding.swipeRefreshLayout.setOnRefreshListener {
             (requireActivity() as MainActivity).showProgress()
             getAllCategory()
             playerUi()
         }
     }
-
 //    private fun updateStripIndicators(selectedPosition: Int) {
 //        for (i in 0 until binding.tabLayout.tabCount) {
 //            val tab = binding.tabLayout.getTabAt(i)
@@ -218,8 +220,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 //            }
 //        }
 //    }
-
-
     private fun playerUi(){
         updateMiniPlayer()
         binding.ivPlay.setOnClickListener {

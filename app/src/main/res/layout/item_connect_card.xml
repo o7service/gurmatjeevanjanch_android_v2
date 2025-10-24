@@ -57,6 +57,7 @@
             app:layout_constraintTop_toTopOf="@id/viewMusic"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/_10sdp"
+            android:id="@+id/tvJoin"
             app:layout_constraintEnd_toEndOf="parent"
             android:fontFamily="@font/poppins_regular"
             app:layout_constraintBottom_toBottomOf="parent"

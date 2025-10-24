@@ -26,13 +26,13 @@ class SocialLinkAdapter(var item : ArrayList<SocialLinkResponse.Data>, val liste
 
     override fun onBindViewHolder(holder: SocialLinkAdapter.ViewHolder, position: Int) {
         holder.binding.tvTitle.text = item[position].title
+        holder.binding.tvJoin.text = item[position].actionText
 //        holder.binding.tvSubTitle.text = item[position].description
         var imageIcon = AppConst.imageBaseUrl + item[position].icon
         Glide.with(holder.itemView)
             .load(imageIcon)
             .error(R.drawable.no_image)
             .placeholder(R.drawable.no_image)
-//            .placeholder()
             .into(holder.binding.ivMusic)
         holder.itemView.setOnClickListener {
             Log.d("Response", item[position].id.toString())

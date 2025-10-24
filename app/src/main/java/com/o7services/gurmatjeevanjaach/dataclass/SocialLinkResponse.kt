@@ -15,6 +15,7 @@ data class SocialLinkResponse(
         @SerializedName("autoId"      ) var autoId      : Int?    = null,
         @SerializedName("title"       ) var title       : String? = null,
         @SerializedName("icon"        ) var icon        : String? = null,
+        @SerializedName("actionText")  var actionText : String ?= null,
         @SerializedName("isSingle"    ) var isSingle    : Int?    = null,
         @SerializedName("isDeleted"   ) var isDeleted   : Int?    = null,
         @SerializedName("isBlocked"   ) var isBlocked   : Int?    = null,
