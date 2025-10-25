@@ -35,6 +35,7 @@ class SamagamListAdapter(var item : ArrayList<ProgramSingleDateResponse.Data> , 
         holder.itemView.setOnClickListener {
            listener.onMapClick(item[position].mapLink.toString())
         }
+
     }
 
     interface samagamListInterface{

@@ -91,61 +91,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         binding. viewPager.setPageTransformer { page, position ->
             page.alpha = 0.25f + (1 - abs(position))
         }
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("YouTube"))
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Zoom"))
-//
-//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//                currentItems = when (tab.position) {
-//                    0 -> youtubeItems
-//                    1 -> zoomItems
-//                    else -> emptyList()
-//                }
-//                sliderAdapter.updateItems(currentItems)
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab) {}
-//            override fun onTabReselected(tab: TabLayout.Tab) {}
-//        })
-//        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-//            val tabView = LayoutInflater.from(context).inflate(R.layout.item_custom_tab, null)
-//            tab.customView = tabView
-//        }.attach()
-//
-//        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                val indicator = tab?.customView?.findViewById<View>(R.id.indicator)
-//                indicator?.setBackgroundResource(R.drawable.bg_tab_selected)
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//                val indicator = tab?.customView?.findViewById<View>(R.id.indicator)
-//                indicator?.setBackgroundResource(R.drawable.bg_tab_unselected)
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {}
-//        })
-//
-//
-//        binding.tabLayout.getTabAt(binding.viewPager.currentItem)
-//            ?.customView?.findViewById<View>(R.id.indicator)
-//            ?.setBackgroundResource(R.drawable.bg_tab_selected)
-//        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//
-//                for (i in 0 until binding.tabLayout.tabCount) {
-//                    val tab = binding.tabLayout.getTabAt(i)
-//                    val indicator = tab?.customView?.findViewById<View>(R.id.indicator)
-//                    if (i == position) {
-//                        indicator?.setBackgroundResource(R.drawable.bg_tab_selected)
-//                    } else {
-//                        indicator?.setBackgroundResource(R.drawable.bg_tab_unselected)
-//                    }
-//                }
-//            }
-//
-//        })
+
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             val tabView = LayoutInflater.from(context).inflate(R.layout.item_custom_tab, null)
@@ -240,6 +186,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         }
         // in tvPlayTitle text is not shown with singerName
     }
+    
 
     private fun getSingleLink(id: String) {
         RetrofitClient.instance.getSingleLink(SingleLinkRequest(categoryId = id))
