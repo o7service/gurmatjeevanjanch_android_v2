@@ -28,7 +28,7 @@
         android:src="@drawable/app_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_17sdp"
         android:id="@+id/ivAppIcon"
         app:layout_constraintBottom_toTopOf="@id/cardPager"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -40,7 +40,10 @@
         android:elevation="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@id/ivAppIcon"
         app:cardCornerRadius="@dimen/_10sdp"
-        android:layout_margin="@dimen/_12sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -80,7 +83,6 @@
         app:layout_constraintTop_toBottomOf="@id/tabLayout"
         app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
-
         android:id="@+id/tvConnectWithUs"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -100,14 +102,13 @@
         android:background="@color/white"
         android:id="@+id/clCurrentMusic"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_18sdp"
         app:layout_constraintTop_toBottomOf="@id/recyclerView">
-
         <ImageView
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_29sdp"
+            android:layout_height="@dimen/_29sdp"
             android:src="@drawable/ic_solid_play"
             android:id="@+id/circularView"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,12 +140,13 @@
             android:textColor="@color/black_light"
             app:layout_constraintTop_toTopOf="parent"
             android:fontFamily="@font/poppins_medium"
+            android:layout_marginStart="@dimen/_5sdp"
             app:layout_constraintEnd_toStartOf="@id/barrierPlay"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textSize="@dimen/_10sdp"
             android:maxLines="2"
-
             />
+
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"

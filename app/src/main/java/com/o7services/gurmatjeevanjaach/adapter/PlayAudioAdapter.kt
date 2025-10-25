@@ -1,6 +1,7 @@
 package com.o7services.gurmatjeevanjaach.adapter
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,7 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
         }
         //holder.binding.tvSubTitle.text = item[position].description
         var imageUrl = AppConst.imageBaseUrl + categoryImage
+        Log.d("Category Image", categoryImage)
         Glide.with(holder.itemView)
             .load(imageUrl)
             .error(R.drawable.no_image)
@@ -56,12 +58,12 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
         if (position == selectedIndex){
             holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
             holder.binding.tvTitle.setTextColor(Color.parseColor("#FFFFFFFF"))
-            var imageUrl = AppConst.imageBaseUrl + categoryImage
-            Glide.with(holder.itemView)
-                .load(imageUrl)
-                .error(R.drawable.no_image)
-                .placeholder(R.drawable.no_image)
-                .into(holder.binding.ivAudio)
+//            var imageUrl = AppConst.imageBaseUrl + categoryImage
+//            Glide.with(holder.itemView)
+//                .load(imageUrl)
+//                .error(R.drawable.no_image)
+//                .placeholder(R.drawable.no_image)
+//                .into(holder.binding.ivAudio)
             if (MediaManager.isPlaying){
                     Glide.with(holder.itemView)
                         .load(com.o7services.gurmatjeevanjaach.R.drawable.icon_pause2_final)
@@ -73,12 +75,12 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
                 }
             holder.binding.ivPlay.visibility = View.VISIBLE
         }else{
-            var imageUrl = AppConst.imageBaseUrl + categoryImage
-            Glide.with(holder.itemView)
-                .load(imageUrl)
-                .error(R.drawable.no_image)
-                .placeholder(R.drawable.no_image)
-                .into(holder.binding.ivAudio)
+//            var imageUrl = AppConst.imageBaseUrl + categoryImage
+//            Glide.with(holder.itemView)
+//                .load(imageUrl)
+//                .error(R.drawable.no_image)
+//                .placeholder(R.drawable.no_image)
+//                .into(holder.binding.ivAudio)
             holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))
             holder.binding.tvTitle.setTextColor(Color.parseColor("#000000"))
             holder.binding.ivPlay.visibility = View.GONE
@@ -109,7 +111,6 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
                         .into(holder.binding.ivPlay)
                 }
             }
-
         } else {
             holder.binding.ivPlay.visibility = View.GONE
             holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))

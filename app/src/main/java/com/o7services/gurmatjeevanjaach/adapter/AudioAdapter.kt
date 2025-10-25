@@ -1,5 +1,6 @@
 package com.o7services.gurmatjeevanjaach.adapter
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -52,6 +53,13 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
             .placeholder(R.drawable.no_image)
             .into(holder.binding.ivAudio)
         val originalText = item[position].name.toString()
+        if (position ==  selectedIndex) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
+            holder.binding.tvTitle.setTextColor(Color.parseColor("#FFFFFFFF"))
+        }else{
+            holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))
+            holder.binding.tvTitle.setTextColor(Color.parseColor("#000000"))
+        }
 //        translateTextWithLibre(
 //            originalText,
 //            onResult = { translatedText ->
@@ -68,14 +76,33 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
 //            }
 //        )
 
-
         holder.itemView.setOnClickListener {
             listener.onItemClick(item[position].id.toString() , item[position].name.toString())
         }
+
     }
 
     interface onItemClickListener{
         fun onItemClick(id : String , title : String)
+    }
+
+
+    private var selectedIndex = -1
+    private var currentAudioId: String? = null
+
+    fun updateSelectedIndex(index: Int) {
+        val oldIndex = selectedIndex
+        selectedIndex = index
+        notifyItemChanged(oldIndex)
+        notifyItemChanged(selectedIndex)
+    }
+
+    fun updateCurrentAudioId(audioId: String?) {
+        val oldIndex = selectedIndex
+        currentAudioId = audioId
+        selectedIndex = item.indexOfFirst { it.id.toString() == audioId }
+        if (oldIndex != -1) notifyItemChanged(oldIndex)
+        if (selectedIndex != -1) notifyItemChanged(selectedIndex)
     }
 
     fun translateText(

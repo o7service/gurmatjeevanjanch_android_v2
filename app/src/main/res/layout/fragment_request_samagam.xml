@@ -22,8 +22,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                   >
+                    android:orientation="vertical">
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -32,15 +31,16 @@
                         android:enabled="true"
                         bind:hintEnabled="false"
                         app:boxStrokeColor="@color/white"
-                        bind:boxBackgroundColor="@color/white"
-                      >
+                        bind:boxBackgroundColor="@color/white">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etTitle"
                             android:hint="@string/enter_your_name"
+                            android:textSize="@dimen/_12sdp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rect_edit_border"
                             android:inputType="textCapSentences"
+                            android:textCursorDrawable="@null"
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,11 +59,13 @@
                             android:id="@+id/etAddress"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="start|top"
-                            android:hint="@string/address"
                             android:background="@drawable/rect_edit_border"
+                            android:gravity="start|top"
+                            android:textSize="@dimen/_12sdp"
+                            android:hint="@string/address"
+                            android:textCursorDrawable="@null"
                             android:inputType="textMultiLine"
-                            android:lines="5"/>
+                            android:lines="5" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -83,8 +85,10 @@
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
                             android:lines="5"
+                            android:textSize="@dimen/_12sdp"
                             android:background="@drawable/rect_edit_border"
                             android:hint="@string/programDescription"
+                            android:textCursorDrawable="@null"
                             android:gravity="start|top" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,8 +107,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textUri"
+                            android:textSize="@dimen/_12sdp"
                             android:background="@drawable/rect_edit_border"
                             android:hint="@string/google_map_link"
+                            android:textCursorDrawable="@null"
                             android:maxLines="5" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,8 +132,10 @@
                             android:layout_height="match_parent"
                             android:inputType="number"
                             android:digits="1234567890"
+                            android:textSize="@dimen/_12sdp"
                             android:background="@drawable/rect_edit_border"
                             android:hint="@string/contact_number"
+                            android:textCursorDrawable="@null"
                             android:maxLength="10"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -148,6 +156,8 @@
                             android:layout_height="match_parent"
                             android:inputType="textEmailAddress"
                             android:hint="@string/your_email"
+                            android:textSize="@dimen/_12sdp"
+                            android:textCursorDrawable="@null"
                             android:background="@drawable/rect_edit_border"
                             android:maxLines="5" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -184,7 +194,7 @@
                                     android:padding="13dp"
                                     android:layout_gravity="center"
                                     android:textColor="@color/black"
-                                    android:textSize="15sp"
+                                    android:textSize="@dimen/_12sdp"
                                     android:layout_marginEnd="@dimen/_2sdp"
                                     android:drawablePadding="@dimen/_10sdp"
                                     android:drawableLeft="@drawable/ic_smagam" />
@@ -212,7 +222,7 @@
                                     android:padding="13dp"
                                     android:gravity="start|center"
                                     android:textColor="@color/black"
-                                    android:textSize="15sp"
+                                    android:textSize="@dimen/_12sdp"
                                     android:layout_marginEnd="@dimen/_5sdp"
                                     android:background="@drawable/rect_edit_border"
                                     android:drawablePadding="@dimen/_10sdp"

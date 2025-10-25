@@ -47,7 +47,7 @@
         android:thumb="@drawable/custom_thumb"
         android:thumbTint="@color/black_light"
         android:progressBackgroundTint="@color/grey"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintTop_toBottomOf="@id/ivAudio"/>
 
     <TextView

@@ -33,7 +33,6 @@ import retrofit2.Call
 import retrofit2.Response
 import kotlin.math.abs
 
-
 class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     lateinit var binding : FragmentHomeBinding
     var youtubeId  = ""
@@ -53,7 +52,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         super.onCreate(savedInstanceState)
         mainActivity = activity as MainActivity
         arguments?.let {
-
+            
         }
     }
 
@@ -69,7 +68,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         super.onResume()
         getAllCategory()
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
-            binding.tvPlayTitle.text = newTitle
+            binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
         }
         updateMiniPlayer()
     }
@@ -234,11 +233,12 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 //                .addToBackStack(null)
 //                .commit()
         }
-        Log.d("Response title", MediaManager.currentTitle.toString())
+        Log.d("Response title", "${MediaManager.currentTitle}- By ${MediaManager.currentSingerName}")
       //  binding.tvPlayTitle.text = MediaManager.currentTitle
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
-            binding.tvPlayTitle.text = newTitle
+            binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
         }
+        // in tvPlayTitle text is not shown with singerName
     }
 
     private fun getSingleLink(id: String) {
@@ -413,7 +413,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 
         })
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
-            binding.tvPlayTitle.text = newTitle
+            binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
         }
       //  binding.tvPlayTitle.text = MediaManager.currentTitle
         updateMiniPlayer()
@@ -438,7 +438,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         binding.clCurrentMusic.visibility = View.VISIBLE
    //     binding.tvPlayTitle.text = MediaManager.currentTitle
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
-            binding.tvPlayTitle.text = newTitle
+            binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
         }
         updatePlayPauseIcon()
         } else {
@@ -450,13 +450,13 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         if (MediaManager.isAudioPlaying()) {
     //    binding.tvPlayTitle.text = MediaManager.currentTitle
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
-            binding.tvPlayTitle.text = newTitle
+            binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
         }
         Glide.with(mainActivity)
             .load(R.drawable.icon_pause_final)
             .into(binding.ivPlay)
         } else {
-        binding.tvPlayTitle.text = MediaManager.currentTitle
+            binding.tvPlayTitle.text = "${MediaManager.currentTitle} - By ${MediaManager.currentSingerName}"
         Glide.with(mainActivity)
             .load(R.drawable.icon_play_final)
             .into(binding.ivPlay)

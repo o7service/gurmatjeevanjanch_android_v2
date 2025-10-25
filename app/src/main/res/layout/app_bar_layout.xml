@@ -14,10 +14,10 @@
         >
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
@@ -49,7 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:id="@+id/view"
-        android:layout_marginTop="-2dp"
         android:background="@color/light_grey"
        />
     </com.google.android.material.appbar.AppBarLayout>

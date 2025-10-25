@@ -206,6 +206,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                                 .error(R.drawable.no_image)
                                 .placeholder(R.drawable.no_image)
                                 .into(binding.ivAudio)
+                            loadAudios(id)
                         }else{
                             mainActivity.hideProgress()
                             mainActivity.showNoData()
@@ -228,7 +229,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                 Log.d("Response", t.message.toString())
             }
         })
-        loadAudios(id)
+
     }
     private fun playCurrentAudio(title: String, audioLink: String, audioId: String, singerId: String) {
         Glide.with(mainActivity)
