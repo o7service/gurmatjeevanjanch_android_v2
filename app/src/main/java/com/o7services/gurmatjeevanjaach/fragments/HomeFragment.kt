@@ -186,7 +186,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         }
         // in tvPlayTitle text is not shown with singerName
     }
-    
+
 
     private fun getSingleLink(id: String) {
         RetrofitClient.instance.getSingleLink(SingleLinkRequest(categoryId = id))
