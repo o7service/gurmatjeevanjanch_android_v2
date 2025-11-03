@@ -23,7 +23,7 @@ class SocialLinkAdapter(var item : ArrayList<SocialLinkResponse.Data>, val liste
         val binding = ItemConnectCardBinding.inflate(LayoutInflater.from(parent.context))
         return ViewHolder(binding)
     }
-
+    
     override fun onBindViewHolder(holder: SocialLinkAdapter.ViewHolder, position: Int) {
         holder.binding.tvTitle.text = item[position].title
         holder.binding.tvJoin.text = item[position].actionText

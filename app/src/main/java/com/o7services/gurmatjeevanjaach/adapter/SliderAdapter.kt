@@ -82,7 +82,6 @@ class SliderAdapter(
 
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.imageView)
-
         fun bind(item: SliderItem.CustomImageWithId) {
             Glide.with(itemView.context)
                 .load(item.imageResId)
