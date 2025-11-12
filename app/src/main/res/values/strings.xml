@@ -20,16 +20,16 @@
     <string name="canada">Canada</string>
     <string name="requestForSamagam">Request for Samagam</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="enter_your_name"><font size = "15">Name:</font></string>
-    <string name="address"><font size = "15">Address:</font></string>
-    <string name="programDescription"><font size = "15">Program Description:</font></string>
-    <string name="google_map_link"><font size = "15">Google Map Link:</font></string>
-    <string name="contact_number"><font size = "15">Contact Number:</font></string>
-    <string name="your_email"><font size = "15">E-Mail:</font></string>
-    <string name="start_date"><font size = "15">Start Date:</font></string>
-    <string name="end_date"><font size = "15">End Date:</font></string>
+    <string name="enter_your_name"><font size="15">Name:</font></string>
+    <string name="address"><font size="15">Address:</font></string>
+    <string name="programDescription"><font size="15">Program Description:</font></string>
+    <string name="google_map_link"><font size="15">Google Map Link:</font></string>
+    <string name="contact_number"><font size="15">Contact Number:</font></string>
+    <string name="your_email"><font size="15">E-Mail:</font></string>
+    <string name="start_date"><font size="15">Start Date:</font></string>
+    <string name="end_date"><font size="15">End Date:</font></string>
     <string name="request_samagam">Send Request</string>
-    <string name="to_date"><font size = "15">End Date:</font></string>
+    <string name="to_date"><font size="15">End Date:</font></string>
     <string name="addSamagamRequest">Add Samagam Request</string>
     <string name="youtube_channels">Youtube Channels</string>
     <string name="whatsapp_group">Whatsapp Group</string>
@@ -57,22 +57,24 @@
     <string name="month_10">October</string>
     <string name="month_11">November</string>
 
-        <string-array name="month_names_full">
-            <item>January</item>
-            <item>February</item>
-            <item>March</item>
-            <item>April</item>
-            <item>May</item>
-            <item>June</item>
-            <item>July</item>
-            <item>August</item>
-            <item>September</item>
-            <item>October</item>
-            <item>November</item>
-            <item>December</item>
-        </string-array>
+    <string-array name="month_names_full">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 
     <string name="privacy_policy_url">https://www.gurmatjeevanjaach.com/privacy-policy/</string>
     <string name="month_12">December</string>
     <string name="join">Join</string>
+    <string name="defaultTime">00:00 am</string>
+    <string name="samagam_detail">Details</string>
 </resources>

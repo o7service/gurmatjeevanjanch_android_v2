@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.firebase.appdistribution.gradle)
     implementation(libs.translate)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

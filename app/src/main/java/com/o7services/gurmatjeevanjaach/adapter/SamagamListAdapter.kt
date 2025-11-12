@@ -33,17 +33,29 @@ class SamagamListAdapter(var item : ArrayList<ProgramSingleDateResponse.Data> , 
             .placeholder(R.drawable.no_image)
             .into(holder.binding.ivAudio)
         holder.itemView.setOnClickListener {
-           listener.onMapClick(item[position].mapLink.toString())
+            listener.onSamagamDetail(imageLink = item[position].imageUrl.toString() , title = item[position].title.toString(), contactNo1 = item[position].contactNumber1?.toLong().toString()
+            , contact2 = item[position].contactNumber2?.toLong().toString(), mapLink = item[position].mapLink.toString(), description = item[position].details.toString() , startDate = item[position].startDate.toString() , endDate = item[position].endDate.toString(), address = item[position].address.toString())
+        }
+        holder.binding.ivAudio.setOnClickListener {
+            listener.onImageClick(item[position].imageUrl.toString())
+        }
+        holder.binding.ivCurrentMap.setOnClickListener {
+            listener.onMapClick(item[position].mapLink.toString())
         }
 
+        holder.binding.tvSubTitlePhone.text = "${item[position].contactNumber1?.toLong().toString()} , ${item[position].contactNumber2?.toLong().toString()}"
     }
 
     interface samagamListInterface{
         fun onMapClick(mapLink : String){
         }
+        fun onImageClick(imageLink: String){}
+        fun onSamagamDetail(imageLink : String , title: String , contactNo1 : String, contact2: String , address: String , mapLink: String ,
+                            description: String , startDate : String , endDate: String)
     }
 
     override fun getItemCount(): Int {
         return item.size
     }
 }
+// how to format date from yyyy-mm-dd to dd-mm-yyyy

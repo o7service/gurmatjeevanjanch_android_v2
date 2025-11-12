@@ -1,6 +1,10 @@
 package com.o7services.gurmatjeevanjaach.fragments
 
+import android.app.ActionBar
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -8,15 +12,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.TextView
+import androidx.compose.material3.NavigationBar
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.activity.MainActivity
 import com.o7services.gurmatjeevanjaach.adapter.SamagamAdapter
 import com.o7services.gurmatjeevanjaach.adapter.SamagamListAdapter
+import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.FragmentSamagamListBinding
+import com.o7services.gurmatjeevanjaach.databinding.LayoutImageDialogBinding
 import com.o7services.gurmatjeevanjaach.dataclass.AudioDataClass
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateRequest
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateResponse
@@ -64,6 +73,7 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
             mainActivity.showProgress()
             getAllSamagamList()
         }
+
     }
 
     fun getAllSamagamList(){
@@ -118,6 +128,58 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
         val mapIntent = Intent(Intent.ACTION_VIEW, mapIntentUri)
         startActivity(mapIntent)
     }
+
+    override fun onImageClick(imageLink: String) {
+//        val dialog = Dialog(mainActivity)
+//        val dialogBinding = LayoutImageDialogBinding.inflate(LayoutInflater.from(mainActivity))
+//        dialog.setContentView(dialogBinding.root)
+//        // Set dialog window to full screen
+//        dialog.window?.setLayout(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.MATCH_PARENT
+//        )
+//        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK)) // or transparent if you prefer
+//
+//        val imageIcon = AppConst.imageBaseUrl + imageLink
+//
+//        Glide.with(mainActivity)
+//            .load(imageIcon)
+//            .error(R.drawable.no_image)
+//            .placeholder(R.drawable.no_image)
+//            .into(dialogBinding.ivAudioImage)
+//
+//        dialogBinding.icClose.setOnClickListener {
+//            dialog.dismiss()
+//        }
+//
+//        dialog.show()
+    }
+
+    override fun onSamagamDetail(
+        imageLink: String,
+        title: String,
+        contactNo1: String,
+        contact2: String,
+        address: String,
+        mapLink: String,
+        description: String,
+        startDate: String,
+        endDate: String
+    ) {
+        var bundle = Bundle()
+        bundle.putString("image", imageLink)
+        bundle.putString("title", title)
+        bundle.putString("contact1", contactNo1)
+        bundle.putString("contact2", contact2)
+        bundle.putString("address" , address)
+        bundle.putString("mapLink", mapLink)
+        bundle.putString("description", description)
+        bundle.putString("startDate", startDate)
+        bundle.putString("endDate", endDate)
+        findNavController().navigate(R.id.action_samagamListFragment_to_samagamDetailFragment, bundle)
+    }
+
+
     fun formatDateToFull(input: String): String {
         return try {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

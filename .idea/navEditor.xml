@@ -103,6 +103,16 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_homeFragment_to_allFacebookListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_allInstagramListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_homeFragment_to_allTelegramListFragment">
                               <value>
                                 <LayoutPositions />
@@ -114,6 +124,11 @@
                               </value>
                             </entry>
                             <entry key="action_homeFragment_to_allYoutubeListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_audioFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -166,6 +181,18 @@
                           <Point>
                             <option name="x" value="-751" />
                             <option name="y" value="-199" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="samagamDetailFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-286" />
+                            <option name="y" value="395" />
                           </Point>
                         </option>
                       </LayoutPositions>

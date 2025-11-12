@@ -61,7 +61,11 @@
         android:id="@+id/samagamListFragment"
         android:name="com.o7services.gurmatjeevanjaach.fragments.SamagamListFragment"
         android:label="fragment_samagam_list"
-        tools:layout="@layout/fragment_samagam_list" />
+        tools:layout="@layout/fragment_samagam_list" >
+        <action
+            android:id="@+id/action_samagamListFragment_to_samagamDetailFragment"
+            app:destination="@id/samagamDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/requestSamagamFragment"
         android:name="com.o7services.gurmatjeevanjaach.fragments.RequestSamagamFragment"
@@ -97,4 +101,9 @@
         android:name="com.o7services.gurmatjeevanjaach.fragments.AllYoutubeListFragment"
         android:label="fragment_all_youtube_list"
         tools:layout="@layout/fragment_all_youtube_list" />
+    <fragment
+        android:id="@+id/samagamDetailFragment"
+        android:name="com.o7services.gurmatjeevanjaach.fragments.SamagamDetailFragment"
+        android:label="fragment_samagam_detail"
+        tools:layout="@layout/fragment_samagam_detail" />
 </navigation>

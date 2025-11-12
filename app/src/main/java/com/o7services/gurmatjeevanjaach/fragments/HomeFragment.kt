@@ -39,6 +39,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     var zoomId= ""
     var youtubeLink = ""
     var zoomLink = ""
+    private var hasFetchedYouTube = false
+    private var hasFetchedZoom = false
     var link = ""
     private val youtubeItems = mutableListOf<SliderItem.YouTubeVideo>()
     private val zoomItems = mutableListOf<SliderItem.CustomImageWithId>()
@@ -56,6 +58,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         }
     }
 
+    // slider is not work swipe smoothable
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,6 +71,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     override fun onResume() {
         super.onResume()
         getAllCategory()
+        // in youtube link will not intent , only zoom video
+        binding.viewPager.setCurrentItem(0, false)
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
             binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
         }
@@ -91,8 +97,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         binding. viewPager.setPageTransformer { page, position ->
             page.alpha = 0.25f + (1 - abs(position))
         }
-
-
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             val tabView = LayoutInflater.from(context).inflate(R.layout.item_custom_tab, null)
             tab.customView = tabView
@@ -113,7 +117,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-
                 val tab = binding.tabLayout.getTabAt(0) // Only one tab
                 val indicator1 = tab?.customView?.findViewById<View>(R.id.indicator1)
                 val indicator2 = tab?.customView?.findViewById<View>(R.id.indicator2)
@@ -129,6 +132,24 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                 }
             }
         })
+
+//        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//                val currentItem = sliderAdapter.getItemAt(position)
+//                when (currentItem) {
+//                    is SliderItem.YouTubeVideo -> {
+//                        MediaManager.setCurrentLink(currentItem.videoId, "YouTube")
+//                    }
+//                    is SliderItem.CustomImageWithId -> {
+//                        MediaManager.setCurrentLink(currentItem.link, "Zoom")
+//                    }
+//                }
+//                updateMiniPlayer()
+//                updateTabIndicators(position)
+//            }
+//        })
+
 // Set initial indicator states
 
         binding.clCurrentMusic.setOnClickListener {
@@ -138,16 +159,17 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             findNavController().navigate(R.id.playAudioFragment, bundle)
         }
 
-
-        val handler = Handler(Looper.getMainLooper())
-        val runnable = object : Runnable {
-            override fun run() {
-                val nextItem = (binding.viewPager.currentItem + 1) % sliderAdapter.itemCount
-                binding.viewPager.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, 5000)
-            }
-        }
-        handler.postDelayed(runnable, 5000)
+        // it show youtube link when the scroll to zoom without click on the youtube , if i click to youtube then scroll to zoom then it will zoom link
+        // for other countries it will show in zoom meeting have zoom.us or any other thing
+//        val handler = Handler(Looper.getMainLooper())
+//        val runnable = object : Runnable {
+//            override fun run() {
+//                val nextItem = (binding.viewPager.currentItem + 1) % sliderAdapter.itemCount
+//                binding.viewPager.setCurrentItem(nextItem, true)
+//                handler.postDelayed(this, 5000)
+//            }
+//        }
+//        handler.postDelayed(runnable, 5000)
         binding.swipeRefreshLayout.setOnRefreshListener {
             (requireActivity() as MainActivity).showProgress()
             getAllCategory()
@@ -188,14 +210,63 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     }
 
 
-    private fun getSingleLink(id: String) {
-        RetrofitClient.instance.getSingleLink(SingleLinkRequest(categoryId = id))
+//    private fun getSingleLink(id: String) {
+//        RetrofitClient.instance.getSingleLink(SingleLinkRequest(categoryId = id))
+//            .enqueue(object : retrofit2.Callback<SingleLinkResponse> {
+//                override fun onResponse(
+//                    call: Call<SingleLinkResponse?>,
+//                    response: Response<SingleLinkResponse?>
+//                ) {
+//                    Log.d("Response", "single link hit")
+//                    binding.swipeRefreshLayout.isRefreshing = false
+//                    mainActivity.hideProgress()
+//                    val body = response.body()
+//                    if (response.isSuccessful && body?.success == true && body.status == 200) {
+//                        val dataList = body.data
+//                        if (!dataList.isNullOrEmpty()) {
+//                            for (item in dataList) {
+//                                val link = item.link.orEmpty()
+//                                if (item.isLive == 1) {
+//                                    val videoId = extractYouTubeVideoId(link)
+//                                    if (!videoId.isNullOrEmpty()) {
+//                                        youtubeLink = item.link.toString()
+//                                        youtubeId = videoId
+//                                        hasFetchedYouTube = true
+//                                        Log.d("Youtube Link", item.link.toString())
+//                                    }
+//                                } else {
+//                                        hasFetchedZoom = true
+//                                        zoomLink = item.link.toString()
+//                                        Log.d("Zoom Link", item.link.toString())
+//                                }
+//                            }
+//                            if (hasFetchedYouTube || hasFetchedZoom) {
+//                                updateSlider(youtubeId, zoomLink)
+//                            }
+//                           } else {
+//                            Log.d("Response", "Data list is empty")
+//                        }
+//                    } else {
+//                        Log.d("Response", "Failed with status: ${body?.status}, message: ${body?.message}")
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<SingleLinkResponse?>, t: Throwable) {
+//                    binding.swipeRefreshLayout.isRefreshing = false
+//                    mainActivity.hideProgress()
+//                    Log.e("NetworkError", "Failed to fetch single link", t)
+//                }
+//            })
+//    }
+
+    private fun getSingleLink(categoryId: String, isYouTube: Boolean) {
+        RetrofitClient.instance.getSingleLink(SingleLinkRequest(categoryId = categoryId))
             .enqueue(object : retrofit2.Callback<SingleLinkResponse> {
                 override fun onResponse(
                     call: Call<SingleLinkResponse?>,
                     response: Response<SingleLinkResponse?>
                 ) {
-                    Log.d("Response", "single link hit")
+                    Log.d("Response", "single link hit for categoryId: $categoryId")
                     binding.swipeRefreshLayout.isRefreshing = false
                     mainActivity.hideProgress()
 
@@ -203,22 +274,45 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                     if (response.isSuccessful && body?.success == true && body.status == 200) {
                         val dataList = body.data
                         if (!dataList.isNullOrEmpty()) {
-                            for (item in dataList) {
-                                val link = item.link.orEmpty()
-                                if (item.isLive == 1) {
-                                    val videoId = extractYouTubeVideoId(link)
+
+                            if (isYouTube) {
+                                val liveItem = dataList.firstOrNull { it.isLive == 1 && it.link?.contains("youtube", true) == true }
+                                liveItem?.let { item ->
+                                    val videoId = extractYouTubeVideoId(item.link.toString())
                                     if (!videoId.isNullOrEmpty()) {
-                                        youtubeLink = link
+                                        youtubeLink = item.link!!
                                         youtubeId = videoId
+                                        hasFetchedYouTube = true
+                                        Log.d("YouTube Link", youtubeLink)
+
+                                        getSingleLink(zoomId, isYouTube = false)
+                                    } else {
+                                        Log.d("YouTube", "No valid YouTube video ID found.")
+                                    }
+                                } ?: run {
+                                    Log.d("YouTube", "No live YouTube link found.")
+                                }
+                            } else {
+
+                                val zoomItem = dataList.first()
+                                val link = zoomItem.link.orEmpty()
+
+                                if (isZoomLink(link)) {
+                                    zoomLink = link
+                                    hasFetchedZoom = true
+                                    Log.d("Zoom Link", zoomLink)
+
+                                    // Once both are ready, update UI
+                                    if (hasFetchedYouTube) {
+                                        updateSlider(youtubeId, zoomLink)
                                     }
                                 } else {
-                                    zoomLink = link
+                                    Log.d("Zoom", "Invalid or non-zoom link: $link")
                                 }
                             }
-                            // Now update the slider once all data has been parsed
-                            updateSlider(youtubeId, zoomLink)
+
                         } else {
-                            Log.d("Response", "Data list is empty")
+                            Log.d("Response", "Data list is empty for categoryId: $categoryId")
                         }
                     } else {
                         Log.d("Response", "Failed with status: ${body?.status}, message: ${body?.message}")
@@ -228,10 +322,21 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                 override fun onFailure(call: Call<SingleLinkResponse?>, t: Throwable) {
                     binding.swipeRefreshLayout.isRefreshing = false
                     mainActivity.hideProgress()
-                    Log.e("NetworkError", "Failed to fetch single link", t)
+                    Log.e("NetworkError", "Failed to fetch single link for $categoryId", t)
                 }
             })
     }
+
+    private fun isZoomLink(link: String): Boolean {
+        return link.contains("zoom", ignoreCase = true)
+    }
+
+
+
+
+// there is one api , getSingleLink for youtube and zoom , but id is different
+    // when ever i clicked on the image it will go to the youtube video link
+    // in the zoom links ,it will show youtube link . when the youtube id api hit then it will show list of videos and in which there is only one video for the islive else it take it as zoomlink but i want in youtube it take isLive and then again api will hit then zoom link will go to the zoomLink variable
 
     private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
     if (!isAdded || view == null || !isVisible) return
@@ -240,16 +345,16 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         items.add(SliderItem.YouTubeVideo(youtubeVideoId))
     }
     if (!zoomLink.isNullOrEmpty()) {
-        items.add(SliderItem.CustomImageWithId(R.drawable.dummy_image, zoomLink))
+        items.add(SliderItem.CustomImageWithId(R.drawable.zoom_video, zoomLink))
     }
     if (items.isEmpty()) {
-        // Optionally handle empty state
         Log.d("Slider", "No YouTube or Zoom links to show")
     }
     val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
     binding.viewPager.adapter = sliderAdapter
-
     }
+
+
     private fun getAllCategory(){
         (requireActivity() as MainActivity).showProgress()
         RetrofitClient.instance.getAllCategory().enqueue(object : retrofit2.Callback<SocialLinkResponse>{
@@ -268,27 +373,24 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                             item.clear()
                             item.addAll(data.filter { it.isSingle == 0 }) // only add items with isSingle == true
                             mainActivity.hideNoData()
-                            socialLinkAdapter.notifyDataSetChanged()
+
                             val youtubeItem = data.find { it.title.equals("Youtube", ignoreCase = true) }
-                            if (youtubeItem?.id != null) {
+                            if (youtubeItem?.id != null && !hasFetchedYouTube) {
+                                hasFetchedYouTube = true
                                 youtubeId = youtubeItem.id.toString()
                                 Log.d("Response", "YouTube ID = $youtubeId")
-                                getSingleLink(youtubeId)
-                            } else {
-
-                                Log.d("Response", "YouTube item not found or ID is null")
+                                getSingleLink(youtubeId, isYouTube = true)
                             }
+
                             val zoomItem = data.find { it.title.equals("Zoom", ignoreCase = true) }
-                            if (zoomItem?.id != null) {
+                            if (zoomItem?.id != null && !hasFetchedZoom) {
+                                hasFetchedZoom = true
                                 zoomId = zoomItem.id.toString()
-                                Log.d("Response", "YouTube ID = $zoomId")
-                                getSingleLink(zoomId)
-                            } else {
-                                Log.d("Response", "YouTube item not found or ID is null")
+                                Log.d("Home Fragment", "Zoom ID = $zoomId")
+                                getSingleLink(zoomId, isYouTube = false)
                             }
+                            socialLinkAdapter.notifyDataSetChanged()
 
-                            Log.d("Response", youtubeId)
-                            getSingleLink(youtubeId)
                         }else{
                             (mainActivity as MainActivity).hideProgress()
                             mainActivity.showNoData()
@@ -318,7 +420,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                 binding.clHome.visibility = View.INVISIBLE
                 Log.d("Response", t.message.toString())
             }
-    // with this video, then show of zoom image by default and link form the getSingleCategory , after click on the image intent will work
+
         })
     }
 

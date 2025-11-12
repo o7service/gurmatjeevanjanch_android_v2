@@ -313,8 +313,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="icon_paused_audio" />
-                            <entry key="sourceFile" value="C:\Users\ThinkCentre\Downloads\pause-thin-svgrepo-com (2).svg" />
+                            <entry key="outputName" value="ic_phone" />
+                            <entry key="sourceFile" value="C:\Users\ThinkCentre\Downloads\phone-svgrepo-com.svg" />
                           </map>
                         </option>
                       </PersistentState>

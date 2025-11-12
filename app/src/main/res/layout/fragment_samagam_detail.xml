@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.SamagamDetailFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cvImage"
+        app:shapeAppearanceOverlay="@style/RoundCornerImageView"
+        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        style="@style/RoundCorner20">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_180sdp"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/_1sdp"
+            android:id="@+id/ivImage"
+            android:src="@drawable/dummy_image" />
+
+    </com.google.android.material.card.MaterialCardView>
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="start"
+        android:id="@+id/barrierMap"
+        app:constraint_referenced_ids="ivCurrentMap"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="kksf"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="@id/barrierMap"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/black_light"
+        android:id="@+id/tvTitle"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintTop_toBottomOf="@id/cvImage"
+    />
+    <ImageView
+        android:layout_width="@dimen/_21sdp"
+        android:layout_height="@dimen/_18sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:id="@+id/ivCurrentMap"
+        android:src="@drawable/icon_map"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/llDate"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="parent">
+        <ImageView
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:src="@drawable/ic_smagam"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/start_date"
+            android:id="@+id/tvDate"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_5sdp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/llDate"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/llLocation"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent">
+        <ImageView
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:src="@drawable/icon_map"
+            app:tint = "#747474"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/start_date"
+            android:layout_gravity="center"
+            android:id="@+id/tvLocation"
+            android:layout_marginStart="@dimen/_5sdp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/llLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/llPhone"
+
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent">
+        <ImageView
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:src="@drawable/ic_phone"
+            app:tint = "#747474"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/start_date"
+            android:layout_gravity="center"
+            android:id="@+id/tvContactNumber"
+            android:layout_marginStart="@dimen/_5sdp"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/samagam_detail"
+        android:id="@+id/tvSamagamDetail"
+        app:layout_constraintTop_toBottomOf="@id/llPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/black_light"
+        android:includeFontPadding="false"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_13sdp"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvSamagamDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black_light"
+        android:justificationMode="inter_word"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:id="@+id/textSamagamDetail"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        tools:text = "slfk wreo ksfskldfie sfkdlsfkssfsfjs  sfsllf iwoiowieowirewoiwiriiow irwoislkfsjfkl saflkasfeifnkslf sjkfskk fjsireoraweraifidifhsskflsklf;sfklskflskklfslkflsfkskfklskfkl"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_number"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/black_light"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/_13sdp"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/textSamagamDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvPhone"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="model town jalandhar punjab"
+        app:layout_constraintTop_toBottomOf="@id/tvPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:id="@+id/textPhone"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"/>
+
+    
+  
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
