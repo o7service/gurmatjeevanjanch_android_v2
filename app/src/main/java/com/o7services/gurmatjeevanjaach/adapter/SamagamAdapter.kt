@@ -5,6 +5,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -21,7 +22,7 @@ import com.o7services.gurmatjeevanjaach.dataclass.AllProgramResponse
 import com.o7services.gurmatjeevanjaach.dataclass.AudioDataClass
 import com.o7services.gurmatjeevanjaach.fragments.PlayAudioFragment
 
-class SamagamAdapter(val item : ArrayList<AllProgramResponse.Data>, val listener: onItemSamagamListener) : RecyclerView.Adapter<SamagamAdapter.ViewHolder>(){
+class SamagamAdapter(val item : ArrayList<Map<String , List<AllProgramResponse.SamagamItem>>>, val listener: onItemSamagamListener) : RecyclerView.Adapter<SamagamAdapter.ViewHolder>(){
     class ViewHolder (val binding : ItemSamagamBinding) : RecyclerView.ViewHolder(binding.root){
     }
     override fun onCreateViewHolder(
@@ -33,18 +34,20 @@ class SamagamAdapter(val item : ArrayList<AllProgramResponse.Data>, val listener
     }
 
     override fun onBindViewHolder(holder: SamagamAdapter.ViewHolder, position: Int) {
-        holder.binding.tvTitle.text = item[position].startDate
-        val dateString = item[position].startDate // e.g., "06/03/23"
-
+        holder.binding.tvTitle.text = item[position].keys.toString()
+        val dateString = item[position].keys.first()
+        Log.d("Response", dateString)
         val parts = dateString?.split("-")
+        Log.d("Response", parts.toString())
         if (parts?.size == 3) {
             val year = parts[0]
             val month = getMonthName(holder.itemView.context , parts[1])
-            val day = parts[2] // Convert "23" to "2023"
+            val day = parts[2]
             setFormattedDateText(holder.binding.tvTitle, day, month, year)
         }
         holder.itemView.setOnClickListener {
-            listener.onSamagamClick(item[position].startDate.toString())
+            Log.d("Values", item[position].toString())
+            listener.onSamagamClick(item[position].keys.first(), item[position].values.first())
         }
     }
     private fun getMonthName(context: android.content.Context, monthNumber: String): String {
@@ -80,7 +83,7 @@ class SamagamAdapter(val item : ArrayList<AllProgramResponse.Data>, val listener
     }
 
     interface onItemSamagamListener{
-        fun onSamagamClick(date : String)
+        fun onSamagamClick(date : String, values : List<AllProgramResponse.SamagamItem>)
     }
 
 }

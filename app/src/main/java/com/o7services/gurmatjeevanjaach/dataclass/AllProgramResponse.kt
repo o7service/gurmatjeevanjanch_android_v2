@@ -1,34 +1,37 @@
 package com.o7services.gurmatjeevanjaach.dataclass
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class AllProgramResponse(
-    @SerializedName("success" ) var success : Boolean?        = null,
-    @SerializedName("status"  ) var status  : Int?            = null,
-    @SerializedName("message" ) var message : String?         = null,
-    @SerializedName("data"    ) var data    : ArrayList<Data> = arrayListOf()
+    @SerializedName("success"       ) var success       : Boolean? = null,
+    @SerializedName("status"        ) var status        : Int?     = null,
+    @SerializedName("message"       ) var message       : String?  = null,
+    @SerializedName("distinctDates" ) var distinctDates : Int?     = null,
+    @SerializedName("data"          ) var data  : Map<String , List<SamagamItem>>
 ){
+    @Parcelize
+    data class SamagamItem(
+        val id: Int,
+        val autoId: Int,
+        val title: String,
+        val address: String,
+        val details: String,
+        val imageUrl: String?,
+        val mapLink: String?,
+        val startDate: String,
+        val endDate: String,
+        val contactNumber1: Long?,
+        val contactNumber2: Long?,
+        val isDeleted: Int,
+        val isBlocked: Int,
+        val addedById: Int?,
+        val updatedById: Int?,
+        val status: Int,
+        val created_at: String,
+        val updated_at: String
+    ): Parcelable
 
-    data class Data (
 
-        @SerializedName("id"             ) var id             : Int?    = null,
-        @SerializedName("autoId"         ) var autoId         : Int?    = null,
-        @SerializedName("title"          ) var title          : String? = null,
-        @SerializedName("address"        ) var address        : String? = null,
-        @SerializedName("details"        ) var details        : String? = null,
-        @SerializedName("imageUrl"       ) var imageUrl       : String? = null,
-        @SerializedName("mapLink"        ) var mapLink        : String? = null,
-        @SerializedName("startDate"      ) var startDate      : String? = null,
-        @SerializedName("endDate"        ) var endDate        : String? = null,
-        @SerializedName("contactNumber1" ) var contactNumber1 : Double?    = null,
-        @SerializedName("contactNumber2" ) var contactNumber2 : Double?    = null,
-        @SerializedName("isDeleted"      ) var isDeleted      : Int?    = null,
-        @SerializedName("isBlocked"      ) var isBlocked      : Int?    = null,
-        @SerializedName("addedById"      ) var addedById      : Int?    = null,
-        @SerializedName("updatedById"    ) var updatedById    : Int?    = null,
-        @SerializedName("status"         ) var status         : Int?    = null,
-        @SerializedName("created_at"     ) var createdAt      : String? = null,
-        @SerializedName("updated_at"     ) var updatedAt      : String? = null
-
-    )
 }

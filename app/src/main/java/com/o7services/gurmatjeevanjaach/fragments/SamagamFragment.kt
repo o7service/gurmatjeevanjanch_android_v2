@@ -33,7 +33,7 @@ import retrofit2.Response
 
 class SamagamFragment : Fragment(), SamagamAdapter.onItemSamagamListener {
    lateinit var binding : FragmentSamagamBinding
-   var item = ArrayList<AllProgramResponse.Data>()
+   var item = ArrayList<Map<String , List<AllProgramResponse.SamagamItem>>>()
    lateinit var adapter : SamagamAdapter
    lateinit var mainActivity: MainActivity
    lateinit var linearLayoutManager: LinearLayoutManager
@@ -84,7 +84,11 @@ class SamagamFragment : Fragment(), SamagamAdapter.onItemSamagamListener {
                         if (data != null){
                             mainActivity.hideProgress()
                             item.clear()
-                            item.addAll(data)
+                            for (key in data.keys) {
+                                val newMap = mapOf(key to (data[key] ?: emptyList<AllProgramResponse.SamagamItem>()))
+                                item.add(newMap)
+                                Log.d("Response", newMap.toString())
+                            }
                             mainActivity.hideNoData()
                             adapter.notifyDataSetChanged()
                         }else{
@@ -155,11 +159,13 @@ class SamagamFragment : Fragment(), SamagamAdapter.onItemSamagamListener {
         textView.text = spannable
     }
 
-    override fun onSamagamClick(date : String) {
+    override fun onSamagamClick(date : String, values : List<AllProgramResponse.SamagamItem>) {
         var bundle = Bundle()
         bundle.putString("date", date)
+        bundle.putParcelableArrayList("list", ArrayList(values))
         findNavController().navigate(R.id.samagamListFragment, bundle)
         Log.d("Response", "samagam navigation")
     }
+    // how to send values in bundle
 
 }

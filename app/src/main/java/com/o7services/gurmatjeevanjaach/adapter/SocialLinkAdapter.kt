@@ -12,8 +12,9 @@ import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.ItemConnectCardBinding
 import com.o7services.gurmatjeevanjaach.databinding.ItemInstagramBinding
+import com.o7services.gurmatjeevanjaach.dataclass.HomeResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SocialLinkResponse
-class SocialLinkAdapter(var item : ArrayList<SocialLinkResponse.Data>, val listener: itemClickListener) : RecyclerView.Adapter<SocialLinkAdapter.ViewHolder>() {
+class SocialLinkAdapter(var item : ArrayList<HomeResponse.Categories>, val listener: itemClickListener) : RecyclerView.Adapter<SocialLinkAdapter.ViewHolder>() {
     class ViewHolder (val binding : ItemConnectCardBinding) : RecyclerView.ViewHolder(binding.root){
     }
     override fun onCreateViewHolder(

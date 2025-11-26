@@ -6,6 +6,7 @@ import com.o7services.gurmatjeevanjaach.dataclass.AllLinkRequest
 import com.o7services.gurmatjeevanjaach.dataclass.AllLinkResponse
 import com.o7services.gurmatjeevanjaach.dataclass.AllProgramResponse
 import com.o7services.gurmatjeevanjaach.dataclass.AllSingerResponse
+import com.o7services.gurmatjeevanjaach.dataclass.HomeResponse
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateRequest
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SingleLinkRequest
@@ -48,4 +49,6 @@ interface RetrofitInterface {
     fun getSingleProgramByDate(@Body request: ProgramSingleDateRequest): Call<ProgramSingleDateResponse>
     @POST("samagam/add")
     fun addSamagam(@Body request : AddSamagamRequest): Call<AddSamagamResponse>
+    @POST("home")
+    fun home() : Call<HomeResponse>
 }
