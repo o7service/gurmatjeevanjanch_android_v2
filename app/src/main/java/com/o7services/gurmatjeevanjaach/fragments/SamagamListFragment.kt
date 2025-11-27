@@ -42,16 +42,16 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
     lateinit var tvTitle : TextView
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var adapter : SamagamListAdapter
-    lateinit var values : ArrayList<AllProgramResponse.SamagamItem>
+    lateinit var values : ArrayList<ProgramSingleDateResponse.Data>
     lateinit var appBar: AppBarLayout
     var samagamDate = ""
-    var item = ArrayList<AllProgramResponse.SamagamItem>()
+    var item = ArrayList<ProgramSingleDateResponse.Data>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = activity as MainActivity
         arguments?.let {
             samagamDate = it.getString("date", "")
-            values = it.getParcelableArrayList<AllProgramResponse.SamagamItem>("list") ?: arrayListOf()
+          //  values = it.getParcelableArrayList<AllProgramResponse.SamagamItem>("list") ?: arrayListOf()
         }
     }
 
@@ -77,61 +77,61 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
             getAllSamagamList()
         }
     }
-    fun getAllSamagamList(){
-        Log.d("Response", values.toString())
-        if (values != null){
-            item.clear()
-            item.addAll(values)
-            mainActivity.hideNoData()
-            adapter.notifyDataSetChanged()
-        }
-    }
 //    fun getAllSamagamList(){
-//        mainActivity.showProgress()
-//        RetrofitClient.instance.getSingleProgramByDate(ProgramSingleDateRequest(date = samagamDate)).enqueue(object : retrofit2.Callback<ProgramSingleDateResponse>{
-//            override fun onResponse(
-//                call: Call<ProgramSingleDateResponse?>,
-//                response: Response<ProgramSingleDateResponse?>
-//            ) {
-//                binding.swipeRefreshLayout.isRefreshing = false
-//                if (response.body()?.status == 200){
-//                    if (response.body()?.success == true){
-//                        val data = response.body()?.data
-//                        mainActivity.hideProgress()
-//                        if (data != null){
-//                            item.clear()
-//                            item.add(data)
-//                            mainActivity.hideNoData()
-//                            adapter.notifyDataSetChanged()
-//                        }else{
-//                            mainActivity.hideProgress()
-//                            mainActivity.showNoData()
-//                            Log.d("Response", response.body()?.message.toString())
-//                        }
-//                    }else{
-//                        mainActivity.hideProgress()
-//                        mainActivity.showNoData()
-//                        Log.d("Response", response.body()?.message.toString())
-//                    }
-//                }else if (response.body()?.status == 404){
-//                    mainActivity.hideProgress()
-//                    mainActivity.showNoData()
-//                    Log.d("Response", response.body()?.message.toString())
-//                }
-//            }
-//
-//            override fun onFailure(
-//                call: Call<ProgramSingleDateResponse?>,
-//                t: Throwable
-//            ) {
-//                binding.swipeRefreshLayout.isRefreshing = false
-//                mainActivity.hideProgress()
-//                mainActivity.showNoData()
-//                Log.d("Response", t.message.toString())
-//            }
-//
-//        })
+//        Log.d("Response", values.toString())
+//        if (values != null){
+//            item.clear()
+//            item.addAll(values)
+//            mainActivity.hideNoData()
+//            adapter.notifyDataSetChanged()
+//        }
 //    }
+    fun getAllSamagamList(){
+        mainActivity.showProgress()
+        RetrofitClient.instance.getSingleProgramByDate(ProgramSingleDateRequest(date = samagamDate)).enqueue(object : retrofit2.Callback<ProgramSingleDateResponse>{
+            override fun onResponse(
+                call: Call<ProgramSingleDateResponse?>,
+                response: Response<ProgramSingleDateResponse?>
+            ) {
+                binding.swipeRefreshLayout.isRefreshing = false
+                if (response.body()?.status == 200){
+                    if (response.body()?.success == true){
+                        val data = response.body()?.data
+                        mainActivity.hideProgress()
+                        if (data != null){
+                            item.clear()
+                            item.addAll(data)
+                            mainActivity.hideNoData()
+                            adapter.notifyDataSetChanged()
+                        }else{
+                            mainActivity.hideProgress()
+                            mainActivity.showNoData()
+                            Log.d("Response", response.body()?.message.toString())
+                        }
+                    }else{
+                        mainActivity.hideProgress()
+                        mainActivity.showNoData()
+                        Log.d("Response", response.body()?.message.toString())
+                    }
+                }else if (response.body()?.status == 404){
+                    mainActivity.hideProgress()
+                    mainActivity.showNoData()
+                    Log.d("Response", response.body()?.message.toString())
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ProgramSingleDateResponse?>,
+                t: Throwable
+            ) {
+                binding.swipeRefreshLayout.isRefreshing = false
+                mainActivity.hideProgress()
+                mainActivity.showNoData()
+                Log.d("Response", t.message.toString())
+            }
+
+        })
+    }
 
     override fun onMapClick(mapLink : String){
         val mapIntentUri = Uri.parse(mapLink)

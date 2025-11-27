@@ -13,7 +13,7 @@ import com.o7services.gurmatjeevanjaach.dataclass.AllProgramResponse
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateResponse
 
 
-class SamagamListAdapter(var item : ArrayList<AllProgramResponse.SamagamItem>, val listener : samagamListInterface) : RecyclerView.Adapter<SamagamListAdapter.ViewHolder>() {
+class SamagamListAdapter(var item : ArrayList<ProgramSingleDateResponse.Data>, val listener : samagamListInterface) : RecyclerView.Adapter<SamagamListAdapter.ViewHolder>() {
     class ViewHolder (val binding : ItemSamagamProgramListBinding) : RecyclerView.ViewHolder(binding.root){
     }
     override fun onCreateViewHolder(

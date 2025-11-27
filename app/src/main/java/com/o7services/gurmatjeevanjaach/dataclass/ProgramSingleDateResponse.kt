@@ -6,7 +6,7 @@ data class ProgramSingleDateResponse(
     @SerializedName("success" ) var success : Boolean? = null,
     @SerializedName("status"  ) var status  : Int?     = null,
     @SerializedName("message" ) var message : String?  = null,
-    @SerializedName("data"    ) var data    : Data?    = Data()
+    @SerializedName("data"    ) var data    : ArrayList<ProgramSingleDateResponse.Data> = arrayListOf()
 ){
     data class Data (
         @SerializedName("id"             ) var id             : Int?    = null,
