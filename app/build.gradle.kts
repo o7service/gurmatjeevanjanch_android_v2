@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     id ("kotlin-parcelize")
+    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 android {
     namespace = "com.o7services.gurmatjeevanjaach"
@@ -48,6 +50,7 @@ dependencies {
     implementation(libs.translate)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui)
+    implementation(libs.firebase.crashlytics)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

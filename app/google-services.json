@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "169950374210",
+    "project_id": "gurmat-jeevan-jaach-new",
+    "storage_bucket": "gurmat-jeevan-jaach-new.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169950374210:android:3c771a03bc8c8b227a00db",
+        "android_client_info": {
+          "package_name": "com.o7services.gurmatjeevanjaach"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyfLr6AXZH0ESU3XRGOGGr8sjMEiuOaZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -188,9 +188,9 @@ class RequestSamagamFragment : Fragment() {
             startCalendar.get(Calendar.MONTH),
             startCalendar.get(Calendar.DAY_OF_MONTH)
         )
+
         val okButton = datePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE)
         val cancelButton = datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-
         okButton?.setTextColor(ContextCompat.getColor(context, R.color.blue))
         cancelButton?.setTextColor(ContextCompat.getColor(context, R.color.blue))
         datePickerDialog.datePicker.minDate = today.timeInMillis

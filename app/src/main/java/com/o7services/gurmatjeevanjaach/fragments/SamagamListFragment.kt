@@ -65,6 +65,7 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("Response", samagamDate)
         val formattedDate = formatDateToFull(samagamDate)
         mainActivity.tvTitle.text = formattedDate
         adapter = SamagamListAdapter(item , this)
@@ -192,13 +193,15 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
 
     fun formatDateToFull(input: String): String {
         return try {
+            Log.d("Response input", input)
             val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-            val date = inputFormat.parse(input.first().toString())
+            val date = inputFormat.parse(input)
             outputFormat.format(date!!)
         } catch (e: Exception) {
-            input // fallback if parsing fails
+            input
         }
     }
+
     // it show in this format [2025-10-16]
 }

@@ -4,16 +4,13 @@ package com.o7services.gurmatjeevanjaach.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.datastore.preferences.preferencesDataStore
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.ItemConnectCardBinding
-import com.o7services.gurmatjeevanjaach.databinding.ItemInstagramBinding
 import com.o7services.gurmatjeevanjaach.dataclass.HomeResponse
-import com.o7services.gurmatjeevanjaach.dataclass.SocialLinkResponse
+
 class SocialLinkAdapter(var item : ArrayList<HomeResponse.Categories>, val listener: itemClickListener) : RecyclerView.Adapter<SocialLinkAdapter.ViewHolder>() {
     class ViewHolder (val binding : ItemConnectCardBinding) : RecyclerView.ViewHolder(binding.root){
     }

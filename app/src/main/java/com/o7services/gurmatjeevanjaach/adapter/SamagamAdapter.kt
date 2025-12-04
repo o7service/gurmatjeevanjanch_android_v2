@@ -25,6 +25,7 @@ import com.o7services.gurmatjeevanjaach.fragments.PlayAudioFragment
 class SamagamAdapter(val item : ArrayList<Map<String , List<AllProgramResponse.SamagamItem>>>, val listener: onItemSamagamListener) : RecyclerView.Adapter<SamagamAdapter.ViewHolder>(){
     class ViewHolder (val binding : ItemSamagamBinding) : RecyclerView.ViewHolder(binding.root){
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -47,6 +48,7 @@ class SamagamAdapter(val item : ArrayList<Map<String , List<AllProgramResponse.S
         }
         holder.itemView.setOnClickListener {
             Log.d("Values", item[position].toString())
+            Log.d("Keys", item[position].keys.first())
             listener.onSamagamClick(item[position].keys.first(), item[position].values.first())
         }
     }
