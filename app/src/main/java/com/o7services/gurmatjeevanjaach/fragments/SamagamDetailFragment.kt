@@ -67,8 +67,6 @@ class SamagamDetailFragment : Fragment() {
         binding.tvTitle.setText(title)
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-
-// Parse and reformat
         val startDateFormat = inputFormat.parse(startDate)
         val endDateFormat = inputFormat.parse(endDate)
         val formattedStartDate = outputFormat.format(startDateFormat)

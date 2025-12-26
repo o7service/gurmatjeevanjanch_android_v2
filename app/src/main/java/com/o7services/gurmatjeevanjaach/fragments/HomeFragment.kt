@@ -6,6 +6,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -71,7 +72,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     override fun onResume() {
         super.onResume()
         getHome()
-        // in youtube link will not intent , only zoom video
         binding.viewPager.setCurrentItem(0, false)
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
             binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
@@ -105,7 +105,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         val tab = binding.tabLayout.getTabAt(0)
         val indicator1 = tab?.customView?.findViewById<View>(R.id.indicator1)
         val indicator2 = tab?.customView?.findViewById<View>(R.id.indicator2)
-
         if (binding.viewPager.currentItem == 0) {
             indicator1?.setBackgroundResource(R.drawable.bg_tab_selected)
             indicator2?.setBackgroundResource(R.drawable.bg_tab_unselected)
@@ -113,25 +112,34 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             indicator1?.setBackgroundResource(R.drawable.bg_tab_unselected)
             indicator2?.setBackgroundResource(R.drawable.bg_tab_selected)
         }
+        binding.viewPager.getChildAt(0).setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN,
+                MotionEvent.ACTION_MOVE -> {
+                    binding.swipeRefreshLayout.isEnabled = false
+                }
+                MotionEvent.ACTION_UP,
+                MotionEvent.ACTION_CANCEL -> {
+                    binding.swipeRefreshLayout.isEnabled = true
+                }
+            }
+            false
+        }
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                val tab = binding.tabLayout.getTabAt(0) // Only one tab
+                val tab = binding.tabLayout.getTabAt(0)
                 val indicator1 = tab?.customView?.findViewById<View>(R.id.indicator1)
                 val indicator2 = tab?.customView?.findViewById<View>(R.id.indicator2)
-
                 if (position == 0) {
-                    // YouTube page
                     indicator1?.setBackgroundResource(R.drawable.bg_tab_selected)
                     indicator2?.setBackgroundResource(R.drawable.bg_tab_unselected)
                 } else {
-                    // Image page
                     indicator1?.setBackgroundResource(R.drawable.bg_tab_unselected)
                     indicator2?.setBackgroundResource(R.drawable.bg_tab_selected)
                 }
             }
         })
-
         binding.clCurrentMusic.setOnClickListener {
             var bundle = Bundle()
             bundle.putString("id", MediaManager.currentSingerId)
@@ -152,15 +160,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             updatePlayPauseIcon()
         }
         binding.clCurrentMusic.setOnClickListener {
-            // Navigate to PlayAudioFragment
-//            val playAudioFragment = PlayAudioFragment()
-//            parentFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, playAudioFragment)
-//                .addToBackStack(null)
-//                .commit()
         }
         Log.d("Response title", "${MediaManager.currentTitle}- By ${MediaManager.currentSingerName}")
-      //  binding.tvPlayTitle.text = MediaManager.currentTitle
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
             binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
         }
@@ -176,6 +177,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                     var categoryData = response.body()?.data?.categories
                     (mainActivity as MainActivity).hideProgress()
                     binding.clHome.visibility = View.VISIBLE
+                    binding.swipeRefreshLayout.isRefreshing = false
                     if (categoryData != null){
                         item.clear()
                         item.addAll(categoryData)
@@ -227,6 +229,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     if (items.isEmpty()) {
         Log.d("Slider", "No YouTube or Zoom links to show")
     }
+
     val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
     binding.viewPager.adapter = sliderAdapter
     }
@@ -240,7 +243,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             ) {
                 if (response.body()?.status == 200){
                     if (response.body()?.success == true){
-                     //   Log.d("Response", response.body()?.data?.id.toString())
                         val data = response.body()?.data
                         if (data != null){
                             var bundle = Bundle()
@@ -284,7 +286,6 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     private fun updateMiniPlayer() {
         if (!MediaManager.currentTitle.isNullOrEmpty()) {
         binding.clCurrentMusic.visibility = View.VISIBLE
-   //     binding.tvPlayTitle.text = MediaManager.currentTitle
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
             binding.tvPlayTitle.text = "$newTitle - By ${MediaManager.currentSingerName}"
         }
@@ -302,7 +303,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         Glide.with(mainActivity)
             .load(R.drawable.icon_pause_final)
             .into(binding.ivPlay)
-        } else {
+        }else {
             binding.tvPlayTitle.text = "${MediaManager.currentTitle} - By ${MediaManager.currentSingerName}"
         Glide.with(mainActivity)
             .load(R.drawable.icon_play_final)

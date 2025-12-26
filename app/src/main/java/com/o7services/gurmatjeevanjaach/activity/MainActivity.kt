@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity() {
 // Use ContextCompat to get color from resources
             val positiveColor = ContextCompat.getColor(this, R.color.blue)
             val negativeColor = ContextCompat.getColor(this, R.color.blue)
-
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(positiveColor)
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(negativeColor)
 

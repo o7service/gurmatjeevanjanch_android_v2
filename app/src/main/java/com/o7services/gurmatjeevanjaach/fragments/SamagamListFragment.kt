@@ -202,6 +202,5 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
             input
         }
     }
-
     // it show in this format [2025-10-16]
 }

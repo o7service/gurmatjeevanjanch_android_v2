@@ -68,15 +68,37 @@ class SliderAdapter(
         return items[position]
     }
 
+//    inner class YouTubeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        private val youTubePlayerView: YouTubePlayerView = itemView.findViewById(R.id.youtubePlayerView)
+//        fun bind(item: SliderItem.YouTubeVideo) {
+//            // Remove previous lifecycle observers (important for RecyclerView)
+//            lifecycleOwner.lifecycle.removeObserver(youTubePlayerView)
+//            // Disable auto initialization to control it manually
+//            youTubePlayerView.enableAutomaticInitialization = false
+//            // Add current observer again
+//            lifecycleOwner.lifecycle.addObserver(youTubePlayerView)
+//            youTubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
+//                override fun onReady(youTubePlayer: YouTubePlayer) {
+//                    youTubePlayer.cueVideo(item.videoId, 0f)
+//                }
+//            }, true)
+//        }
+//    }
+
     inner class YouTubeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val youTubePlayerView: YouTubePlayerView = itemView.findViewById(R.id.youtubePlayerView)
+
+        private val youTubePlayerView: YouTubePlayerView =
+            itemView.findViewById(R.id.youtubePlayerView)
+
         fun bind(item: SliderItem.YouTubeVideo) {
-            // Remove previous lifecycle observers (important for RecyclerView)
+
+            // IMPORTANT: Disable touch so ViewPager works smoothly
+            youTubePlayerView.setOnTouchListener { _, _ -> true }
+
             lifecycleOwner.lifecycle.removeObserver(youTubePlayerView)
-            // Disable auto initialization to control it manually
             youTubePlayerView.enableAutomaticInitialization = false
-            // Add current observer again
             lifecycleOwner.lifecycle.addObserver(youTubePlayerView)
+
             youTubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     youTubePlayer.cueVideo(item.videoId, 0f)
@@ -85,38 +107,58 @@ class SliderAdapter(
         }
     }
 
+
+//    inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        private val imageView: ImageView = itemView.findViewById(R.id.imageView)
+//        fun bind(item: SliderItem.CustomImageWithId) {
+//            Glide.with(itemView.context)
+//                .load(item.imageResId)
+//                .into(imageView)
+//
+////            imageView.setOnClickListener {
+////                Log.d("ImageClick", "Clicked with link: ${item.link}")
+////                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
+////                itemView.context.startActivity(intent)
+////            }
+//
+//            itemView.setOnClickListener {
+//                when (item) {
+//                    is SliderItem.CustomImageWithId -> {
+//                        Log.d("ImageClick", "Zoom image clicked: ${item.link}")
+//                        // open Zoom link
+//                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
+//                        itemView.context.startActivity(intent)
+//                    }
+//                    is SliderItem.YouTubeVideo -> {
+//                        Log.d("ImageClick", "YouTube video clicked - do nothing or play inside app")
+//                        // You can optionally open YouTube video if needed:
+//                        // val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=${item.videoId}"))
+//                        // context.startActivity(intent)
+//                    }
+//                }
+//            }
+//
+//
+//            // youtube link is show no zoom , i want to click on the zoom
+//        }
+//    }
+
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         private val imageView: ImageView = itemView.findViewById(R.id.imageView)
+
         fun bind(item: SliderItem.CustomImageWithId) {
+
             Glide.with(itemView.context)
                 .load(item.imageResId)
                 .into(imageView)
 
-//            imageView.setOnClickListener {
-//                Log.d("ImageClick", "Clicked with link: ${item.link}")
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-//                itemView.context.startActivity(intent)
-//            }
-
+            // Zoom image clickable
             itemView.setOnClickListener {
-                when (item) {
-                    is SliderItem.CustomImageWithId -> {
-                        Log.d("ImageClick", "Zoom image clicked: ${item.link}")
-                        // open Zoom link
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-                        itemView.context.startActivity(intent)
-                    }
-                    is SliderItem.YouTubeVideo -> {
-                        Log.d("ImageClick", "YouTube video clicked - do nothing or play inside app")
-                        // You can optionally open YouTube video if needed:
-                        // val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=${item.videoId}"))
-                        // context.startActivity(intent)
-                    }
-                }
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
+                itemView.context.startActivity(intent)
             }
-
-
-            // youtube link is show no zoom , i want to click on the zoom
         }
     }
+
 }

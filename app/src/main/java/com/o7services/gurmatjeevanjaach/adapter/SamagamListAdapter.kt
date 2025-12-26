@@ -11,6 +11,8 @@ import com.o7services.gurmatjeevanjaach.consts.AppConst
 import com.o7services.gurmatjeevanjaach.databinding.ItemSamagamProgramListBinding
 import com.o7services.gurmatjeevanjaach.dataclass.AllProgramResponse
 import com.o7services.gurmatjeevanjaach.dataclass.ProgramSingleDateResponse
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 class SamagamListAdapter(var item : ArrayList<ProgramSingleDateResponse.Data>, val listener : samagamListInterface) : RecyclerView.Adapter<SamagamListAdapter.ViewHolder>() {
@@ -27,6 +29,13 @@ class SamagamListAdapter(var item : ArrayList<ProgramSingleDateResponse.Data>, v
     override fun onBindViewHolder(holder: SamagamListAdapter.ViewHolder, position: Int) {
         holder.binding.tvTitle.text = item[position].title
         holder.binding.tvSubTitle.text = item[position].address
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val startDateFormat = inputFormat.parse(item[position].startDate)
+        val endDateFormat = inputFormat.parse(item[position].endDate)
+        val formattedStartDate = outputFormat.format(startDateFormat)
+        val formattedEndDate = outputFormat.format(endDateFormat)
+        holder.binding.tvSubTitleDate.setText(formattedStartDate + " to "+ formattedEndDate)
         val imageIcon = AppConst.imageBaseUrl + item[position].imageUrl
         Glide.with(holder.itemView)
             .load(imageIcon)
@@ -43,7 +52,6 @@ class SamagamListAdapter(var item : ArrayList<ProgramSingleDateResponse.Data>, v
         holder.binding.ivCurrentMap.setOnClickListener {
             listener.onMapClick(item[position].mapLink.toString())
         }
-
         holder.binding.tvSubTitlePhone.text = "${item[position].contactNumber1?.toLong().toString()} , ${item[position].contactNumber2?.toLong().toString()}"
     }
 
