@@ -315,7 +315,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             Regex("""(?:v=)([A-Za-z0-9_-]{11})"""),
             Regex("""(?:youtu\.be/)([A-Za-z0-9_-]{11})"""),
             Regex("""(?:embed/)([A-Za-z0-9_-]{11})"""),
-            Regex("""(?:shorts/)([A-Za-z0-9_-]{11})""")
+            Regex("""(?:shorts/)([A-Za-z0-9_-]{11})"""),
+            Regex("""(?:live/)([A-Za-z0-9_-]{11})""")
         )
 
         for (pattern in patterns) {
