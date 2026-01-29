@@ -64,7 +64,7 @@ class SamagamDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainActivity.tvTitle.text = title
-        binding.tvTitle.setText(title)
+//        binding.tvTitle.setText(title)
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val startDateFormat = inputFormat.parse(startDate)

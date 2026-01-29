@@ -77,4 +77,12 @@
     <string name="join">Join</string>
     <string name="defaultTime">00:00 am</string>
     <string name="samagam_detail">Details</string>
+    <string name="zoom">Zoom</string>
+    <string name="live">Live</string>
+    <string name="zoom_live">Zoom Live</string>
+    <string name="click_to_view_live">Click to view location on the map</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="punjabi">Punjabi</string>
+    <string name="choose_your_language">Choose your language</string>
 </resources>

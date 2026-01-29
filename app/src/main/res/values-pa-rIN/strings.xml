@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
         <string name="home">ਹੋਮ</string>
         <string name="audio">ਆਡੀਓ</string>
         <string name="swagam">ਸਮਾਗਮ</string>
-        <string name="more">ਮੋਰ</string>
-        <string name="connect_with_us">ਕਨੈਕਟ ਵਿਦ ਅਸ</string>
-        <string name="contact_us">ਕਾਂਟੈਕਟ ਅਸ</string>
-        <string name="india">ਇੰਡੀਆ</string>
+        <string name="more">ਹੋਰ</string>
+        <string name="connect_with_us">ਸਾਡੇ ਨਾਲ ਜੁੜੋ</string>
+        <string name="contact_us">ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
+        <string name="india">ਭਾਰਤ</string>
         <string name="canada">ਕੈਨੇਡਾ</string>
-        <string name="requestForSamagam">ਰਿਕਵੇਸਟ ਫੋਰ ਸਮਾਗਮ</string>
+        <string name="requestForSamagam">ਸਮਾਗਮ ਲਈ ਬੇਨਤੀ</string>
         <string name="privacy_policy">ਪਰਾਈਵੇਸੀ ਪਾਲਿਸੀ</string>
         <string name="enter_your_name"><font size = "15">ਨਾਮ:</font></string>
-        <string name="address"><font size = "15">ਐਡਰੈੱਸ:</font></string>
-        <string name="samagam">ਅਪਕਮਿੰਗ ਸਮਾਗਮ</string>
-        <string name="More">ਮੋਰ</string>
-        <string name="programDescription"><font size = "15">ਪ੍ਰੋਗ੍ਰਾਮ ਡਿਸਕ੍ਰਿਪਸ਼ਨ:</font></string>
+        <string name="address"><font size = "15">ਪਤਾ:</font></string>
+        <string name="samagam">ਆਉਣ ਵਾਲੇ ਸਮਾਗਮ</string>
+        <string name="More">ਹੋਰ</string>
+        <string name="programDescription"><font size = "15">ਪ੍ਰੋਗਰਾਮ ਦਾ ਵੇਰਵਾ:</font></string>
         <string name="google_map_link"><font size = "15">ਗੂਗਲ ਮੈਪ ਲਿੰਕ:</font></string>
-        <string name="contact_number"><font size = "15">ਕਾਂਟੈਕਟ ਨੰਬਰ:</font></string>
+        <string name="contact_number"><font size = "15">ਸੰਪਰਕ ਨੰਬਰ:</font></string>
         <string name="your_email"><font size = "15">ਈ-ਮੇਲ:</font></string>
-        <string name="start_date"><font size = "15">ਸਟਾਰਟ ਡੇਟ:</font></string>
-        <string name="end_date"><font size = "15">ਐਂਡ ਡੇਟ:</font></string>
-        <string name="request_samagam">ਸੈਂਡ ਰਿਕਵੇਸਟ</string>
-        <string name="to_date"><font size = "15">ਐਂਡ ਡੇਟ:</font></string>
-        <string name="addSamagamRequest">ਐਡ ਸਮਾਗਮ ਰਿਕਵੇਸਟ</string>
-        <string name="youtube_channels">ਯੂਟਿਊਬ ਚੈਨਲਜ਼</string>
+        <string name="start_date"><font size = "15">ਸ਼ੁਰੂਆਤੀ ਤਾਰੀਖ:</font></string>
+        <string name="end_date"><font size = "15">ਆਖਰੀ ਤਾਰੀਖ:</font></string>
+        <string name="request_samagam">ਬੇਨਤੀ ਭੇਜੋ</string>
+        <string name="to_date"><font size = "15">ਆਖਰੀ ਤਾਰੀਖ:</font></string>
+        <string name="addSamagamRequest">ਸਮਾਗਮ ਦੀ ਬੇਨਤੀ ਦਰਜ ਕਰੋ</string>
+        <string name="youtube_channels">ਯੂਟਿਊਬ ਚੈਨਲ</string>
         <string name="whatsapp_group">ਵਟਸਐਪ ਗਰੁੱਪ</string>
-        <string name="telegram_channels">ਟੈਲੀਗ੍ਰਾਮ ਚੈਨਲਜ਼</string>
-        <string name="facebook_groups">ਫੇਸਬੁੱਕ ਗਰੁੱਪਜ਼</string>
-        <string name="instagram_chanels">ਇੰਸਟਾਗ੍ਰਾਮ ਚੈਨਲਜ਼</string>
-        <string name="enter_program_description">ਪ੍ਰੋਗ੍ਰਾਮ ਡਿਸਕ੍ਰਿਪਸ਼ਨ ਐਂਟਰ ਕਰੋ</string>
-        <string name="enter_address">ਐਡਰੈੱਸ ਐਂਟਰ ਕਰੋ</string>
-        <string name="enter_contact_number">ਕਾਂਟੈਕਟ ਨੰਬਰ ਐਂਟਰ ਕਰੋ</string>
-        <string name="end_date_start_date_validation">ਸਟਾਰਟ ਜਾਂ ਐਂਡ ਡੇਟ ਐਂਟਰ ਕਰੋ</string>
-        <string name="enter_valid_email">ਵੈਲਿਡ ਈ-ਮੇਲ ਐਂਟਰ ਕਰੋ</string>
-        <string name="data_not_found">ਡਾਟਾ ਨੌਟ ਫਾਊਂਡ</string>
-        <string name="listen">ਲਿਸਨ</string>
+        <string name="telegram_channels">ਟੈਲੀਗ੍ਰਾਮ ਚੈਨਲ</string>
+        <string name="facebook_groups">ਫੇਸਬੁੱਕ ਗਰੁੱਪ</string>
+        <string name="instagram_chanels">ਇੰਸਟਾਗ੍ਰਾਮ ਚੈਨਲ</string>
+        <string name="enter_program_description">ਪ੍ਰੋਗਰਾਮ ਵੇਰਵਾ ਦਰਜ ਕਰੋ</string>
+        <string name="enter_address">ਪਤਾ ਦਰਜ ਕਰੋ</string>
+        <string name="enter_contact_number">ਸੰਪਰਕ ਨੰਬਰ ਦਰਜ ਕਰੋ</string>
+        <string name="end_date_start_date_validation">ਸ਼ੁਰੂਆਤੀ ਜਾਂ ਸਮਾਪਤੀ ਮਿਤੀ ਦਰਜ ਕਰੋ</string>
+        <string name="enter_valid_email">ਵੈਧ ਈਮੇਲ ਦਰਜ ਕਰੋ</string>
+        <string name="data_not_found">ਡਾਟਾ ਨਹੀਂ ਲੱਭਿਆ</string>
+        <string name="listen">ਸੁਣੋ</string>
         <string name="month_1">ਜਨਵਰੀ</string>
         <string name="month_2">ਫਰਵਰੀ</string>
         <string name="month_3">ਮਾਰਚ</string>
@@ -52,5 +51,14 @@
                 <item>ਜਨਵਰੀ</item> <item>ਫ਼ਰਵਰੀ</item> <item>ਮਾਰਚ</item>   <item>ਅਪ੍ਰੈਲ</item> <item>ਮਈ</item>     <item>ਜੂਨ</item>    <item>ਜੁਲਾਈ</item>  <item>ਅਗਸਤ</item>  <item>ਸਤੰਬਰ</item> <item>ਅਕਤੂਬਰ</item> <item>ਨਵੰਬਰ</item>  <item>ਦਸੰਬਰ</item>  </string-array>
         <string name="join">ਜੌਇਨ</string>
         <string name="change_language">ਭਾਸ਼ਾ ਬਦਲੋ</string>
-        <string name="view_samagam">ਵਿਊ ਸਮਾਗਮ</string>
+        <string name="view_samagam">ਸਮਾਗਮ ਵੇਖੋ</string>
+        <string name="samagam_detail">ਵੇਰਵਾ</string>
+        <string name="zoom">ਜ਼ੂਮ</string>
+        <string name="live">ਲਾਈਵ</string>
+        <string name="zoom_live">ਜ਼ੂਮ ਲਾਈਵ</string>
+        <string name="click_to_view_live">ਨਕਸ਼ੇ \'ਤੇ ਸਥਾਨ ਦੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ</string>
+        <string name="english">ਅੰਗਰੇਜ਼ੀ</string>
+        <string name="hindi">ਹਿੰਦੀ</string>
+        <string name="punjabi">ਪੰਜਾਬੀ</string>
+        <string name="choose_your_language">ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ</string>
     </resources>

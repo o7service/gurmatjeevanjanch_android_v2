@@ -230,11 +230,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun hideNoData(){
-        binding.tvNoDataFound.visibility = View.GONE
+        if (::binding.isInitialized) {
+            binding.tvNoDataFound.visibility = View.GONE
+        }
     }
     override fun attachBaseContext(newBase: Context) {
         val prefs = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val lang = prefs.getString("language", "en") ?: "en"
+        val lang = prefs.getString("language", "pa") ?: "pa"
         super.attachBaseContext(newBase.setAppLocale(lang))
     }
 

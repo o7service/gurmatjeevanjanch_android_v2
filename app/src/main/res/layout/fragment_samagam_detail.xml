@@ -5,190 +5,301 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
     tools:context=".fragments.SamagamDetailFragment">
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cvImage"
-        app:shapeAppearanceOverlay="@style/RoundCornerImageView"
-        android:layout_margin="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_13sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_marginBottom="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_13sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        style="@style/RoundCorner20">
-        <com.google.android.material.imageview.ShapeableImageView
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_180sdp"
-            android:scaleType="centerCrop"
+            android:scaleType="center"
             android:padding="@dimen/_1sdp"
             android:id="@+id/ivImage"
             android:src="@drawable/dummy_image" />
-
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
     <androidx.constraintlayout.widget.Barrier
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="start"
         android:id="@+id/barrierMap"
-        app:constraint_referenced_ids="ivCurrentMap"
+        app:constraint_referenced_ids="llMap"
         />
-
-    <TextView
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/llMap"
+        android:visibility="visible"
         android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintEnd_toEndOf="@id/barrierMap"
-        android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/black_light"
-        android:id="@+id/tvTitle"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_13sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_marginBottom="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:background="@drawable/btn_style"
+        android:padding="@dimen/_7sdp"
         app:layout_constraintTop_toBottomOf="@id/cvImage"
-    />
-    <ImageView
-        android:layout_width="@dimen/_21sdp"
-        android:layout_height="@dimen/_18sdp"
+        app:layout_constraintEnd_toEndOf="@id/barrierMap"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_14sdp"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            android:layout_gravity="center"
+            app:tint = "@color/white"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:id="@+id/ivCurrentMap"
+            android:src="@drawable/ic_location"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/click_to_view_live"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@id/barrierMap"
+            style="@style/textMedium"
+            android:textColor="@color/white"
+            android:id="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/cvImage"
+            />
+        </LinearLayout>
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:id="@+id/cardInfo"
+        android:backgroundTint="@color/white"
+        android:layout_marginEnd="@dimen/_13sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_marginBottom="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_13sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvTitle"
-        app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:id="@+id/ivCurrentMap"
-        android:src="@drawable/icon_map"/>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/llDate"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_6sdp"
-        app:layout_constraintEnd_toEndOf="parent">
-        <ImageView
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_16sdp"
-            android:src="@drawable/ic_smagam"
-            />
-        <TextView
-            android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/llMap">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="@string/start_date"
-            android:id="@+id/tvDate"
-            android:singleLine="true"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_5sdp"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/llDate"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/llLocation"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        app:layout_constraintEnd_toEndOf="parent">
-        <ImageView
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_16sdp"
-            android:src="@drawable/icon_map"
-            app:tint = "#747474"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:id="@+id/tvLocation"
-            android:layout_marginStart="@dimen/_5sdp"/>
+            <LinearLayout
+                android:id="@+id/llLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/llMap">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/llLocation"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/llPhone"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_29sdp"
+                    android:layout_height="@dimen/_29sdp"
+                    android:backgroundTint="#F49000"
+                    app:cardCornerRadius="@dimen/_20sdp">
 
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        app:layout_constraintEnd_toEndOf="parent">
-        <ImageView
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_16sdp"
-            android:src="@drawable/ic_phone"
-            app:tint = "#747474"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@string/start_date"
-            android:layout_gravity="center"
-            android:id="@+id/tvContactNumber"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginStart="@dimen/_5sdp"/>
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:src="@drawable/icon_map"
+                        app:tint="@color/white" />
+                </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    tools:text = "hello"
+                    android:textColor="#0039CC"
+                    android:textSize="@dimen/_11sdp"
+                    style="@style/textMedium"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/llLocation">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_29sdp"
+                    android:layout_height="@dimen/_29sdp"
+                    android:backgroundTint="#F49000"
+                    app:cardCornerRadius="@dimen/_20sdp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    style="@style/textMedium"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_11sdp"
+                    tools:text="@string/start_date" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@id/llDate">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_29sdp"
+                    android:layout_height="@dimen/_29sdp"
+
+                    android:backgroundTint="#F49000"
+                    app:cardCornerRadius="@dimen/_20sdp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:src="@drawable/ic_phone"
+                        app:tint="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvContactNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    style="@style/textMedium"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_11sdp"
+                    tools:text="@string/start_date" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvSamagamDetail"
+        style="@style/textRegular"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/samagam_detail"
-        android:id="@+id/tvSamagamDetail"
-        app:layout_constraintTop_toBottomOf="@id/llPhone"
-        app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/black_light"
-        android:includeFontPadding="false"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:textSize="@dimen/_13sdp"/>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvSamagamDetail"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/black_light"
+
         android:justificationMode="inter_word"
+        android:layout_marginEnd="@dimen/_13sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_marginBottom="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:textColor="@color/black_light"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/poppins_regular"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:id="@+id/textSamagamDetail"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        tools:text = "slfk wreo ksfskldfie sfkdlsfkssfsfjs  sfsllf iwoiowieowirewoiwiriiow irwoislkfsjfkl saflkasfeifnkslf sjkfskk fjsireoraweraifidifhsskflsklf;sfklskflskklfslkflsfkskfklskfkl"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardInfo">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/samagam_detail"
+                android:id="@+id/tvSamagamDetail"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/cardInfo"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/textMedium"
+                android:textColor="@color/black_light"
+                android:includeFontPadding="false"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_14sdp"/>
+            <TextView
+                android:id="@+id/textSamagamDetail"
+                style="@style/textRegular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:justificationMode="inter_word"
+                android:textColor="@color/black_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSamagamDetail"
+                tools:text="slfk wreo ksfskldfie sfkdlsfkssfsfjs  sfsllf iwoiowieowirewoiwiriiow irwoislkfsjfkl saflkasfeifnkslf sjkfskk fjsireoraweraifidifhsskflsklf;sfklskflskklfslkflsfkskfklskfkl" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/contact_number"
-        android:fontFamily="@font/poppins_semibold"
+        style="@style/textRegular"
         android:textColor="@color/black_light"
         android:layout_marginStart="@dimen/_10sdp"
         android:includeFontPadding="false"
         android:textSize="@dimen/_13sdp"
         android:visibility="gone"
         android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/textSamagamDetail"
+        app:layout_constraintTop_toBottomOf="@id/cvSamagamDetail"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/tvPhone"
         />
@@ -198,7 +309,7 @@
         tools:text="model town jalandhar punjab"
         app:layout_constraintTop_toBottomOf="@id/tvPhone"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/poppins_regular"
+        style="@style/textRegular"
         android:layout_marginStart="@dimen/_10sdp"
         android:id="@+id/textPhone"
         android:visibility="gone"

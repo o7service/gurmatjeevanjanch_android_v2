@@ -245,7 +245,7 @@
                         android:text="@string/request_samagam"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textAllCaps="false"
-                        android:fontFamily="@font/poppins_medium"
+                        style="@style/textMedium"
                         android:textSize="@dimen/_12sdp"/>
 
 

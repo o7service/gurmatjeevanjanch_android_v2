@@ -4,20 +4,54 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
-
     <style name="RoundCornerImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="textMedium" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="font">@font/poppins_medium</item>
+    </style>
+
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="BottomSheetCardShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">40dp</item>
+        <item name="cornerSizeTopRight">40dp</item>
+    </style>
+    <style name="textRegular" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="font">@font/poppins_regular</item>
+    </style>
+
+    <style name="textBold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="font">@font/poppins_bold</item>
+    </style>
+
+    <style name="textSemibold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="font">@font/poppins_semibold</item>
     </style>
 
     <style name="RoundCorner20" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20%</item>
     </style>
-<!--    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
-<!--        <item name="colorAccent">@color/white</item>-->
-<!--    </style>-->
-
+    <style name="TextStyleF15WhiteColorRegular" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/_15sdp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundMode">outline</item>
         <item name="boxStrokeColor">@color/white</item>

@@ -18,7 +18,7 @@
             android:id="@+id/tvTitle"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/poppins_medium"
+            style="@style/textMedium"
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/black_light"
             android:textSize="@dimen/_15sdp"
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toTopOf="@id/view"
             android:textSize="@dimen/_10sdp" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="@font/poppins_regular" app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/textRegular" app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/white"/>
 
 

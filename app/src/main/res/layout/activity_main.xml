@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="@string/data_not_found"
         android:textSize="@dimen/_13sdp"
-        android:fontFamily="@font/poppins_regular"
+        style="@style/textRegular"
         android:id="@+id/tvNoDataFound"
         android:textColor="@color/black_light"
         android:visibility="gone"

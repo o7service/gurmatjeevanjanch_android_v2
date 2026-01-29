@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/ivChannel"
         app:layout_constraintTop_toTopOf="@id/ivChannel"
-        android:fontFamily="@font/poppins_medium"
+        style="@style/textMedium"
         android:textColor="@color/black_light"
         android:textSize="@dimen/_13sdp"
         android:id="@+id/tvTitle"
@@ -44,7 +44,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
+        style="@style/textRegular"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="-7dp"
 

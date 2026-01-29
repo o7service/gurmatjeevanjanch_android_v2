@@ -25,7 +25,6 @@ class SocialLinkAdapter(var item : ArrayList<HomeResponse.Categories>, val liste
     override fun onBindViewHolder(holder: SocialLinkAdapter.ViewHolder, position: Int) {
         holder.binding.tvTitle.text = item[position].title
         holder.binding.tvJoin.text = item[position].actionText
-//        holder.binding.tvSubTitle.text = item[position].description
         var imageIcon = AppConst.imageBaseUrl + item[position].icon
         Glide.with(holder.itemView)
             .load(imageIcon)

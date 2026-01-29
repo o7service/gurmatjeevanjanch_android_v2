@@ -1,5 +1,7 @@
 package com.o7services.gurmatjeevanjaach.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -23,12 +25,9 @@ import com.o7services.gurmatjeevanjaach.activity.MainActivity
 import com.o7services.gurmatjeevanjaach.adapter.SliderAdapter
 import com.o7services.gurmatjeevanjaach.adapter.SocialLinkAdapter
 import com.o7services.gurmatjeevanjaach.databinding.FragmentHomeBinding
-import com.o7services.gurmatjeevanjaach.dataclass.SocialLinkResponse
 import com.o7services.gurmatjeevanjaach.dataclass.AllLinkRequest
 import com.o7services.gurmatjeevanjaach.dataclass.AllLinkResponse
 import com.o7services.gurmatjeevanjaach.dataclass.HomeResponse
-import com.o7services.gurmatjeevanjaach.dataclass.SingleLinkRequest
-import com.o7services.gurmatjeevanjaach.dataclass.SingleLinkResponse
 import com.o7services.gurmatjeevanjaach.dataclass.SliderItem
 import com.o7services.gurmatjeevanjaach.retrofit.MediaManager
 import com.o7services.gurmatjeevanjaach.retrofit.RetrofitClient
@@ -81,6 +80,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        getHome()
         socialLinkAdapter = SocialLinkAdapter(item, this)
         binding.recyclerView.adapter = socialLinkAdapter
         gridLayoutManager = GridLayoutManager(mainActivity, 3, GridLayoutManager.VERTICAL, false)
@@ -140,13 +141,25 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                 }
             }
         })
+        binding.icZoomForward.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(zoomLink))
+            startActivity(intent)
+        }
+        binding.liveSmagam.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(zoomLink))
+            startActivity(intent)
+        }
+
+        binding.cardZoom.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(zoomLink))
+            startActivity(intent)
+        }
         binding.clCurrentMusic.setOnClickListener {
             var bundle = Bundle()
             bundle.putString("id", MediaManager.currentSingerId)
             bundle.putString("title", MediaManager.currentSingerName)
             findNavController().navigate(R.id.playAudioFragment, bundle)
         }
-
         binding.swipeRefreshLayout.setOnRefreshListener {
             (requireActivity() as MainActivity).showProgress()
             getHome()
@@ -187,6 +200,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                     var youtubeData = response.body()?.data?.youtubeLink
                     var zoomData = response.body()?.data?.zoomLink
                     if (youtubeData != null) {
+                        binding.cardPager.visibility = View.VISIBLE
                         val videoId = extractYouTubeVideoId(youtubeData?.link.toString())
                         if (!videoId.isNullOrEmpty()) {
                             youtubeLink = youtubeData.link.toString()
@@ -194,10 +208,16 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                             hasFetchedYouTube = true
                             Log.d("YouTube Link", youtubeLink)
                         }
+                    }else{
+                        binding.cardPager.visibility = View.GONE
                     }
                     if (zoomData != null){
+                        binding.liveSmagam.visibility = View.VISIBLE
                         zoomId = zoomData.id.toString()
                         zoomLink = zoomData.link.toString()
+                    }
+                    else{
+                        binding.liveSmagam.visibility = View.GONE
                     }
                     if (youtubeId != null && zoomLink != null){
                         updateSlider(youtubeId, zoomLink)
@@ -223,11 +243,11 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     if (!youtubeVideoId.isNullOrEmpty()) {
         items.add(SliderItem.YouTubeVideo(youtubeVideoId))
     }
-    if (!zoomLink.isNullOrEmpty()) {
-        items.add(SliderItem.CustomImageWithId(R.drawable.zoom_video, zoomLink))
-    }
+//    if (!zoomLink.isNullOrEmpty()) {
+//        items.add(SliderItem.CustomImageWithId(R.drawable.zoom_video, zoomLink))
+//    }
     if (items.isEmpty()) {
-        Log.d("Slider", "No YouTube or Zoom links to show")
+        Log.d("Slider", "No YouTube  to show")
     }
 
     val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)

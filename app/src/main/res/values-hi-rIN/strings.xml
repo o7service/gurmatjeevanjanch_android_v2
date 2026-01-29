@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">होम</string>
+    <string name="audio">ऑडियो</string>
+    <string name="swagam">समागम</string>
+    <string name="more">और</string>
+    <string name="connect_with_us">हमारे साथ जुड़ें</string>
+    <string name="contact_us">हमसे संपर्क करें</string>
+    <string name="india">भारत</string>
+    <string name="canada">कनाडा</string>
+    <string name="requestForSamagam">समागम के लिए अनुरोध</string>
+    <string name="privacy_policy">प्राइवेसी पॉलिसी</string>
+    <string name="enter_your_name"><font size = "15">नाम:</font></string>
+    <string name="address"><font size = "15">पता:</font></string>
+    <string name="samagam">आगामी समागम</string>
+    <string name="More">और अधिक</string>
+    <string name="programDescription"><font size = "15">कार्यक्रम का विवरण:</font></string>
+    <string name="google_map_link"><font size = "15">गूगल मैप लिंक:</font></string>
+    <string name="contact_number"><font size = "15">संपर्क नंबर:</font></string>
+    <string name="your_email"><font size = "15">ई-मेल:</font></string>
+    <string name="start_date"><font size = "15">प्रारंभ तिथि:</font></string>
+    <string name="end_date"><font size = "15">अंतिम तिथि:</font></string>
+    <string name="request_samagam">अनुरोध भेजें</string>
+    <string name="to_date"><font size = "15">अंतिम तिथि:</font></string>
+    <string name="addSamagamRequest">समागम का अनुरोध दर्ज करें</string>
+    <string name="youtube_channels">यूट्यूब चैनल</string>
+    <string name="whatsapp_group">व्हाट्सएप ग्रुप</string>
+    <string name="telegram_channels">टेलीग्राम चैनल</string>
+    <string name="facebook_groups">फेसबुक ग्रुप</string>
+    <string name="instagram_chanels">इंस्टाग्राम चैनल</string>
+    <string name="enter_program_description">कार्यक्रम विवरण दर्ज करें</string>
+    <string name="enter_address">पता दर्ज करें</string>
+    <string name="enter_contact_number">संपर्क नंबर दर्ज करें</string>
+    <string name="end_date_start_date_validation">प्रारंभ या समाप्ति तिथि दर्ज करें</string>
+    <string name="enter_valid_email">वैध ईमेल दर्ज करें</string>
+    <string name="data_not_found">डेटा नहीं मिला</string>
+    <string name="listen">सुनें</string>
+    <string name="month_1">जनवरी</string>
+    <string name="month_2">फरवरी</string>
+    <string name="month_3">मार्च</string>
+    <string name="month_4">अप्रैल</string>
+    <string name="month_5">मई</string>
+    <string name="month_6">जून</string>
+    <string name="month_7">जुलाई</string>
+    <string name="month_8">अगस्त</string>
+    <string name="month_9">सितंबर</string>
+    <string name="month_10">अक्टूबर</string>
+    <string name="month_11">नवंबर</string>
+    <string name="month_12">दिसंबर</string>
+    <string-array name="month_names_full">
+        <item>जनवरी</item> <item>फरवरी</item> <item>मार्च</item> <item>अप्रैल</item>
+        <item>मई</item> <item>जून</item> <item>जुलाई</item> <item>अगस्त</item>
+        <item>सितंबर</item> <item>अक्टूबर</item> <item>नवंबर</item> <item>दिसंबर</item>
+    </string-array>
+    <string name="join">जॉइन</string>
+    <string name="change_language">भाषा बदलें</string>
+    <string name="view_samagam">समागम देखें</string>
+    <string name="samagam_detail">विवरण</string>
+    <string name="zoom">ज़ूम</string>
+    <string name="live">लाइव</string>
+    <string name="zoom_live">ज़ूम लाइव</string>
+    <string name="click_to_view_live">नक्शे पर लोकेशन देखने के लिए क्लिक करें</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="hindi">हिंदी</string>
+    <string name="punjabi">पंजाबी</string>
+    <string name="choose_your_language">अपनी भाषा चुनें</string>
+</resources>

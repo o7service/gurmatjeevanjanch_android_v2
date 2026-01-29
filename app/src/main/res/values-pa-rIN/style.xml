@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="textMedium" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/notoserifgurmukhi_medium</item>
+        <item name="font">@font/notoserifgurmukhi_medium</item>
+    </style>
+
+    <style name="textRegular" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/notoserifgurmukhi_regular</item>
+        <item name="font">@font/notoserifgurmukhi_regular</item>
+    </style>
+
+    <style name="textBold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/notoserifgurmukhi_semibold</item>
+        <item name="font">@font/notoserifgurmukhi_semibold</item>
+    </style>
+
+    <style name="textSemibold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/notoserifgurmukhi_semibold</item>
+        <item name="font">@font/notoserifgurmukhi_semibold</item>
+    </style>
+    <style name="BottomSheetCardShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">40dp</item>
+        <item name="cornerSizeTopRight">40dp</item>
+    </style>
+</resources>

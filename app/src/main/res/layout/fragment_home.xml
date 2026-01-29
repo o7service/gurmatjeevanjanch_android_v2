@@ -73,37 +73,145 @@
         app:layout_constraintTop_toBottomOf="@id/cardPager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <androidx.cardview.widget.CardView
+    <LinearLayout
+        android:id="@+id/liveSmagam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="10dp"
+        android:visibility="visible"
+        android:foreground="@drawable/border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardPager">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_livesmagambg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_live" />
+
+                <TextView
+                    style="@style/TextStyleF15WhiteColorRegular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/zoom_live" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:id="@+id/icZoomForward"
+                    app:tint = "@color/black"
+                    android:src="@drawable/ic_arrowright" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
         android:id="@+id/cardZoom"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_12sdp"
+        android:backgroundTint="#f7b500"
+        app:strokeWidth="@dimen/_1sdp"
+        app:strokeColor="#D0D0D0"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_12sdp"
         app:layout_constraintTop_toBottomOf="@id/tabLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_3sdp">
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@drawable/zoom_icon_svg2"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvLiveKirtan"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                android:text="Live Kirtan"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black_light"
+                style="@style/textMedium"
+                android:gravity="center"
+                android:id="@+id/tvLiveKirtan"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/_20sdp"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toEndOf="@id/ivZoom"
+                />
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_33sdp"
+                android:src="@drawable/ic_click"
+                android:id="@+id/ivClick"
+                app:tint = "@color/white"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/_50sdp"
-            android:src="@drawable/zoom_link1"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_5sdp"
-            android:scaleType="centerCrop"
-            />
-
-    </androidx.cardview.widget.CardView>
+            android:src="@drawable/zoom_logo_svg"
+            android:id="@+id/ivZoom"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/_40sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/zoom"-->
+<!--            android:textColor="#2196f3"-->
+<!--            android:layout_gravity="center"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:gravity="center"-->
+<!--            android:textStyle="italic"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            android:layout_marginStart="@dimen/_20sdp"-->
+<!--            android:fontFamily="@font/poppins_bold"-->
+<!--            android:textSize="@dimen/_35sdp"/>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/connect_with_us"
         android:textSize="@dimen/_13sdp"
+        style="@style/textMedium"
         android:textColor="@color/black_light"
-        android:fontFamily="@font/poppins_medium"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:layout_constraintTop_toBottomOf="@id/cardZoom"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintTop_toBottomOf="@id/liveSmagam"
         app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/tvConnectWithUs"
@@ -162,7 +270,7 @@
             app:layout_constraintStart_toEndOf="@id/barrierTitle"
             android:textColor="@color/black_light"
             app:layout_constraintTop_toTopOf="parent"
-            android:fontFamily="@font/poppins_medium"
+            style="@style/textMedium"
             android:layout_marginStart="@dimen/_5sdp"
             app:layout_constraintEnd_toStartOf="@id/barrierPlay"
             app:layout_constraintBottom_toBottomOf="parent"

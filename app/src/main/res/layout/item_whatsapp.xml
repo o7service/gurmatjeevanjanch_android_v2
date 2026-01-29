@@ -54,7 +54,7 @@
         android:maxEms="12"
         android:ellipsize="end"
         android:textSize="@dimen/_11sdp"
-        android:fontFamily="@font/poppins_regular"
+        style="@style/textRegular"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>    <View
         android:layout_width="match_parent"

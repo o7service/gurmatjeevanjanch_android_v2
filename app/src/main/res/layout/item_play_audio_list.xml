@@ -41,7 +41,7 @@
         android:layout_gravity="center"
         android:textSize="@dimen/_11sdp"
         android:ellipsize="end"
-        android:fontFamily="@font/poppins_medium"
+        style="@style/textMedium"
         android:includeFontPadding="false"
         app:layout_constraintTop_toTopOf="@id/ivAudio"
         tools:text = "Title  kslfdslfkelfieoiejsjf ki"/>

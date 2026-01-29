@@ -7,13 +7,11 @@
     android:fillViewport="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 >
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.MoreFragment">
     <TextView
@@ -27,10 +25,9 @@
         app:layout_constraintBottom_toTopOf="@id/cvIndia"
         android:text="@string/contact_us"
         android:layout_marginTop="@dimen/_10sdp"
-        android:fontFamily="@font/poppins_semibold"
+        style="@style/textSemibold"
         android:textSize="@dimen/_13sdp"
         />
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,12 +48,11 @@
             android:background="@color/white"
             android:padding="@dimen/_10sdp"
             >
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/india"
-                android:fontFamily="@font/poppins_medium"
+                style="@style/textMedium"
                 android:textColor="@color/black_light"
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +86,7 @@
                     android:textSize="@dimen/_11sdp"
                     android:textColor="@color/blue"
                     android:fontFamily="@font/poppins_medium"
+
                     android:layout_marginStart="@dimen/_5sdp"
                     app:layout_constraintStart_toEndOf="@id/ivCall1"
                     app:layout_constraintTop_toTopOf="@id/ivCall1"
@@ -161,7 +158,7 @@
             <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/canada"
-                android:fontFamily="@font/poppins_medium"
+                style="@style/textMedium"
                 android:textColor="@color/black_light"
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -206,7 +203,6 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="match_parent"
@@ -215,7 +211,7 @@
         android:background="@drawable/btn_style"
         android:textColor="@color/white"
         android:textSize="@dimen/_12sdp"
-        android:fontFamily="@font/poppins_medium"
+        style="@style/textMedium"
         android:gravity="center"
         android:padding="@dimen/_8sdp"
         android:text="@string/requestForSamagam"
@@ -223,23 +219,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cvCanada"
-        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:id="@+id/tvChangeLanguage"
+        android:background="@drawable/btn_style"
         android:text="@string/change_language"
-        android:textColor="@color/blue"
-        android:textSize="@dimen/_11sdp"
+        android:textSize="@dimen/_12sdp"
+        android:padding="@dimen/_8sdp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@id/btnRequestSangam"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:fontFamily="@font/poppins_medium"/>
+        style="@style/textMedium"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -251,8 +253,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:fontFamily="@font/poppins_medium"/>
-
-
+        style="@style/textMedium"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
