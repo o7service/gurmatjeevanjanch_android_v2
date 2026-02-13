@@ -2,71 +2,93 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="@dimen/_45sdp"
-        android:layout_height="@dimen/_44sdp"
-        android:id="@+id/ivAudio"
-        app:shapeAppearanceOverlay="@style/CircularImageView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:src="@drawable/dummy_image"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-    <TextView
-        android:layout_width="0dp"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/_300sdp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/ivAudio"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_1sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:id="@+id/tvTitle"
-        android:singleLine="true"
-        android:maxLines="1"
-        android:maxEms="12"
-        android:ellipsize="end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="@color/black_light"
-        android:textSize="@dimen/_12sdp"
-        style="@style/textMedium"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>
-    <TextView
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintStart_toEndOf="@id/ivAudio"
-        android:id="@+id/tvSubTitle"
-        android:visibility="gone"
-        android:textColor="@color/grey"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@id/view"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginTop="-12dp"
-        android:maxLines="1"
-        android:maxEms="12"
-        android:ellipsize="end"
-        android:textSize="@dimen/_11sdp"
-        style="@style/textRegular"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-    tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:id="@+id/view"
-        android:background="@color/light_grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivAudio"
-        android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        app:strokeWidth="@dimen/_2sdp"
+        app:strokeColor="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivAudio"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dummy_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvTitle"
+                app:shapeAppearanceOverlay="@style/RoundCornerImageView" />
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/textSemibold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:ellipsize="end"
+                android:maxEms="12"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#F49000"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivAudio"
+                app:layout_constraintTop_toTopOf="@id/ivAudio"
+                tools:text="Title  ksslfs" />
+            <TextView
+                android:id="@+id/tvSubTitle"
+                style="@style/textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="-12dp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:maxEms="12"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivAudio"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                tools:text="Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls" />
+
+<!--            <View-->
+<!--                android:id="@+id/view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_1sdp"-->
+<!--                android:layout_marginTop="@dimen/_5sdp"-->
+<!--                android:background="@color/light_grey"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/ivAudio" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,13 +2,32 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg"
+    android:background="@color/white"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <View
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_1sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:id="@+id/view1"
+        android:visibility="gone"
         android:background="@color/light_grey"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,12 +55,12 @@
         android:maxLines="2"
         android:maxEms="12"
         app:layout_constraintEnd_toStartOf="@id/ivPlay"
-        android:textColor="@color/black_light"
+        android:textColor="@color/blue"
         app:layout_constraintBottom_toBottomOf="@id/ivAudio"
         android:layout_gravity="center"
         android:textSize="@dimen/_11sdp"
         android:ellipsize="end"
-        style="@style/textMedium"
+        style="@style/textSemibold"
         android:includeFontPadding="false"
         app:layout_constraintTop_toTopOf="@id/ivAudio"
         tools:text = "Title  kslfdslfkelfieoiejsjf ki"/>
@@ -53,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/ivPlay"
         android:layout_marginEnd="@dimen/_10sdp"
-       app:layout_constraintStart_toEndOf="@id/tvTitle"
+        app:layout_constraintStart_toEndOf="@id/tvTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
     <View
@@ -64,4 +83,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

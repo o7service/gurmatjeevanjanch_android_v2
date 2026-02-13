@@ -42,7 +42,6 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
         val binding = ItemAudioListBinding.inflate(LayoutInflater.from(parent.context))
         return ViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: AudioAdapter.ViewHolder, position: Int) {
         holder.binding.tvTitle.text = item[position].name
 //        holder.binding.tvSubTitle.text = item[position].
@@ -57,8 +56,8 @@ class AudioAdapter(var item : ArrayList<AllSingerResponse.Data>, var listener: o
             holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
             holder.binding.tvTitle.setTextColor(Color.parseColor("#FFFFFFFF"))
         }else{
-            holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))
-            holder.binding.tvTitle.setTextColor(Color.parseColor("#000000"))
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
+            holder.binding.tvTitle.setTextColor(Color.parseColor("#F49000"))
         }
 //        translateTextWithLibre(
 //            originalText,

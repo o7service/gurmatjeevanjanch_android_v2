@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:elevation="@dimen/_10sdp"
     app:cardCornerRadius="@dimen/_8sdp"
     android:layout_width="@dimen/_85sdp"
-    app:strokeColor="@color/white"
-    android:layout_height="@dimen/_99sdp">
+    app:strokeWidth="@dimen/_2sdp"
+    app:strokeColor="@color/blue"
+    android:layout_height="@dimen/_90sdp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,9 +30,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_height="@dimen/_30sdp"
             android:background="@color/blue"
             android:id="@+id/view"
+            android:layout_margin="-4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -42,12 +42,11 @@
             android:layout_height="wrap_content"
             android:text="@string/view_samagam"
             app:layout_constraintTop_toTopOf="@id/view"
-            android:textSize="@dimen/_10sdp" app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/textRegular" app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/textMedium"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/white"/>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>

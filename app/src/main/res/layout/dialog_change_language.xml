@@ -9,7 +9,7 @@
     app:cardElevation="0dp"
     android:fillViewport="true"
     android:background="@null"
-    android:backgroundTint="@color/bg"
+    android:backgroundTint="@color/white"
     app:cardCornerRadius="@dimen/_20sdp"
     app:shapeAppearanceOverlay="@style/BottomSheetCardShape">
 <LinearLayout
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/choose_your_language"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_14sdp"
             style="@style/textMedium"
             android:textColor="@color/black_light"
             />
@@ -38,12 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_english"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:strokeWidth="@dimen/_2sdp"
+            app:strokeColor="@color/blue"
             android:layout_marginBottom="12dp"
             app:cardBackgroundColor="@color/white"
             android:foreground="?attr/selectableItemBackground"
@@ -80,8 +81,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/english"
                             android:textSize="@dimen/_13sdp"
-                            style="@style/textMedium"
-                            android:textColor="@color/black_light" />
+                            style="@style/textSemibold"
+                            android:textColor="@color/blue" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -95,15 +96,16 @@
                   />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Hindi Card -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_hindi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="@dimen/_2sdp"
             android:layout_marginBottom="12dp"
             app:cardBackgroundColor="@color/white"
             android:foreground="?attr/selectableItemBackground"
@@ -141,8 +143,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/hindi"
                             android:textSize="@dimen/_13sdp"
-                            style="@style/textMedium"
-                            android:textColor="@color/black_light" />
+                            style="@style/textSemibold"
+                            android:textColor="@color/blue" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -156,15 +158,16 @@
                      />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Punjabi Card -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_punjabi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
+            app:strokeWidth="@dimen/_2sdp"
+            app:strokeColor="@color/blue"
             android:layout_marginBottom="@dimen/_8sdp"
             app:cardBackgroundColor="@color/white"
             android:foreground="?attr/selectableItemBackground"
@@ -202,8 +205,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/punjabi"
                             android:textSize="@dimen/_13sdp"
-                            style="@style/textMedium"
-                            android:textColor="@color/black_light" />
+                            style="@style/textSemibold"
+                            android:textColor="@color/blue" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -216,7 +219,8 @@
                     android:src="@drawable/icon_tick"
                     />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

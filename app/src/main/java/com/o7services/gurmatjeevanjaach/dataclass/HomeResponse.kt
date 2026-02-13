@@ -39,6 +39,7 @@ data class HomeResponse(
         @SerializedName("addedById"   ) var addedById   : Int?    = null,
         @SerializedName("updatedById" ) var updatedById : Int?    = null,
         @SerializedName("status"      ) var status      : Int?    = null,
+        @SerializedName("thumbnail"   ) var thumbnail   : String ?= null ,
         @SerializedName("created_at"  ) var createdAt   : String? = null,
         @SerializedName("updated_at"  ) var updatedAt   : String? = null
 

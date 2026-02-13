@@ -21,21 +21,20 @@ import com.o7services.gurmatjeevanjaach.databinding.ItemSamagamBinding
 import com.o7services.gurmatjeevanjaach.dataclass.AllProgramResponse
 import com.o7services.gurmatjeevanjaach.dataclass.AudioDataClass
 import com.o7services.gurmatjeevanjaach.fragments.PlayAudioFragment
-
 class SamagamAdapter(val item : ArrayList<Map<String , List<AllProgramResponse.SamagamItem>>>, val listener: onItemSamagamListener) : RecyclerView.Adapter<SamagamAdapter.ViewHolder>(){
-    class ViewHolder (val binding : ItemSamagamBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder (val binding : ItemSamagamListBinding) : RecyclerView.ViewHolder(binding.root){
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): SamagamAdapter.ViewHolder {
-        val binding = ItemSamagamBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = ItemSamagamListBinding.inflate(LayoutInflater.from(parent.context))
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SamagamAdapter.ViewHolder, position: Int) {
-        holder.binding.tvTitle.text = item[position].keys.toString()
+       // holder.binding.tvTitle.text = item[position].keys.toString()
         val dateString = item[position].keys.first()
         Log.d("Response", dateString)
         val parts = dateString?.split("-")
@@ -44,7 +43,9 @@ class SamagamAdapter(val item : ArrayList<Map<String , List<AllProgramResponse.S
             val year = parts[0]
             val month = getMonthName(holder.itemView.context , parts[1])
             val day = parts[2]
-            setFormattedDateText(holder.binding.tvTitle, day, month, year)
+            holder.binding.tvDate.setText(day)
+            holder.binding.tvMonth.text = "${month} ${year}"
+          //  setFormattedDateText(holder.binding.tvTitle, day, month, year)
         }
         holder.itemView.setOnClickListener {
             Log.d("Values", item[position].toString())

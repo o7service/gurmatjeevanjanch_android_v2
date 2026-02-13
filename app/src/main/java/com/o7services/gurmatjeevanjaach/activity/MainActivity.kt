@@ -44,17 +44,9 @@ class MainActivity : AppCompatActivity() {
     var mediaPlayer = MediaPlayer()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        setContentView(R.layout.activity_main)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (!isInternetAvailable(this)) {
-          //  binding.llProgress.visibility = View.VISIBLE
             val dialog = AlertDialog.Builder(this)
                 .setTitle("No Internet Connection")
                 .setMessage("Please turn on Wi-Fi or mobile data to continue.")
@@ -67,25 +59,19 @@ class MainActivity : AppCompatActivity() {
                     dialogInterface.dismiss()
                 }
                 .show()
-
-// Use ContextCompat to get color from resources
             val positiveColor = ContextCompat.getColor(this, R.color.blue)
             val negativeColor = ContextCompat.getColor(this, R.color.blue)
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(positiveColor)
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(negativeColor)
-
         } else {
-           // binding.llProgress.visibility = View.GONE
-            // proceed with loading content
         }
-
         appBar = binding.root.findViewById(R.id.appBarLayout)
         ivBack = binding.root.findViewById(R.id.ivBack)
         tvTitle = binding.root.findViewById(R.id.tvTitle)
         val window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(this , R.color.bg)
-        WindowCompat.getInsetsController(window, window.decorView)?.isAppearanceLightStatusBars = true
+        window.statusBarColor = ContextCompat.getColor(this , R.color.blue)
+        WindowCompat.getInsetsController(window, window.decorView)?.isAppearanceLightStatusBars = false
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
             val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.displayCutout())
             val navBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
@@ -93,12 +79,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         if (Build.VERSION.SDK_INT >= 35) {
-          WindowCompat.getInsetsController(window, window.decorView)?.isAppearanceLightStatusBars = true
+          WindowCompat.getInsetsController(window, window.decorView)?.isAppearanceLightStatusBars = false
         }
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        this.window.statusBarColor = resources.getColor(R.color.bg)
-//        navController = this.findNavController(R.id.nav_host_fragment)
+        this.window.statusBarColor = resources.getColor(R.color.blue)
         binding.bottomNav.setOnItemSelectedListener { item ->
             when(item.itemId)
             {
@@ -113,9 +98,9 @@ class MainActivity : AppCompatActivity() {
             override fun handleOnBackPressed() {
                 val navController = findNavController(R.id.nav_host_fragment)
                 if (navController.currentDestination?.id == R.id.homeFragment) {
-                    finish() // close app if already on homeFragment
+                    finish()
                 } else {
-                    navController.popBackStack() // navigate back in nav graph
+                    navController.popBackStack()
                 }
             }
         })

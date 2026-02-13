@@ -1,11 +1,11 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:strokeColor="@color/white"
     android:id="@+id/cardAudio"
     android:background="@color/white"
-    android:elevation="@dimen/_10sdp"
     app:cardCornerRadius="@dimen/_10sdp"
     android:layout_width="@dimen/_90sdp"
+    app:cardElevation="@dimen/_10sdp"
     android:layout_marginStart="@dimen/_10sdp"
     android:layout_marginTop="@dimen/_10sdp"
     android:layout_height="@dimen/_100sdp">
@@ -45,7 +45,7 @@
             style="@style/textMedium"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_height="@dimen/_27sdp"
             android:background="@color/blue"
             android:id="@+id/viewMusic"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,13 +57,11 @@
             android:text="@string/join"
             app:layout_constraintTop_toTopOf="@id/viewMusic"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_11sdp"
             android:id="@+id/tvJoin"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/textRegular"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/white"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

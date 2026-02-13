@@ -81,13 +81,13 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
 //                .error(R.drawable.no_image)
 //                .placeholder(R.drawable.no_image)
 //                .into(holder.binding.ivAudio)
-            holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"))
             holder.binding.tvTitle.setTextColor(Color.parseColor("#000000"))
             holder.binding.ivPlay.visibility = View.GONE
         }
         val isCurrent = item[position].id.toString() == currentAudioId
         if (isCurrent) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
+            holder.itemView.setBackgroundColor(Color.parseColor("#0139CA"))
             holder.binding.tvTitle.setTextColor(Color.parseColor("#FFFFFFFF"))
             holder.binding.ivPlay.visibility = View.VISIBLE
             if(MediaManager.isPlaying){
@@ -111,10 +111,10 @@ class PlayAudioAdapter( val item : ArrayList<SingleSingerAudioResponse.Data>, va
                         .into(holder.binding.ivPlay)
                 }
             }
-        } else {
+        }else {
             holder.binding.ivPlay.visibility = View.GONE
-            holder.itemView.setBackgroundColor(Color.parseColor("#eef3ff"))
-            holder.binding.tvTitle.setTextColor(Color.parseColor("#000000"))
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            holder.binding.tvTitle.setTextColor(Color.parseColor("#0139CA"))
         }
     }
 

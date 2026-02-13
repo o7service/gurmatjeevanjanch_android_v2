@@ -48,10 +48,8 @@ class SamagamDetailFragment : Fragment() {
             description = it.getString("description", "")
             startDate = it.getString("startDate", "")
             endDate = it.getString("endDate", "")
+        }
     }
-    }
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +74,7 @@ class SamagamDetailFragment : Fragment() {
         binding.tvLocation.setText(address)
         binding.textPhone.setText(contactNo1 + " , " + contact2)
         binding.tvContactNumber.setText(contactNo1 + " , " + contact2)
+        // Could we schdule in a meeting to discuss this? tell whenever you are free
         val imageIcon = AppConst.imageBaseUrl + imageLink
         Glide.with(this)
             .load(imageIcon)
@@ -97,9 +96,7 @@ class SamagamDetailFragment : Fragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK)) // or transparent if you prefer
-
             val imageIcon = AppConst.imageBaseUrl + imageLink
-
             Glide.with(mainActivity)
                 .load(imageIcon)
                 .error(R.drawable.no_image)

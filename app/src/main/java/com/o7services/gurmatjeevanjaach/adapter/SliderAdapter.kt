@@ -12,6 +12,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.o7services.gurmatjeevanjaach.R
+import com.o7services.gurmatjeevanjaach.consts.AppConst
 
 import com.o7services.gurmatjeevanjaach.dataclass.SliderItem
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -89,10 +90,18 @@ class SliderAdapter(
 
         private val youTubePlayerView: YouTubePlayerView =
             itemView.findViewById(R.id.youtubePlayerView)
+        private val thumbnailImage: ImageView =
+            itemView.findViewById(R.id.thumbnailImage)
+        private val ivYoutube: ImageView =
+            itemView.findViewById(R.id.ic_youtube)
 
         fun bind(item: SliderItem.YouTubeVideo) {
+            var imageIcon = AppConst.imageBaseUrl + item.thumbnail
 
-            // IMPORTANT: Disable touch so ViewPager works smoothly
+            Glide.with(itemView.context)
+                .load(imageIcon)
+                .into(thumbnailImage)
+            Log.d("thumbnail image", imageIcon)
             youTubePlayerView.setOnTouchListener { _, _ -> true }
 
             lifecycleOwner.lifecycle.removeObserver(youTubePlayerView)
@@ -100,8 +109,15 @@ class SliderAdapter(
             lifecycleOwner.lifecycle.addObserver(youTubePlayerView)
 
             youTubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    youTubePlayer.cueVideo(item.videoId, 0f)
+//                override fun onReady(youTubePlayer: YouTubePlayer) {
+//                    youTubePlayer.cueVideo(item.videoId, 0f)
+//                }
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                thumbnailImage.setOnClickListener {
+                    thumbnailImage.visibility = View.GONE
+                    ivYoutube.visibility = View.GONE
+                    youTubePlayer.loadVideo(item.videoId, 0f)
+                    }
                 }
             }, true)
         }

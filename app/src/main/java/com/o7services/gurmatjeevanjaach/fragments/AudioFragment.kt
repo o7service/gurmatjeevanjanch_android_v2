@@ -56,10 +56,6 @@ class AudioFragment : Fragment(), AudioAdapter.onItemClickListener {
             mainActivity.showProgress()
             getAllAudio()
         }
-
-//        item.add(AudioDataClass(name = "ਭਾਈ ਅਜੀਤ ਸਿੰਘ - ਲੜੀਵਾਰ ਕਥਾ..." , description = "Bhai Amarjit Singh - Larivaar katha...", image = R.drawable.dummy_image.toString()))
-//        item.add(AudioDataClass(name = "ਭਾਈ ਅਜੀਤ ਸਿੰਘ - ਲੜੀਵਾਰ ਕਥਾ..." , description = "Bhai Amarjit Singh - Larivaar katha..." ,image = R.drawable.dummy_image.toString()))
-//        item.add(AudioDataClass(name = "ਭਾਈ ਅਜੀਤ ਸਿੰਘ - ਲੜੀਵਾਰ ਕਥਾ..." , description = "Bhai Amarjit Singh - Larivaar katha..."  ,image = R.drawable.dummy_image.toString()))
     }
 
     fun getAllAudio(){
@@ -96,7 +92,6 @@ class AudioFragment : Fragment(), AudioAdapter.onItemClickListener {
 
                 }
             }
-
             override fun onFailure(
                 call: Call<AllSingerResponse?>,
                 t: Throwable

@@ -41,6 +41,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     var zoomId= ""
     var youtubeLink = ""
     var zoomLink = ""
+    var thumbnail = ""
     private var hasFetchedYouTube = false
     private var hasFetchedZoom = false
     var link = ""
@@ -90,7 +91,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
             com.intuit.sdp.R.dimen._12sdp),3,true))
         link = extractYouTubeVideoId(youtubeLink).toString()
         val items = listOf(
-            SliderItem.YouTubeVideo(link)
+            SliderItem.YouTubeVideo(link, thumbnail)
         )
         val sliderAdapter = SliderAdapter(items, viewLifecycleOwner)
         binding.viewPager.adapter = sliderAdapter
@@ -205,6 +206,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                         if (!videoId.isNullOrEmpty()) {
                             youtubeLink = youtubeData.link.toString()
                             youtubeId = videoId
+                            thumbnail = youtubeData.thumbnail.toString()
                             hasFetchedYouTube = true
                             Log.d("YouTube Link", youtubeLink)
                         }
@@ -219,8 +221,8 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
                     else{
                         binding.liveSmagam.visibility = View.GONE
                     }
-                    if (youtubeId != null && zoomLink != null){
-                        updateSlider(youtubeId, zoomLink)
+                    if (youtubeId != null && zoomLink != null && thumbnail != null){
+                        updateSlider(youtubeId, zoomLink, thumbnail)
                     }
                 }else{
                     Log.d("Response", response.body()?.message.toString())
@@ -237,11 +239,11 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         })
     }
 
-    private fun updateSlider(youtubeVideoId: String?, zoomLink: String?) {
+    private fun updateSlider(youtubeVideoId: String?, zoomLink: String?, thumbnail : String?) {
     if (!isAdded || view == null || !isVisible) return
     val items = mutableListOf<SliderItem>()
     if (!youtubeVideoId.isNullOrEmpty()) {
-        items.add(SliderItem.YouTubeVideo(youtubeVideoId))
+        items.add(SliderItem.YouTubeVideo(youtubeVideoId, thumbnail.toString()))
     }
 //    if (!zoomLink.isNullOrEmpty()) {
 //        items.add(SliderItem.CustomImageWithId(R.drawable.zoom_video, zoomLink))

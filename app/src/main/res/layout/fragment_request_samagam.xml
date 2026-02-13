@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.RequestSamagamFragment">
         <ScrollView
@@ -30,8 +30,9 @@
                         android:layout_marginBottom="@dimen/_8sdp"
                         android:enabled="true"
                         bind:hintEnabled="false"
+                        android:elevation="@dimen/_15sdp"
                         app:boxStrokeColor="@color/white"
-                        bind:boxBackgroundColor="@color/white">
+                        bind:boxBackgroundColor="@color/bg">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etTitle"
                             android:hint="@string/enter_your_name"
@@ -165,14 +166,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:gravity="start"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -195,7 +193,6 @@
                                     android:layout_gravity="center"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_12sdp"
-                                    android:layout_marginEnd="@dimen/_2sdp"
                                     android:drawablePadding="@dimen/_10sdp"
                                     android:drawableLeft="@drawable/ic_smagam" />
                             </LinearLayout>
@@ -206,8 +203,6 @@
                                 android:layout_weight="1"
                                 android:orientation="vertical"
                                 >
-
-
                                 <TextView
                                     android:id="@+id/tvTo"
                                     android:layout_width="match_parent"
@@ -223,37 +218,26 @@
                                     android:gravity="start|center"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_12sdp"
-                                    android:layout_marginEnd="@dimen/_5sdp"
                                     android:background="@drawable/rect_edit_border"
                                     android:drawablePadding="@dimen/_10sdp"
                                     android:drawableLeft="@drawable/ic_smagam"  />
-
                             </LinearLayout>
                         </LinearLayout>
-
                     </LinearLayout>
-
-
                     <TextView
                         android:id="@+id/saveUpdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:gravity="center"
-                        android:padding="@dimen/_11sdp"
+                        android:padding="@dimen/_8sdp"
                         android:background="@drawable/btn_style"
                         android:text="@string/request_samagam"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textAllCaps="false"
-                        style="@style/textMedium"
+                        style="@style/textSemibold"
                         android:textSize="@dimen/_12sdp"/>
-
-
                 </LinearLayout>
-
-
             </LinearLayout>
         </ScrollView>
- 
-
 </LinearLayout>
