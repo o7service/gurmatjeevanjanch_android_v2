@@ -44,7 +44,12 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/_12sdp"
             app:strokeWidth="@dimen/_2sdp"
-            app:strokeColor="@color/blue"
+            android:elevation="@dimen/_15sdp"
+            app:cardElevation="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            app:strokeColor="@color/white"
             android:layout_marginBottom="12dp"
             app:cardBackgroundColor="@color/white"
             android:foreground="?attr/selectableItemBackground"
@@ -97,15 +102,17 @@
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- Hindi Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_hindi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:strokeColor="@color/blue"
             app:strokeWidth="@dimen/_2sdp"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            app:cardElevation="@dimen/_5sdp"
+            app:strokeColor="@color/white"
             android:layout_marginBottom="12dp"
             app:cardBackgroundColor="@color/white"
             android:foreground="?attr/selectableItemBackground"
@@ -159,21 +166,22 @@
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- Punjabi Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_punjabi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
             app:strokeWidth="@dimen/_2sdp"
-            app:strokeColor="@color/blue"
+            app:cardElevation="@dimen/_5sdp"
+            app:strokeColor="@color/white"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             app:cardBackgroundColor="@color/white"
             android:foreground="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

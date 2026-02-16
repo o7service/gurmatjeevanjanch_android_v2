@@ -134,7 +134,7 @@ class RequestSamagamFragment : Fragment() {
             }
             binding.tvFrom.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(startCalendar.time)
             binding.tvTo.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(endCalendar.time)
-            RetrofitClient.instance.addSamagam(
+            RetrofitClient.instance(mainActivity).addSamagam(
                 AddSamagamRequest(
                     organizerName = binding.etTitle.text.toString(),
                     address = binding.etAddress.text.toString(),

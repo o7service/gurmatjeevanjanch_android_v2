@@ -38,6 +38,11 @@ class SamagamFragment : Fragment(), SamagamAdapter.onItemSamagamListener {
    lateinit var mainActivity: MainActivity
    lateinit var linearLayoutManager: LinearLayoutManager
    lateinit var gridLayoutManager: GridLayoutManager
+    private var startPoint = 0
+    private val limit = 10
+    private var isLoading = false
+    private var isLastPage = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = activity as MainActivity
@@ -66,61 +71,162 @@ class SamagamFragment : Fragment(), SamagamAdapter.onItemSamagamListener {
         getAllPrograms()
         binding.swipeRefreshLayout.setOnRefreshListener {
             mainActivity.showProgress()
+            resetPagination()
             getAllPrograms()
         }
-    }
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
-    fun getAllPrograms(){
-        mainActivity.showProgress()
-        RetrofitClient.instance.getAllPrograms().enqueue(object : retrofit2.Callback<AllProgramResponse>{
-            override fun onResponse(
-                call: Call<AllProgramResponse?>,
-                response: Response<AllProgramResponse?>
-            ) {
-                binding.swipeRefreshLayout.isRefreshing = false
-                if (response.body()?.status == 200){
-                    if (response.body()?.success == true){
-                        val data = response.body()?.data
-                        if (data != null){
-                            mainActivity.hideProgress()
-                            item.clear()
-                            for (key in data.keys) {
-                                val newMap = mapOf(key to (data[key] ?: emptyList<AllProgramResponse.SamagamItem>()))
-                                item.add(newMap)
-                                Log.d("Response", newMap.toString())
-                            }
-                            mainActivity.hideNoData()
-                            adapter.notifyDataSetChanged()
-                        }else{
-                            mainActivity.hideProgress()
-                            mainActivity.showNoData()
-                            Log.d("Response", response.body()?.message.toString())
+                if (dy > 0) {
+                    val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                    if (!isLoading && !isLastPage) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0
+                        ) {
+                            getAllPrograms()
                         }
-                    }else{
-                        mainActivity.hideProgress()
-                        mainActivity.showNoData()
-                        Log.d("Response", response.body()?.message.toString())
                     }
-                }else if(response.body()?.status == 404){
-                    (requireActivity() as MainActivity).hideProgress()
-                    mainActivity.showNoData()
-                    Log.d("Response", response.body()?.message.toString())
-
                 }
             }
-
-            override fun onFailure(
-                call: Call<AllProgramResponse?>,
-                t: Throwable
-            ) {
-                binding.swipeRefreshLayout.isRefreshing = false
-                mainActivity.hideProgress()
-                mainActivity.showNoData()
-                Log.d("Response", t.message.toString())
-            }
-
         })
+
     }
+    // implement here all pagination in getAllPrograms with start point and limit
+    fun getAllPrograms() {
+
+        if (isLoading || isLastPage) return
+
+        isLoading = true
+
+        if (startPoint == 0) {
+            mainActivity.showProgress()
+        }
+
+        RetrofitClient.instance(mainActivity)
+            .getAllPrograms(startPoint, limit)
+            .enqueue(object : retrofit2.Callback<AllProgramResponse> {
+
+                override fun onResponse(
+                    call: Call<AllProgramResponse>,
+                    response: Response<AllProgramResponse>
+                ) {
+
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    isLoading = false
+                    mainActivity.hideProgress()
+
+                    if (response.body()?.success == true) {
+
+                        val data = response.body()?.data ?: emptyMap()
+
+                        if (data.isEmpty()) {
+                            isLastPage = true
+                            return
+                        }
+
+                        for (key in data.keys) {
+                            val newMap = mapOf(
+                                key to (data[key]
+                                    ?: emptyList<AllProgramResponse.SamagamItem>())
+                            )
+                            item.add(newMap)
+                        }
+
+                        adapter.notifyDataSetChanged()
+
+                        if (data.size < limit) {
+                            isLastPage = true
+                        } else {
+                            startPoint += limit
+                        }
+
+                        mainActivity.hideNoData()
+                    } else {
+                        if (startPoint == 0) {
+                            mainActivity.showNoData()
+                        }
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<AllProgramResponse>,
+                    t: Throwable
+                ) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    isLoading = false
+                    mainActivity.hideProgress()
+
+                    if (startPoint == 0) {
+                        mainActivity.showNoData()
+                    }
+                }
+            })
+    }
+    private fun resetPagination() {
+        startPoint = 0
+        isLastPage = false
+        isLoading = false
+        item.clear()
+        adapter.notifyDataSetChanged()
+    }
+
+
+//    fun getAllPrograms(){
+//        mainActivity.showProgress()
+//        RetrofitClient.instance(mainActivity).getAllPrograms().enqueue(object : retrofit2.Callback<AllProgramResponse>{
+//            override fun onResponse(
+//                call: Call<AllProgramResponse?>,
+//                response: Response<AllProgramResponse?>
+//            ) {
+//                binding.swipeRefreshLayout.isRefreshing = false
+//                if (response.body()?.status == 200){
+//                    if (response.body()?.success == true){
+//                        val data = response.body()?.data
+//                        if (data != null){
+//                            mainActivity.hideProgress()
+//                            item.clear()
+//                            for (key in data.keys) {
+//                                val newMap = mapOf(key to (data[key] ?: emptyList<AllProgramResponse.SamagamItem>()))
+//                                item.add(newMap)
+//                                Log.d("Response", newMap.toString())
+//                            }
+//                            mainActivity.hideNoData()
+//                            adapter.notifyDataSetChanged()
+//                        }else{
+//                            mainActivity.hideProgress()
+//                            mainActivity.showNoData()
+//                            Log.d("Response", response.body()?.message.toString())
+//                        }
+//                    }else{
+//                        mainActivity.hideProgress()
+//                        mainActivity.showNoData()
+//                        Log.d("Response", response.body()?.message.toString())
+//                    }
+//                }else if(response.body()?.status == 404){
+//                    (requireActivity() as MainActivity).hideProgress()
+//                    mainActivity.showNoData()
+//                    Log.d("Response", response.body()?.message.toString())
+//
+//                }
+//            }
+//
+//            override fun onFailure(
+//                call: Call<AllProgramResponse?>,
+//                t: Throwable
+//            ) {
+//                binding.swipeRefreshLayout.isRefreshing = false
+//                mainActivity.hideProgress()
+//                mainActivity.showNoData()
+//                Log.d("Response", t.message.toString())
+//            }
+//
+//        })
+//    }
 
     fun setFormattedDateText(
         textView: TextView,

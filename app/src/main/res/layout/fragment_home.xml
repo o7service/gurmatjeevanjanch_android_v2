@@ -76,7 +76,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:cardElevation="@dimen/_10sdp"
+                app:elevation="@dimen/_10sdp"
                 android:id="@+id/liveSmagam"
                 app:strokeColor="@color/black"
                 app:strokeWidth="@dimen/_1sdp"

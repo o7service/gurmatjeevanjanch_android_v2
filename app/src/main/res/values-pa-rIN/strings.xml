@@ -61,4 +61,6 @@
         <string name="hindi">ਹਿੰਦੀ</string>
         <string name="punjabi">ਪੰਜਾਬੀ</string>
         <string name="choose_your_language">ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ</string>
-    </resources>
+        <string name="click_for_more_info">ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ਕਲਿੱਕ ਕਰੋ</string>
+
+</resources>

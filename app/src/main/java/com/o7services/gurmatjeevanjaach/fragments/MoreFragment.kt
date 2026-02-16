@@ -76,15 +76,19 @@ class MoreFragment : Fragment() {
             val prefs = mainActivity.getSharedPreferences("settings", Context.MODE_PRIVATE)
             val lang = prefs.getString("language", "pa") ?: "pa"
             if (lang == "en"){
+                dialogBinding.cardEnglish.strokeColor = requireContext().getColor(R.color.blue)
                 dialogBinding.checkEnglish.visibility = View.VISIBLE
                 dialogBinding.checkHindi.visibility = View.GONE
                 dialogBinding.checkPunjabi.visibility = View.GONE
             } else if (lang == "pa"){
                 dialogBinding.checkEnglish.visibility = View.GONE
                 dialogBinding.checkHindi.visibility = View.GONE
+                dialogBinding.cardPunjabi.strokeColor = requireContext().getColor(R.color.blue)
                 dialogBinding.checkPunjabi.visibility = View.VISIBLE
             }else{
                 dialogBinding.checkEnglish.visibility = View.GONE
+                dialogBinding.cardHindi.strokeColor = requireContext().getColor(R.color.blue)
+
                 dialogBinding.checkHindi.visibility = View.VISIBLE
                 dialogBinding.checkPunjabi.visibility = View.GONE
             }

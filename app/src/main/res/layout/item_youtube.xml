@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
+    app:strokeColor="@color/blue"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:cardCornerRadius="@dimen/_10sdp"
+    android:layout_marginStart="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginEnd="@dimen/_10sdp"
+    app:strokeWidth="@dimen/_2sdp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_5sdp"
+        android:backgroundTint="@color/white">
     <ImageView
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
@@ -15,56 +36,60 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_8sdp"
         android:src="@drawable/ic_youtube"
-        android:scaleType="center"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_220sdp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/ivAudio"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_15sdp"
         android:id="@+id/tvTitle"
         android:singleLine="true"
         android:maxLines="1"
+        style="@style/textSemibold"
         android:maxEms="12"
         android:ellipsize="end"
         app:layout_constraintBottom_toTopOf="@id/tvSubTitle"
-        android:textColor="@color/black_light"
+        android:textColor="#F49000"
         android:textSize="@dimen/_13sdp"
-        android:fontFamily="@font/notoserifgurmukhi_semibold"
         app:layout_constraintTop_toTopOf="parent"
         tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>
     <TextView
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_220sdp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/ivAudio"
         android:id="@+id/tvSubTitle"
-        android:textColor="@color/grey"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         android:singleLine="true"
+        android:layout_marginStart="@dimen/_15sdp"
         app:layout_constraintBottom_toTopOf="@id/view"
         android:layout_marginBottom="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginTop="-8dp"
         android:maxLines="1"
         android:maxEms="12"
         android:ellipsize="end"
-        android:textSize="@dimen/_11sdp"
-        style="@style/textRegular"
+        android:layout_marginTop="-5dp"
+        android:textSize="@dimen/_12sdp"
+        style="@style/textMedium"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>    <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_1sdp"
-    android:id="@+id/view"
-    android:background="@color/light_grey"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/ivAudio"
-    android:layout_marginTop="@dimen/_5sdp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+        tools:text = "Title  kslfdslfkelfieoiejsjf kiskfflskfkdfkldlklsklfkkfl;s;d;s;dls;;d;sldlsldlsldls"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:id="@+id/view"
+            android:visibility="gone"
+            android:background="@color/light_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivAudio"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+</com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

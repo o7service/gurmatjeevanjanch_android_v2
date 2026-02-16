@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.mlkit.nl.translate.TranslatorOptions
 import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.activity.MainActivity
@@ -27,6 +28,11 @@ class AudioFragment : Fragment(), AudioAdapter.onItemClickListener {
     lateinit var binding : FragmentAudioBinding
     lateinit var adapter : AudioAdapter
     lateinit var mainActivity: MainActivity
+    private var startPoint = 0
+    private val limit = 10
+    private var isLoading = false
+    private var isLastPage = false
+
     lateinit var linearLayoutManager: LinearLayoutManager
     var item =  ArrayList<AllSingerResponse.Data>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,56 +59,90 @@ class AudioFragment : Fragment(), AudioAdapter.onItemClickListener {
         binding.recyclerView.adapter = adapter
         getAllAudio()
         binding.swipeRefreshLayout.setOnRefreshListener {
-            mainActivity.showProgress()
+            startPoint = 0
+            isLastPage = false
+            isLoading = false
             getAllAudio()
         }
-    }
-
-    fun getAllAudio(){
-       mainActivity.showProgress()
-         RetrofitClient.instance.getAllSinger().enqueue(object : retrofit2.Callback<AllSingerResponse>{
-            override fun onResponse(
-                call: Call<AllSingerResponse?>,
-                response: Response<AllSingerResponse?>
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int
             ) {
-                binding.swipeRefreshLayout.isRefreshing = false
-                if (response.body()?.status == 200){
-                    if (response.body()?.success == true){
-                        val data = response.body()?.data
-                        if (data != null){
-                            mainActivity.hideProgress()
-                            item.clear()
-                            item.addAll(data)
-                            adapter.notifyDataSetChanged()
-                            mainActivity.hideNoData()
-                        }else{
-                            mainActivity.hideProgress()
-                            mainActivity.showNoData()
-                            Log.d("Response", response.body()?.message.toString())
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) { // scroll down
+
+                    val visibleItemCount = linearLayoutManager.childCount
+                    val totalItemCount = linearLayoutManager.itemCount
+                    val firstVisibleItemPosition =
+                        linearLayoutManager.findFirstVisibleItemPosition()
+
+                    if (!isLoading && !isLastPage) {
+
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0
+                        ) {
+                            getAllAudio()
                         }
-                    }else{
-                        mainActivity.hideProgress()
-                        mainActivity.showNoData()
-                        Log.d("Response", response.body()?.message.toString())
                     }
-                }else if(response.body()?.status == 404){
-                    (requireActivity() as MainActivity).hideProgress()
-                    mainActivity.showNoData()
-                    Log.d("Response", response.body()?.message.toString())
-
                 }
-            }
-            override fun onFailure(
-                call: Call<AllSingerResponse?>,
-                t: Throwable
-            ) {
-                mainActivity.hideProgress()
-                mainActivity.showNoData()
-                binding.swipeRefreshLayout.isRefreshing = false
-                Log.d("Response", t.message.toString())
             }
         })
     }
+
+    fun getAllAudio() {
+
+        if (isLoading || isLastPage) return
+
+        isLoading = true
+        mainActivity.showProgress()
+//        val params = HashMap<String, Any?>()
+//        params.put("startpoint", startPoint)
+//        params.put("limit", limit)
+
+        RetrofitClient.instance(mainActivity)
+            .getAllSinger(startPoint , limit)
+            .enqueue(object : retrofit2.Callback<AllSingerResponse> {
+                override fun onResponse(
+                    call: Call<AllSingerResponse>,
+                    response: Response<AllSingerResponse>
+                ) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    mainActivity.hideProgress()
+
+                    if (response.isSuccessful && response.body()?.success == true) {
+
+                        val data = response.body()?.data ?: emptyList()
+
+                        if (startPoint == 0) {
+                            item.clear()
+                        }
+                        item.addAll(data)
+                        isLoading = false
+                        adapter.notifyDataSetChanged()
+
+                        if (data.size < limit) {
+                            isLastPage = true
+                        } else {
+                            startPoint += limit
+                        }
+
+                    } else {
+                        mainActivity.showNoData()
+                    }
+                }
+
+                override fun onFailure(call: Call<AllSingerResponse>, t: Throwable) {
+                    mainActivity.hideProgress()
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    isLoading = false
+                    mainActivity.showNoData()
+                }
+            })
+    }
+
 
 
     override fun onItemClick(id : String , title: String) {
@@ -111,35 +151,4 @@ class AudioFragment : Fragment(), AudioAdapter.onItemClickListener {
         bundle.putString("title", title)
         findNavController().navigate(R.id.playAudioFragment, bundle)
     }
-//    fun translateTextWithLibre(
-//        sourceText: String,
-//        onResult: (String) -> Unit,
-//        onError: (Exception) -> Unit
-//    ) {
-//        val client = OkHttpClient()
-//        val json = JSONObject()
-//        json.put("q", sourceText)
-//        json.put("source", "en")
-//        json.put("target", "pa")
-//        json.put("format", "text")
-//        val body = RequestBody.create(
-//            MediaType.get("application/json; charset=utf-8"),
-//            json.toString()
-//        )
-//        val request = Request.Builder()
-//            .url("https://libretranslate.com/translate")
-//            .post(body)
-//            .build()
-//        client.newCall(request).enqueue(object : Callback {
-//            override fun onFailure(call: Call, e: IOException) {
-//                onError(e)
-//            }
-//            override fun onResponse(call: Call, response: Response) {
-//                response.body?.string()?.let {
-//                    val translated = JSONObject(it).getString("translatedText")
-//                    onResult(translated)
-//                } ?: onError(Exception("Empty response"))
-//            }
-//        })
-//    }
 }

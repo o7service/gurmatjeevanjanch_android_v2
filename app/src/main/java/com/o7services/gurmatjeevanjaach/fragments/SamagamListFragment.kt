@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.compose.material3.NavigationBar
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.o7services.gurmatjeevanjaach.R
@@ -44,6 +45,11 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
     lateinit var adapter : SamagamListAdapter
     lateinit var values : ArrayList<ProgramSingleDateResponse.Data>
     lateinit var appBar: AppBarLayout
+    private var startPoint = 0
+    private val limit = 10
+    private var isLoading = false
+    private var isLastPage = false
+
     var samagamDate = ""
     var item = ArrayList<ProgramSingleDateResponse.Data>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,66 +79,159 @@ class SamagamListFragment : Fragment(), SamagamListAdapter.samagamListInterface 
         binding.recyclerView.layoutManager = linearLayoutManager
         binding.recyclerView.adapter = adapter
         getAllSamagamList()
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition =
+                        layoutManager.findFirstVisibleItemPosition()
+                    if (!isLoading && !isLastPage) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0
+                        ) {
+                            getAllSamagamList()
+                        }
+                    }
+                }
+            }
+        })
+
         binding.swipeRefreshLayout.setOnRefreshListener {
             mainActivity.showProgress()
+            resetPagination()
             getAllSamagamList()
         }
     }
-//    fun getAllSamagamList(){
-//        Log.d("Response", values.toString())
-//        if (values != null){
-//            item.clear()
-//            item.addAll(values)
-//            mainActivity.hideNoData()
-//            adapter.notifyDataSetChanged()
-//        }
-//    }
-    fun getAllSamagamList(){
-        mainActivity.showProgress()
-        RetrofitClient.instance.getSingleProgramByDate(ProgramSingleDateRequest(date = samagamDate)).enqueue(object : retrofit2.Callback<ProgramSingleDateResponse>{
-            override fun onResponse(
-                call: Call<ProgramSingleDateResponse?>,
-                response: Response<ProgramSingleDateResponse?>
-            ) {
-                binding.swipeRefreshLayout.isRefreshing = false
-                if (response.body()?.status == 200){
-                    if (response.body()?.success == true){
-                        val data = response.body()?.data
-                        mainActivity.hideProgress()
-                        if (data != null){
-                            item.clear()
-                            item.addAll(data)
-                            mainActivity.hideNoData()
-                            adapter.notifyDataSetChanged()
-                        }else{
-                            mainActivity.hideProgress()
-                            mainActivity.showNoData()
-                            Log.d("Response", response.body()?.message.toString())
-                        }
-                    }else{
-                        mainActivity.hideProgress()
-                        mainActivity.showNoData()
-                        Log.d("Response", response.body()?.message.toString())
-                    }
-                }else if (response.body()?.status == 404){
-                    mainActivity.hideProgress()
-                    mainActivity.showNoData()
-                    Log.d("Response", response.body()?.message.toString())
-                }
-            }
-
-            override fun onFailure(
-                call: Call<ProgramSingleDateResponse?>,
-                t: Throwable
-            ) {
-                binding.swipeRefreshLayout.isRefreshing = false
-                mainActivity.hideProgress()
-                mainActivity.showNoData()
-                Log.d("Response", t.message.toString())
-            }
-
-        })
+    private fun resetPagination() {
+        startPoint = 0
+        isLastPage = false
+        isLoading = false
+        item.clear()
+        adapter.notifyDataSetChanged()
     }
+
+    fun getAllSamagamList() {
+
+        if (isLoading || isLastPage) return
+
+        isLoading = true
+
+        if (startPoint == 0) {
+            mainActivity.showProgress()
+        }
+
+        RetrofitClient.instance(mainActivity)
+            .getSingleProgramByDate(
+                ProgramSingleDateRequest(
+                    date = samagamDate,
+                    startpoint = startPoint,
+                    limit = limit
+                )
+            )
+            .enqueue(object : retrofit2.Callback<ProgramSingleDateResponse> {
+
+                override fun onResponse(
+                    call: Call<ProgramSingleDateResponse>,
+                    response: Response<ProgramSingleDateResponse>
+                ) {
+
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    isLoading = false
+                    mainActivity.hideProgress()
+
+                    if (response.body()?.success == true) {
+
+                        val data = response.body()?.data ?: emptyList()
+
+                        if (startPoint == 0) {
+                            item.clear()
+                        }
+
+                        item.addAll(data)
+                        adapter.notifyDataSetChanged()
+
+                        if (data.size < limit) {
+                            isLastPage = true
+                        } else {
+                            startPoint += limit
+                        }
+
+                        mainActivity.hideNoData()
+                    } else {
+                        if (startPoint == 0) {
+                            mainActivity.showNoData()
+                        }
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ProgramSingleDateResponse>,
+                    t: Throwable
+                ) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    isLoading = false
+                    mainActivity.hideProgress()
+
+                    if (startPoint == 0) {
+                        mainActivity.showNoData()
+                    }
+                }
+            })
+    }
+
+//    fun getAllSamagamList(){
+//        mainActivity.showProgress()
+//        RetrofitClient.instance(mainActivity).getSingleProgramByDate(ProgramSingleDateRequest(date = samagamDate)).enqueue(object : retrofit2.Callback<ProgramSingleDateResponse>{
+//            override fun onResponse(
+//                call: Call<ProgramSingleDateResponse?>,
+//                response: Response<ProgramSingleDateResponse?>
+//            ) {
+//                binding.swipeRefreshLayout.isRefreshing = false
+//                if (response.body()?.status == 200){
+//                    if (response.body()?.success == true){
+//                        val data = response.body()?.data
+//                        mainActivity.hideProgress()
+//                        if (data != null){
+//                            item.clear()
+//                            item.addAll(data)
+//                            mainActivity.hideNoData()
+//                            adapter.notifyDataSetChanged()
+//                        }else{
+//                            mainActivity.hideProgress()
+//                            mainActivity.showNoData()
+//                            Log.d("Response", response.body()?.message.toString())
+//                        }
+//                    }else{
+//                        mainActivity.hideProgress()
+//                        mainActivity.showNoData()
+//                        Log.d("Response", response.body()?.message.toString())
+//                    }
+//                }else if (response.body()?.status == 404){
+//                    mainActivity.hideProgress()
+//                    mainActivity.showNoData()
+//                    Log.d("Response", response.body()?.message.toString())
+//                }
+//                // implement here pagination to all list
+//            }
+//
+//            override fun onFailure(
+//                call: Call<ProgramSingleDateResponse?>,
+//                t: Throwable
+//            ) {
+//                binding.swipeRefreshLayout.isRefreshing = false
+//                mainActivity.hideProgress()
+//                mainActivity.showNoData()
+//                Log.d("Response", t.message.toString())
+//            }
+//
+//        })
+//    }
 
     override fun onMapClick(mapLink : String){
         val mapIntentUri = Uri.parse(mapLink)

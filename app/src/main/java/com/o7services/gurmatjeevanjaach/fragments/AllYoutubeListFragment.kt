@@ -59,7 +59,7 @@ class AllYoutubeListFragment : Fragment() , YoutubeAdapter.itemClickListener{
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = linearLayoutManager
         adapter.notifyDataSetChanged()
-//        RetrofitClient.instance.getAllYoutube().enqueue(object : retrofit2.Callback<YoutubeResponse>{
+//        RetrofitClient.instance(mainActivity).getAllYoutube().enqueue(object : retrofit2.Callback<YoutubeResponse>{
 //            override fun onResponse(
 //                call: Call<YoutubeResponse?>,
 //                response: Response<YoutubeResponse?>

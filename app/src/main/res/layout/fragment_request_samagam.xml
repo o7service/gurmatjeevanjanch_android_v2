@@ -31,8 +31,7 @@
                         android:enabled="true"
                         bind:hintEnabled="false"
                         android:elevation="@dimen/_15sdp"
-                        app:boxStrokeColor="@color/white"
-                        bind:boxBackgroundColor="@color/bg">
+                        app:boxStrokeColor="@color/white">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etTitle"
                             android:hint="@string/enter_your_name"

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.o7services.gurmatjeevanjaach.R
 import com.o7services.gurmatjeevanjaach.activity.MainActivity
@@ -34,6 +35,10 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     lateinit var mainActivity: MainActivity
     lateinit var tvTitle : TextView
     var currentIndex = 0
+    private var audioStartPoint = 0
+    private val audioLimit = 5
+    private var isAudioLoading = false
+    private var isAudioLastPage = false
     var id = ""
     var isCurrentAudioInList = false
     lateinit var linearLayoutManager: LinearLayoutManager
@@ -114,9 +119,43 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
             adapter.updateSelectedIndex(currentIndex)
             adapter.updateCurrentAudioId(item[currentIndex].id.toString())
             mainActivity.showProgress()
+            audioStartPoint = 0
+            isAudioLastPage = false
+            isAudioLoading = false
             getAllAudio()
             uiSet()
         }
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int
+            ) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition =
+                        layoutManager.findFirstVisibleItemPosition()
+
+                    if (!isAudioLoading && !isAudioLastPage) {
+
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0
+                        ) {
+                            Log.d("Response id", id)
+                           // mainActivity.showProgress()
+                            loadAudios(id)
+                        }
+                    }
+                }
+            }
+        })
+
         getAllAudio()
         uiSet()
     }
@@ -186,7 +225,7 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
     }
     fun getAllAudio(){
         mainActivity.showProgress()
-        RetrofitClient.instance.getSingleSinger(SingleSingerRequest(id = id)).
+        RetrofitClient.instance(mainActivity).getSingleSinger(SingleSingerRequest(id = id)).
         enqueue(object : retrofit2.Callback<SingleSingerResponse>{
             override fun onResponse(
                 call: Call<SingleSingerResponse?>,
@@ -196,8 +235,6 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
                     if (response.body()?.success == true){
                         val data = response.body()?.data
                         if (data != null){
-                            mainActivity.hideNoData()
-                            mainActivity.hideProgress()
                             tvSingerName = data.name.toString()
                             audioImage = data.imageUrl.toString()
                             val imageBaseUrl = AppConst.imageBaseUrl + data.imageUrl
@@ -332,50 +369,116 @@ class PlayAudioFragment : Fragment(), PlayAudioAdapter.playAudioInterface{
         var seconds = TimeUnit.SECONDS.convert(type,TimeUnit.MILLISECONDS)-minutes*TimeUnit.SECONDS.convert(1,TimeUnit.MINUTES)
         return String.format("$minutes:$seconds")
     }
-    fun loadAudios(id : String){
-        RetrofitClient.instance.getSingleSingerAudio(SingleSingerAudioRequest(singerId = id)).
-        enqueue(object : retrofit2.Callback<SingleSingerAudioResponse>{
-            override fun onResponse(
-                call: Call<SingleSingerAudioResponse?>,
-                response: Response<SingleSingerAudioResponse?>
-            ) {
-                binding.swipeRefreshLayout.isRefreshing = false
-                if (response.body()?.status == 200){
-                    if (response.body()?.success == true){
-                        val data = response.body()?.data
-                        if (data != null){
-                                item.clear()
-                                item.addAll(data)
-                                adapter = PlayAudioAdapter(item, categoryImage = audioImage, this@PlayAudioFragment)
-                                linearLayoutManager = LinearLayoutManager(mainActivity)
-                                binding.recyclerView.layoutManager = linearLayoutManager
-                                binding.recyclerView.adapter = adapter
-                                adapter.updateCurrentAudioId(MediaManager.currentAudioId ?: "")
-                                adapter.updateSelectedIndex(currentIndex)
-                                adapter.notifyDataSetChanged()
+//    fun loadAudios(id : String){
+//        RetrofitClient.instance(mainActivity).getSingleSingerAudio(SingleSingerAudioRequest(singerId = id)).
+//        enqueue(object : retrofit2.Callback<SingleSingerAudioResponse>{
+//            override fun onResponse(
+//                call: Call<SingleSingerAudioResponse?>,
+//                response: Response<SingleSingerAudioResponse?>
+//            ) {
+//                binding.swipeRefreshLayout.isRefreshing = false
+//                if (response.body()?.status == 200){
+//                    if (response.body()?.success == true){
+//                        val data = response.body()?.data
+//                        if (data != null){
+//                                item.clear()
+//                                item.addAll(data)
+//                                adapter = PlayAudioAdapter(item, title = textTitle, categoryImage = audioImage, this@PlayAudioFragment)
+//                                linearLayoutManager = LinearLayoutManager(mainActivity)
+//                                binding.recyclerView.layoutManager = linearLayoutManager
+//                                binding.recyclerView.adapter = adapter
+//                                adapter.updateCurrentAudioId(MediaManager.currentAudioId ?: "")
+//                                adapter.updateSelectedIndex(currentIndex)
+//                                mainActivity.hideNoData()
+//                                mainActivity.hideProgress()
+//                                adapter.notifyDataSetChanged()
+//
+//                        }else{
+//                            Log.d("Response", response.body()?.message.toString())
+//                        }
+//                    }else{
+//                        Log.d("Response", response.body()?.message.toString())
+//                    }
+//                }else if(response.body()?.status == 404){
+//                    (requireActivity() as MainActivity).hideProgress()
+//                    mainActivity.showNoData()
+//                    Log.d("Response", response.body()?.message.toString())
+//                }
+//            }
+//
+//            override fun onFailure(
+//                call: Call<SingleSingerAudioResponse?>,
+//                t: Throwable
+//            ) {
+//                binding.swipeRefreshLayout.isRefreshing = false
+//                Log.d("Response", t.message.toString())
+//            }
+//        })
+//    }
+    // in loadAudios add pagination
 
-                        }else{
-                            Log.d("Response", response.body()?.message.toString())
+    fun loadAudios(id: String) {
+        if (isAudioLoading || isAudioLastPage) return
+        isAudioLoading = true
+
+        RetrofitClient.instance(mainActivity)
+            .getSingleSingerAudio(
+                SingleSingerAudioRequest(
+                    singerId = id,
+                    startpoint = audioStartPoint,
+                    limit = audioLimit
+                )
+            )
+            .enqueue(object : retrofit2.Callback<SingleSingerAudioResponse> {
+                override fun onResponse(
+                    call: Call<SingleSingerAudioResponse>,
+                    response: Response<SingleSingerAudioResponse>
+                ) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    isAudioLoading = false
+                    if (response.isSuccessful && response.body()?.success == true) {
+                        val data = response.body()?.data ?: emptyList()
+                        Log.d("Response play fragment", id)
+                        Log.d("Response play fragment", response.body()?.data?.size.toString())
+                        if (audioStartPoint == 0) {
+                            item.clear()
                         }
-                    }else{
-                        Log.d("Response", response.body()?.message.toString())
-                    }
-                }else if(response.body()?.status == 404){
-                    (requireActivity() as MainActivity).hideProgress()
-                    mainActivity.showNoData()
-                    Log.d("Response", response.body()?.message.toString())
-                }
-            }
 
-            override fun onFailure(
-                call: Call<SingleSingerAudioResponse?>,
-                t: Throwable
-            ) {
-                binding.swipeRefreshLayout.isRefreshing = false
-                Log.d("Response", t.message.toString())
-            }
-        })
+                        item.addAll(data)
+                        if (::adapter.isInitialized.not()) {
+                            adapter = PlayAudioAdapter(
+                                item,
+                                title = textTitle,
+                                categoryImage = audioImage,
+                                this@PlayAudioFragment
+                            )
+                            binding.recyclerView.layoutManager =
+                                LinearLayoutManager(mainActivity)
+                            binding.recyclerView.adapter = adapter
+                        }
+
+                        adapter.notifyDataSetChanged()
+
+                        if (data.size < audioLimit) {
+                            isAudioLastPage = true
+                        } else {
+                            audioStartPoint += audioLimit
+                        }
+
+                        mainActivity.hideProgress()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<SingleSingerAudioResponse>,
+                    t: Throwable
+                ) {
+                    isAudioLoading = false
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+            })
     }
+
 
     override fun onAudioClick(title : String, audioLink: String , audioId : String , singerId : String) {
         // Set the play icon to loading state if needed (optional)

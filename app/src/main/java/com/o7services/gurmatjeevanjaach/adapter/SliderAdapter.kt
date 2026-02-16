@@ -103,7 +103,6 @@ class SliderAdapter(
                 .into(thumbnailImage)
             Log.d("thumbnail image", imageIcon)
             youTubePlayerView.setOnTouchListener { _, _ -> true }
-
             lifecycleOwner.lifecycle.removeObserver(youTubePlayerView)
             youTubePlayerView.enableAutomaticInitialization = false
             lifecycleOwner.lifecycle.addObserver(youTubePlayerView)

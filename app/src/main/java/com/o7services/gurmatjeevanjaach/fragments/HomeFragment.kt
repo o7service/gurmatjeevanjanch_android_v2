@@ -1,5 +1,6 @@
 package com.o7services.gurmatjeevanjaach.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -71,6 +72,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
 
     override fun onResume() {
         super.onResume()
+        mainActivity.showProgress()
         getHome()
         binding.viewPager.setCurrentItem(0, false)
         MediaManager.currentTitleLiveData.observe(viewLifecycleOwner) { newTitle ->
@@ -79,9 +81,9 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
         updateMiniPlayer()
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         getHome()
         socialLinkAdapter = SocialLinkAdapter(item, this)
         binding.recyclerView.adapter = socialLinkAdapter
@@ -182,20 +184,20 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     }
 
     private fun getHome(){
-        RetrofitClient.instance.home().enqueue(object : retrofit2.Callback<HomeResponse>{
+        RetrofitClient.instance(mainActivity).home().enqueue(object : retrofit2.Callback<HomeResponse>{
             override fun onResponse(
                 call: Call<HomeResponse?>,
                 response: Response<HomeResponse?>
             ) {
                 if(response.body()?.data != null){
                     var categoryData = response.body()?.data?.categories
-                    (mainActivity as MainActivity).hideProgress()
-                    binding.clHome.visibility = View.VISIBLE
-                    binding.swipeRefreshLayout.isRefreshing = false
                     if (categoryData != null){
+                        binding.swipeRefreshLayout.isRefreshing = false
                         item.clear()
                         item.addAll(categoryData)
                         socialLinkAdapter.notifyDataSetChanged()
+                        (mainActivity as MainActivity).hideProgress()
+                        binding.clHome.visibility = View.VISIBLE
                         mainActivity.hideNoData()
                     }
                     var youtubeData = response.body()?.data?.youtubeLink
@@ -257,7 +259,7 @@ class HomeFragment : Fragment() , SocialLinkAdapter.itemClickListener {
     }
 
     override fun onSocialClick(id : String, categoryImage : String, title : String) {
-        RetrofitClient.instance.getLinkCategory(AllLinkRequest(categoryId = id)).
+        RetrofitClient.instance(mainActivity).getLinkCategory(AllLinkRequest(categoryId = id)).
         enqueue(object : retrofit2.Callback<AllLinkResponse>{
             override fun onResponse(
                 call: Call<AllLinkResponse?>,

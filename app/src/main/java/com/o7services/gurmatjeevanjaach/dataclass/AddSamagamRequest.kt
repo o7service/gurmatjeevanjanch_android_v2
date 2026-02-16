@@ -10,5 +10,6 @@ data class AddSamagamRequest(
      var phone         : String? = null,
      var email         : String? = null,
      var startDate     : String? = null,
-     var endDate       : String? = null
+     var endDate       : String? = null,
+
 )
